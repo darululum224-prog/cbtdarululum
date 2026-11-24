@@ -15,7 +15,7 @@
 
   <style>
     :root {
-      --bg-sky: #eaf2ff;
+      --bg-sky: #f4f7fb;
       --card-surface: #ffffff;
       --royal-start: #2563eb;
       --royal-end: #1d4ed8;
@@ -33,7 +33,7 @@
       height: 100% !important;
       overflow: hidden !important;
       font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-      background: linear-gradient(135deg, #e0ecff 0%, #f1f6ff 50%, #e5efff 100%);
+      background: #f4f7fb;
       color: #1e293b;
     }
 
@@ -46,7 +46,7 @@
       z-index: 2147483640 !important;
       overflow: hidden !important;
       display: flex !important;
-      background: linear-gradient(145deg, #dce9ff 0%, #eef5ff 48%, #e2eeff 100%);
+      background: #f4f7fb;
       padding-top: env(safe-area-inset-top, 0px);
       padding-bottom: env(safe-area-inset-bottom, 0px);
     }
@@ -74,86 +74,69 @@
       max-width: calc(100vw - 32px);
     }
 
-    /* Gaya 3D Neumorphic UI (Terinspirasi Desain Dashboard Biru Langit) */
+    /* Gaya Clean Soft-Pastel UI (Terinspirasi Desain Dashboard Finora) */
     .neu-shell {
-      background: rgba(248, 251, 255, 0.88);
-      backdrop-filter: blur(18px);
-      box-shadow:
-        0 20px 50px rgba(30, 64, 175, 0.12),
-        inset 0 1px 1px rgba(255, 255, 255, 0.95);
+      background: #ffffff;
+      border: 1px solid #e8eef7;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.06);
     }
 
     .neu-sidebar {
-      background: linear-gradient(180deg, #3b82f6 0%, #2563eb 52%, #1d4ed8 100%);
-      box-shadow:
-        8px 0 28px rgba(37, 99, 235, 0.25),
-        inset -1px 0 1px rgba(255, 255, 255, 0.25);
+      background: #ffffff;
+      border-right: 1px solid #e8eef7;
+      box-shadow: 4px 0 24px rgba(15, 23, 42, 0.03);
     }
 
     .neu-nav-active {
-      background: linear-gradient(180deg, #ffffff 0%, #f1f6ff 100%);
-      color: #1d4ed8 !important;
-      box-shadow:
-        0 8px 18px rgba(15, 23, 42, 0.16),
-        inset 0 2px 2px #ffffff;
-      transform: translateX(3px);
+      background: #e8f1ff;
+      color: #2563eb !important;
     }
 
     .neu-card {
-      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      box-shadow:
-        0 10px 26px rgba(37, 99, 235, 0.07),
-        0 2px 6px rgba(15, 23, 42, 0.03),
-        inset 0 2px 2px rgba(255, 255, 255, 1);
+      background: #ffffff;
+      border: 1px solid #edf2f9;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .neu-card:hover {
       transform: translateY(-2px);
-      box-shadow:
-        0 14px 32px rgba(37, 99, 235, 0.11),
-        0 4px 10px rgba(15, 23, 42, 0.04),
-        inset 0 2px 2px rgba(255, 255, 255, 1);
+      box-shadow: 0 10px 26px rgba(37, 99, 235, 0.07);
     }
 
     .neu-card-static {
-      background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
-      border: 1px solid rgba(226, 238, 255, 0.95);
-      box-shadow:
-        0 10px 28px rgba(37, 99, 235, 0.07),
-        0 2px 6px rgba(15, 23, 42, 0.03),
-        inset 0 2px 2px rgba(255, 255, 255, 1);
-    }
-
-    .neu-stat-mint {
-      background: linear-gradient(145deg, #ecfdf5 0%, #ffffff 100%);
-      border: 1px solid #d1fae5;
-      box-shadow: 0 10px 24px rgba(16, 185, 129, 0.09), inset 0 2px 2px #ffffff;
+      background: #ffffff;
+      border: 1px solid #edf2f9;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
     }
 
     .neu-stat-sky {
-      background: linear-gradient(145deg, #eff6ff 0%, #ffffff 100%);
-      border: 1px solid #dbeafe;
-      box-shadow: 0 10px 24px rgba(59, 130, 246, 0.09), inset 0 2px 2px #ffffff;
+      background: linear-gradient(180deg, #f3f8ff 0%, #ffffff 100%);
+      border: 1px solid #e3eeff;
+      box-shadow: 0 4px 18px rgba(37, 99, 235, 0.04);
+    }
+
+    .neu-stat-mint {
+      background: linear-gradient(180deg, #f2fbf7 0%, #ffffff 100%);
+      border: 1px solid #dcf5e9;
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.04);
     }
 
     .neu-stat-teal {
-      background: linear-gradient(145deg, #f0fdfa 0%, #ffffff 100%);
-      border: 1px solid #ccfbf1;
-      box-shadow: 0 10px 24px rgba(20, 184, 166, 0.09), inset 0 2px 2px #ffffff;
+      background: linear-gradient(180deg, #fffbf2 0%, #ffffff 100%);
+      border: 1px solid #fef0d3;
+      box-shadow: 0 4px 18px rgba(245, 158, 11, 0.04);
     }
 
     .neu-stat-peach {
-      background: linear-gradient(145deg, #fff7ed 0%, #ffffff 100%);
-      border: 1px solid #ffedd5;
-      box-shadow: 0 10px 24px rgba(249, 115, 22, 0.09), inset 0 2px 2px #ffffff;
+      background: linear-gradient(180deg, #fff5f6 0%, #ffffff 100%);
+      border: 1px solid #ffe4e8;
+      box-shadow: 0 4px 18px rgba(244, 63, 94, 0.04);
     }
 
     .neu-input {
-      background: #f4f8ff;
-      border: 1px solid #dbe7ff;
-      box-shadow: inset 0 2px 5px rgba(37, 99, 235, 0.06);
+      background: #f8fafd;
+      border: 1px solid #e2e8f0;
       transition: all 0.2s ease;
     }
 
@@ -161,52 +144,49 @@
       outline: none;
       background: #ffffff;
       border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.16);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
     }
 
     .neu-btn-blue {
-      background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+      background: #2563eb;
       color: #ffffff;
-      box-shadow:
-        0 8px 18px rgba(37, 99, 235, 0.28),
-        inset 0 1px 1px rgba(255, 255, 255, 0.45);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.22);
       transition: all 0.18s ease;
     }
 
     .neu-btn-blue:hover {
-      filter: brightness(1.05);
+      background: #1d4ed8;
       transform: translateY(-1px);
     }
 
     .neu-btn-emerald {
-      background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+      background: #10b981;
       color: #ffffff;
-      box-shadow:
-        0 8px 18px rgba(16, 185, 129, 0.25),
-        inset 0 1px 1px rgba(255, 255, 255, 0.45);
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.2);
       transition: all 0.18s ease;
     }
 
+    .neu-btn-emerald:hover {
+      background: #059669;
+      transform: translateY(-1px);
+    }
+
     .neu-btn-rose {
-      background: linear-gradient(180deg, #f43f5e 0%, #e11d48 100%);
+      background: #f43f5e;
       color: #ffffff;
-      box-shadow:
-        0 8px 18px rgba(244, 63, 94, 0.24),
-        inset 0 1px 1px rgba(255, 255, 255, 0.45);
+      box-shadow: 0 6px 16px rgba(244, 63, 94, 0.2);
       transition: all 0.18s ease;
+    }
+
+    .neu-btn-rose:hover {
+      background: #e11d48;
+      transform: translateY(-1px);
     }
 
     .neu-pill-soft {
       background: #ffffff;
-      border: 1px solid #e2ecff;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.06);
-    }
-
-    .hero-banner-3d {
-      background: linear-gradient(120deg, #2563eb 0%, #3b82f6 55%, #60a5fa 100%);
-      box-shadow:
-        0 16px 36px rgba(37, 99, 235, 0.26),
-        inset 0 2px 2px rgba(255, 255, 255, 0.35);
+      border: 1px solid #e8eef7;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
     }
 
     /* Scrollbar rapi */
@@ -255,9 +235,9 @@
 
   <script type="module">
     // =========================================================================
-    // 1. KONFIGURASI MODE & FIREBASE (UBAH IS_PREVIEW = false UNTUK PRODUKSI)
+    // 1. KONFIGURASI MODE & FIREBASE SDK (OPSIONAL UNTUK PRODUKSI)
     // =========================================================================
-    const IS_PREVIEW = false;
+    const IS_PREVIEW = false; // Ubah ke false setelah mengisi firebaseConfig di bawah
 
     const firebaseConfig = {
   apiKey: "AIzaSyDbZ3TRUtREUxsqBkfzzTIir4jYl-_-s44",
@@ -265,320 +245,339 @@
   projectId: "cbt-mi-darul-ulum",
   storageBucket: "cbt-mi-darul-ulum.firebasestorage.app",
   messagingSenderId: "955295162243",
-  appId: "1:955295162243:web:728a14cae3811a1fcce0b6"
+  appId: "1:955295162243:web:728a14cae3811a1fcce0b6""
     };
 
     let fbAuth = null;
     let fbDb = null;
-    let firestoreUnsubscribers = [];
+    let fbMod = null;
 
     // =========================================================================
-    // 2. ISOLASI VIEWPORT DARI ELEMEN BLOGGER (DESKTOP, PC & SMARTPHONE)
-    // =========================================================================
-    function isolateViewportFromBlogger() {
-      try {
-        const appRoot = document.getElementById('app-root');
-        const modalRoot = document.getElementById('modal-root');
-        const toastRoot = document.getElementById('toast-container');
-        if (appRoot && appRoot.parentElement !== document.body) document.body.appendChild(appRoot);
-        if (modalRoot && modalRoot.parentElement !== document.body) document.body.appendChild(modalRoot);
-        if (toastRoot && toastRoot.parentElement !== document.body) document.body.appendChild(toastRoot);
-
-        Array.from(document.body.children).forEach(el => {
-          if (!['app-root', 'modal-root', 'toast-container'].includes(el.id) && el.tagName !== 'SCRIPT') {
-            el.style.display = 'none';
-          }
-        });
-      } catch (e) {
-        // Abaikan jika sudah terisolasi
-      }
-    }
-
-    // =========================================================================
-    // 3. LOGO DEFAULT SVG & KONSTANTA 8 BENTUK FORMAT SOAL
+    // 2. KONSTANTA LOGO DEFAULT, 8 FORMAT SOAL & STATE UTAMA APLIKASI
     // =========================================================================
     const DEFAULT_LOGO_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
         <defs>
           <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#10b981"/>
-            <stop offset="100%" stop-color="#059669"/>
+            <stop offset="0%" stop-color="#2563eb"/>
+            <stop offset="100%" stop-color="#10b981"/>
           </linearGradient>
         </defs>
-        <rect x="8" y="8" width="104" height="104" rx="28" fill="url(#g1)"/>
-        <polygon points="60,22 92,42 92,82 60,100 28,82 28,42" fill="none" stroke="#ffffff" stroke-width="5"/>
-        <path d="M44 64 L56 76 L78 48" fill="none" stroke="#fde047" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect width="120" height="120" rx="28" fill="url(#g1)"/>
+        <polygon points="60,18 98,38 98,82 60,102 22,82 22,38" fill="none" stroke="#ffffff" stroke-width="5"/>
+        <path d="M40 66 L60 44 L80 66 L80 82 L40 82 Z" fill="#ffffff" opacity="0.92"/>
+        <circle cx="60" cy="34" r="6" fill="#fde047"/>
       </svg>
     `);
 
     const QUESTION_TYPES = [
-      { code: 'PG', label: 'Pilihan Ganda (Multiple Choice)', badge: 'bg-blue-100 text-blue-700' },
-      { code: 'PG_KOMPLEKS', label: 'Pilihan Ganda Kompleks', badge: 'bg-indigo-100 text-indigo-700' },
-      { code: 'BS', label: 'Benar / Salah (True/False)', badge: 'bg-emerald-100 text-emerald-700' },
-      { code: 'BS_MULTI', label: 'Benar / Salah Multi (Majemuk)', badge: 'bg-teal-100 text-teal-700' },
-      { code: 'MENJODOHKAN', label: 'Menjodohkan (Matching)', badge: 'bg-amber-100 text-amber-700' },
+      { code: 'PG', label: 'Pilihan Ganda (PG)', badge: 'bg-blue-100 text-blue-700' },
+      { code: 'PG_KOMPLEKS', label: 'Pilihan Ganda Kompleks (PGK)', badge: 'bg-indigo-100 text-indigo-700' },
+      { code: 'BS', label: 'Benar / Salah (BS)', badge: 'bg-emerald-100 text-emerald-700' },
+      { code: 'BS_MULTI', label: 'Benar / Salah Majemuk (BS Multi)', badge: 'bg-teal-100 text-teal-700' },
+      { code: 'MENJODOHKAN', label: 'Menjodohkan', badge: 'bg-amber-100 text-amber-700' },
       { code: 'ISIAN', label: 'Isian Singkat', badge: 'bg-orange-100 text-orange-700' },
-      { code: 'ESAI', label: 'Esai / Uraian', badge: 'bg-purple-100 text-purple-700' },
-      { code: 'MULTIMEDIA', label: 'Multimedia & Interaktif', badge: 'bg-rose-100 text-rose-700' }
+      { code: 'ESAI', label: 'Uraian / Esai', badge: 'bg-purple-100 text-purple-700' },
+      { code: 'MULTIMEDIA', label: 'Soal Berbasis Multimedia', badge: 'bg-rose-100 text-rose-700' }
     ];
 
-    // =========================================================================
-    // 4. STATE UTAMA & PENYIMPANAN SESI PERSISTEN (ANTI-LOGOUT SAAT REFRESH)
-    // =========================================================================
-    const SESSION_KEY = 'cbt_madrasah_session_v3';
-    const DATA_KEY = 'cbt_madrasah_data_v3';
+    const SESSION_KEY = 'cbt_madrasah_session_v4';
+    const SNAPSHOT_KEY = 'cbt_madrasah_snapshot_v4';
 
-    function getDefaultState() {
-      return {
-        currentUser: null,
-        impersonatorAdmin: null,
-        loginRoleTab: 'admin',
-        activeMenu: 'dashboard',
-        mobileSidebarOpen: false,
-        globalSearch: '',
-        menuSearch: '',
-        masterTab: 'mapel',
-        selectedMasterIds: [],
-        usersTab: 'siswa',
-        selectedRombelFilter: 'ALL',
-        selectedBankSoalId: 'bs_01',
-        selectedJadwalId: 'jad_01',
-        selectedPesertaIdsForJadwal: ['usr_s1', 'usr_s2', 'usr_s3', 'usr_s4'],
-        dokumenTab: 'berita_acara',
-        paperSize: 'A4',
-        activeExamSession: null, // { jadwalId, startTime, durationSec, answers, raguIds, violations, locked }
-        currentQuestionIndex: 0,
+    const state = {
+      currentUser: null,
+      impersonatorAdmin: null,
+      loginRoleTab: 'admin',
+      activeMenu: 'dashboard',
+      mobileSidebarOpen: false,
+      globalSearch: '',
+      menuSearch: '',
+      masterTab: 'mapel',
+      selectedMasterIds: [],
+      usersTab: 'siswa',
+      selectedRombelFilter: 'ALL',
+      selectedBankSoalId: 'bs_mtk_7',
+      selectedJadwalId: 'jad_1',
+      selectedPesertaIdsForJadwal: [],
+      dokumenTab: 'berita_acara',
+      paperSize: 'A4',
+      activeExamSession: null,
+      currentQuestionIndex: 0,
 
-        madrasah: {
-          nama: 'MTs Negeri 1 Nusantara',
-          npsn: '20261234',
-          nsm: '121132010001',
-          alamat: 'Jl. Pendidikan Islam No. 45, Kota Nusantara',
-          kabupaten: 'Kota Nusantara',
-          kepalaMadrasah: 'Dr. H. Ahmad Fauzan, M.Pd.I',
-          nipKepala: '197504122000031002',
-          tahunPelajaran: '2026/2027',
-          semester: 'Ganjil',
-          namaUjianDefault: 'Asesmen Sumatif Akhir Semester (ASAS)',
-          logoUrl: DEFAULT_LOGO_SVG
-        },
+      madrasah: {
+        nama: 'MTs Negeri 1 Nusantara',
+        npsn: '20581234',
+        nsm: '121135780001',
+        alamat: 'Jl. Pendidikan Islam No. 45, Kota Nusantara',
+        kabupaten: 'Kota Nusantara',
+        namaUjianDefault: 'Asesmen Sumatif Akhir Semester (ASAS)',
+        kepalaMadrasah: 'Dr. H. Ahmad Fauzan, M.Pd.I.',
+        nipKepala: '197504122000031002',
+        tahunPelajaran: '2026/2027',
+        semester: 'Ganjil',
+        logoUrl: DEFAULT_LOGO_SVG
+      },
 
-        mapels: [
-          { id: 'mpl_1', kode: 'MTK', nama: 'Matematika', kelompok: 'Umum', kkm: 75 },
-          { id: 'mpl_2', kode: 'IPA', nama: 'Ilmu Pengetahuan Alam', kelompok: 'Umum', kkm: 75 },
-          { id: 'mpl_3', kode: 'FIQ', nama: 'Fikih', kelompok: 'PAI', kkm: 78 },
-          { id: 'mpl_4', kode: 'BING', nama: 'Bahasa Inggris', kelompok: 'Umum', kkm: 75 }
-        ],
+      mapels: [
+        { id: 'mpl_1', kode: 'MTK', nama: 'Matematika', kelompok: 'Umum', kkm: 75 },
+        { id: 'mpl_2', kode: 'IPA', nama: 'Ilmu Pengetahuan Alam', kelompok: 'Umum', kkm: 75 },
+        { id: 'mpl_3', kode: 'FIQ', nama: 'Fikih', kelompok: 'PAI', kkm: 78 },
+        { id: 'mpl_4', kode: 'BIND', nama: 'Bahasa Indonesia', kelompok: 'Umum', kkm: 76 }
+      ],
 
-        rombels: [
-          { id: 'rmb_1', kode: 'VII-A', nama: 'Kelas VII-A Unggulan', tingkat: '7', waliKelas: 'Nurul Hidayah, S.Pd.' },
-          { id: 'rmb_2', kode: 'VII-B', nama: 'Kelas VII-B Reguler', tingkat: '7', waliKelas: 'Budi Santoso, M.Pd.' },
-          { id: 'rmb_3', kode: 'VIII-A', nama: 'Kelas VIII-A Tahfidz', tingkat: '8', waliKelas: 'Ustadz Ridwan Kamil, Lc.' }
-        ],
+      rombels: [
+        { id: 'rmb_1', kode: 'VII-A', nama: 'Kelas VII-A Unggulan', tingkat: '7', waliKelas: 'Nurul Hidayah, S.Pd.' },
+        { id: 'rmb_2', kode: 'VII-B', nama: 'Kelas VII-B Reguler', tingkat: '7', waliKelas: 'Budi Santoso, M.Pd.' },
+        { id: 'rmb_3', kode: 'VIII-A', nama: 'Kelas VIII-A Tahfidz', tingkat: '8', waliKelas: 'Ustadz Ridwan Kamil, Lc.' }
+      ],
 
-        sesiList: [
-          { id: 'ses_1', nama: 'Sesi 1 (Pagi)', mulai: '07:30', selesai: '09:30' },
-          { id: 'ses_2', nama: 'Sesi 2 (Siang)', mulai: '10:00', selesai: '12:00' }
-        ],
+      sesiList: [
+        { id: 'ses_1', nama: 'Sesi 1 (Pagi)', mulai: '07:30', selesai: '09:30' },
+        { id: 'ses_2', nama: 'Sesi 2 (Siang)', mulai: '10:00', selesai: '12:00' }
+      ],
 
-        users: [
-          { id: 'usr_adm', role: 'admin', nama: 'Administrator Utama', username: 'admin', email: 'admin@madrasah.sch.id', nip: '198001012005011001', passwordHash: '', aktif: true },
-          { id: 'usr_g1', role: 'guru', nama: 'Siti Aminah, S.Pd., M.Si.', username: 'guru.mtk', nip: '198605142011012008', mapelKode: 'MTK', passwordHash: '', aktif: true },
-          { id: 'usr_g2', role: 'guru', nama: 'Ustadz Muhammad Yusuf, Lc.', username: 'guru.fiq', nip: '198908202015031004', mapelKode: 'FIQ', passwordHash: '', aktif: true },
-          { id: 'usr_p1', role: 'pengawas', nama: 'Drs. Hendra Wijaya', username: 'pengawas1', nip: '197811022006041009', ruang: 'Ruang Lab CBT 01', passwordHash: '', aktif: true },
-          { id: 'usr_s1', role: 'siswa', nama: 'Aisyah Putri Ramadhani', username: '2026001', nisn: '0091234501', rombelId: 'rmb_1', ruang: 'Lab 01', passwordHash: '', aktif: true },
-          { id: 'usr_s2', role: 'siswa', nama: 'Muhammad Zaki Al-Fatih', username: '2026002', nisn: '0091234502', rombelId: 'rmb_1', ruang: 'Lab 01', passwordHash: '', aktif: true },
-          { id: 'usr_s3', role: 'siswa', nama: 'Nadia Khairunnisa', username: '2026003', nisn: '0091234503', rombelId: 'rmb_2', ruang: 'Lab 02', passwordHash: '', aktif: true },
-          { id: 'usr_s4', role: 'siswa', nama: 'Rafi Akbar Pratama', username: '2026004', nisn: '0091234504', rombelId: 'rmb_3', ruang: 'Lab 02', passwordHash: '', aktif: true }
-        ],
+      users: [
+        { id: 'usr_admin', role: 'admin', username: 'admin', email: 'admin@madrasah.sch.id', nama: 'Administrator Utama', nip: '198001012005011001', aktif: true },
+        { id: 'usr_guru1', role: 'guru', username: 'guru.mtk', nama: 'Siti Aminah, S.Pd., M.Pd.', nip: '198506152010012008', mapelKode: 'MTK', aktif: true },
+        { id: 'usr_pgw1', role: 'pengawas', username: 'pengawas1', nama: 'Hendra Wijaya, S.Ag.', nip: '198209202009011005', ruang: 'Ruang Lab CBT 01', aktif: true },
+        { id: 'usr_s1', role: 'siswa', username: '2026001', nama: 'Muhammad Alif Pratama', nisn: '0091234501', rombelId: 'rmb_1', ruang: 'Lab 01', aktif: true },
+        { id: 'usr_s2', role: 'siswa', username: '2026002', nama: 'Aisyah Putri Ramadhani', nisn: '0091234502', rombelId: 'rmb_1', ruang: 'Lab 01', aktif: true },
+        { id: 'usr_s3', role: 'siswa', username: '2026003', nama: 'Rizky Maulana Hakim', nisn: '0091234503', rombelId: 'rmb_2', ruang: 'Lab 01', aktif: true },
+        { id: 'usr_s4', role: 'siswa', username: '2026004', nama: 'Nadia Khairunnisa', nisn: '0091234504', rombelId: 'rmb_3', ruang: 'Lab 02', aktif: true }
+      ],
 
-        bankSoal: [
-          {
-            id: 'bs_01',
-            kodePaket: 'PKT-MTK-07',
-            judul: 'Asesmen Matematika Kelas VII — Bilangan & Aljabar',
-            mapelKode: 'MTK',
-            tingkat: '7',
-            pembuat: 'Siti Aminah, S.Pd., M.Si.',
-            soalList: [
-              {
-                id: 'q_1',
-                tipe: 'PG',
-                pertanyaan: 'Hasil dari (-18) + 25 - (-7) adalah ....',
-                mediaUrl: '',
-                opsi: { A: '0', B: '14', C: '-14', D: '50', E: '36' },
-                bobot: 15
-              },
-              {
-                id: 'q_2',
-                tipe: 'PG_KOMPLEKS',
-                pertanyaan: 'Pilihlah DUA pernyataan yang bernilai benar mengenai bilangan prima!',
-                mediaUrl: '',
-                opsi: {
-                  A: '2 adalah satu-satunya bilangan prima genap',
-                  B: '9 termasuk bilangan prima',
-                  C: '17 memiliki tepat dua faktor positif',
-                  D: '1 merupakan bilangan prima terkecil',
-                  E: ''
-                },
-                bobot: 20
-              },
-              {
-                id: 'q_3',
-                tipe: 'BS',
-                pertanyaan: 'Setiap bilangan bulat negatif selalu lebih kecil daripada nol (0).',
-                mediaUrl: '',
-                opsi: { A: 'Benar', B: 'Salah' },
-                bobot: 15
-              },
-              {
-                id: 'q_4',
-                tipe: 'BS_MULTI',
-                pertanyaan: 'Tentukan Benar atau Salah untuk setiap pernyataan aljabar berikut:',
-                mediaUrl: '',
-                pernyataanMulti: [
-                  '3x + 2x sama dengan 5x',
-                  '4(x + 2) sama dengan 4x + 2',
-                  'Koefisien x pada bentuk 7 - 3x adalah -3'
-                ],
-                bobot: 20
-              },
-              {
-                id: 'q_5',
-                tipe: 'MENJODOHKAN',
-                pertanyaan: 'Pasangkan bentuk operasi di sebelah kiri dengan hasil yang tepat di sebelah kanan!',
-                mediaUrl: '',
-                pasangan: [
-                  { kiri: '25% dari 200', kanan: '50' },
-                  { kiri: '3/4 dalam bentuk desimal', kanan: '0,75' },
-                  { kiri: 'Akar kuadrat dari 144', kanan: '12' }
-                ],
-                bobot: 15
-              },
-              {
-                id: 'q_6',
-                tipe: 'ISIAN',
-                pertanyaan: 'Keliling sebuah persegi yang memiliki panjang sisi 13 cm adalah ... cm.',
-                mediaUrl: '',
-                bobot: 15
-              }
-            ]
-          }
-        ],
-
-        bankSoalKunci: {
-          bs_01: {
-            q_1: 'B',
-            q_2: ['A', 'C'],
-            q_3: 'Benar',
-            q_4: ['Benar', 'Salah', 'Benar'],
-            q_5: { '25% dari 200': '50', '3/4 dalam bentuk desimal': '0,75', 'Akar kuadrat dari 144': '12' },
-            q_6: '52'
-          }
-        },
-
-        jadwalUjian: [
-          {
-            id: 'jad_01',
-            namaUjian: 'Asesmen Sumatif Akhir Semester (ASAS)',
-            mapelKode: 'MTK',
-            bankSoalId: 'bs_01',
-            tanggalMulai: '2026-11-24',
-            tanggalSelesai: '2026-11-30',
-            sesiId: 'ses_1',
-            durasiMenit: 90,
-            token: 'MTR842',
-            acakSoal: true,
-            tampilkanNilai: true,
-            antiCurang: true,
-            batasPelanggaran: 3,
-            pesertaIds: ['usr_s1', 'usr_s2', 'usr_s3', 'usr_s4'],
-            status: 'aktif'
-          }
-        ],
-
-        jadwalPengawas: [
-          {
-            id: 'jp_01',
-            jadwalId: 'jad_01',
-            pengawasId: 'usr_p1',
-            ruang: 'Ruang Lab CBT 01',
-            tanggal: '2026-11-24',
-            sesiId: 'ses_1',
-            catatan: 'Pastikan seluruh perangkat peserta dalam mode layar penuh.'
-          }
-        ],
-
-        examRecords: [
-          {
-            id: 'rec_jad_01_usr_s1',
-            jadwalId: 'jad_01',
-            siswaId: 'usr_s1',
-            status: 'selesai',
-            skor: 92,
-            pelanggaran: 0,
-            waktuMulai: '07:32',
-            waktuSelesai: '08:25',
-            answers: { q_1: 'B', q_2: ['A', 'C'], q_3: 'Benar', q_4: ['Benar', 'Salah', 'Benar'], q_6: '52' }
-          },
-          {
-            id: 'rec_jad_01_usr_s2',
-            jadwalId: 'jad_01',
-            siswaId: 'usr_s2',
-            status: 'mengerjakan',
-            skor: 0,
-            pelanggaran: 1,
-            waktuMulai: '07:35',
-            waktuSelesai: '-',
-            answers: { q_1: 'B' }
-          }
-        ],
-
-        beritaAcaraManual: {
-          jadwalId: 'jad_01',
-          hariTanggal: 'Selasa, 24 November 2026',
-          ruang: 'Ruang Lab CBT 01',
-          jumlahSeharusnya: '4',
-          jumlahHadir: '4',
-          jumlahTidakHadir: '0',
-          nomorTidakHadir: '-',
-          catatanKejadian: 'Pelaksanaan ujian berjalan tertib, aman, dan lancar tanpa kendala teknis.',
-          namaProktor: 'Administrator Utama',
-          nipProktor: '198001012005011001',
-          namaPengawas: 'Drs. Hendra Wijaya',
-          nipPengawas: '197811022006041009'
+      bankSoal: [
+        {
+          id: 'bs_mtk_7',
+          kodePaket: 'PKT-MTK-07',
+          judul: 'Asesmen Matematika Kelas VII',
+          mapelKode: 'MTK',
+          tingkat: '7',
+          pembuat: 'Siti Aminah, S.Pd., M.Pd.',
+          soalList: [
+            {
+              id: 'q_101',
+              tipe: 'PG',
+              pertanyaan: 'Hasil dari (-18) + 25 x 2 - 12 adalah ....',
+              mediaUrl: '',
+              opsi: { A: '14', B: '20', C: '32', D: '44', E: '50' },
+              bobot: 20
+            },
+            {
+              id: 'q_102',
+              tipe: 'PG_KOMPLEKS',
+              pertanyaan: 'Pilih dua bilangan berikut yang merupakan bilangan prima antara 10 dan 20!',
+              mediaUrl: '',
+              opsi: { A: '12', B: '13', C: '15', D: '17', E: '18' },
+              bobot: 20
+            },
+            {
+              id: 'q_103',
+              tipe: 'BS',
+              pertanyaan: 'Jumlah besar ketiga sudut pada sebuah segitiga siku-siku adalah 180 derajat.',
+              mediaUrl: '',
+              opsi: { A: 'Benar', B: 'Salah' },
+              bobot: 20
+            },
+            {
+              id: 'q_104',
+              tipe: 'MENJODOHKAN',
+              pertanyaan: 'Pasangkan bangun datar berikut dengan rumus luasnya yang tepat!',
+              mediaUrl: '',
+              pasangan: [
+                { kiri: 'Persegi', kanan: 'sisi x sisi' },
+                { kiri: 'Segitiga', kanan: '1/2 x alas x tinggi' },
+                { kiri: 'Lingkaran', kanan: 'pi x r x r' }
+              ],
+              bobot: 20
+            },
+            {
+              id: 'q_105',
+              tipe: 'ISIAN',
+              pertanyaan: 'Berapakah akar kuadrat dari 144?',
+              mediaUrl: '',
+              bobot: 20
+            }
+          ]
         }
-      };
+      ],
+
+      bankSoalKunci: {
+        bs_mtk_7: {
+          q_101: 'B',
+          q_102: ['B', 'D'],
+          q_103: 'Benar',
+          q_104: {
+            'Persegi': 'sisi x sisi',
+            'Segitiga': '1/2 x alas x tinggi',
+            'Lingkaran': 'pi x r x r'
+          },
+          q_105: '12'
+        }
+      },
+
+      jadwalUjian: [
+        {
+          id: 'jad_1',
+          namaUjian: 'Asesmen Sumatif Akhir Semester (ASAS)',
+          mapelKode: 'MTK',
+          bankSoalId: 'bs_mtk_7',
+          tanggalMulai: '2026-11-24',
+          tanggalSelesai: '2026-11-30',
+          sesiId: 'ses_1',
+          durasiMenit: 90,
+          token: 'MTR842',
+          acakSoal: true,
+          tampilkanNilai: true,
+          antiCurang: true,
+          batasPelanggaran: 3,
+          pesertaIds: ['usr_s1', 'usr_s2', 'usr_s3', 'usr_s4'],
+          status: 'aktif'
+        }
+      ],
+
+      jadwalPengawas: [
+        {
+          id: 'jp_1',
+          jadwalId: 'jad_1',
+          pengawasId: 'usr_pgw1',
+          ruang: 'Ruang Lab CBT 01',
+          tanggal: '2026-11-24',
+          sesiId: 'ses_1',
+          catatan: 'Pastikan seluruh peserta masuk mode fullscreen'
+        }
+      ],
+
+      examRecords: [
+        {
+          id: 'rec_jad_1_usr_s1',
+          jadwalId: 'jad_1',
+          siswaId: 'usr_s1',
+          status: 'selesai',
+          skor: 100,
+          pelanggaran: 0,
+          waktuMulai: '07:32',
+          waktuSelesai: '08:15',
+          answers: {}
+        }
+      ],
+
+      beritaAcaraManual: {
+        jadwalId: 'jad_1',
+        hariTanggal: 'Selasa, 24 November 2026',
+        ruang: 'Ruang Lab CBT 01',
+        jumlahSeharusnya: '4',
+        jumlahHadir: '4',
+        jumlahTidakHadir: '0',
+        nomorTidakHadir: '-',
+        catatanKejadian: 'Pelaksanaan ujian berlangsung tertib, aman, dan lancar tanpa kendala teknis.',
+        namaPengawas: 'Hendra Wijaya, S.Ag.',
+        nipPengawas: '198209202009011005',
+        namaProktor: 'Administrator Utama',
+        nipProktor: '198001012005011001'
+      }
+    };
+
+    // =========================================================================
+    // 3. UTILITAS KEAMANAN, TOAST, ISOLASI VIEWPORT & PENYIMPANAN PERSISTEN
+    // =========================================================================
+    function esc(val) {
+      return String(val ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
     }
 
-    let state = getDefaultState();
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const styles = {
+        success: 'bg-emerald-600 text-white border-emerald-500',
+        error: 'bg-rose-600 text-white border-rose-500',
+        warning: 'bg-amber-500 text-white border-amber-400',
+        info: 'bg-slate-800 text-white border-slate-700'
+      };
+      const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+
+      const el = document.createElement('div');
+      el.className = `pointer-events-auto px-4 py-3 rounded-2xl border shadow-xl text-xs font-extrabold flex items-center gap-2.5 transition-all duration-300 ${styles[type] || styles.info}`;
+      el.innerHTML = `<span>${icons[type] || 'ℹ️'}</span><span>${esc(message)}</span>`;
+      container.appendChild(el);
+
+      setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(-6px)';
+        setTimeout(() => el.remove(), 300);
+      }, 3600);
+    }
+
+    function isolateViewportFromBlogger() {
+      try {
+        ['app-root', 'modal-root', 'toast-container'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el && el.parentElement !== document.body) {
+            document.body.appendChild(el);
+          }
+        });
+        Array.from(document.body.children).forEach(child => {
+          if (!['app-root', 'modal-root', 'toast-container'].includes(child.id) && child.tagName !== 'SCRIPT') {
+            child.style.display = 'none';
+          }
+        });
+      } catch (e) { /* Abaikan pada lingkungan sandbox */ }
+    }
+
+    async function hashPasswordSHA256(plainText) {
+      const text = String(plainText || '');
+      try {
+        if (window.crypto && window.crypto.subtle) {
+          const buf = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+          return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+      } catch (e) { /* Fallback di bawah */ }
+      let hash = 0;
+      for (let i = 0; i < text.length; i++) {
+        hash = ((hash << 5) - hash) + text.charCodeAt(i);
+        hash |= 0;
+      }
+      return 'fb_' + Math.abs(hash).toString(16);
+    }
 
     function saveSessionState() {
       try {
-        const sessionPayload = {
+        const payload = JSON.stringify({
           currentUser: state.currentUser,
           impersonatorAdmin: state.impersonatorAdmin,
           loginRoleTab: state.loginRoleTab,
           activeMenu: state.activeMenu,
-          masterTab: state.masterTab,
-          usersTab: state.usersTab,
-          selectedRombelFilter: state.selectedRombelFilter,
           selectedBankSoalId: state.selectedBankSoalId,
           selectedJadwalId: state.selectedJadwalId,
           dokumenTab: state.dokumenTab,
           paperSize: state.paperSize,
           activeExamSession: state.activeExamSession,
           currentQuestionIndex: state.currentQuestionIndex
-        };
-        localStorage.setItem(SESSION_KEY, JSON.stringify(sessionPayload));
-        sessionStorage.setItem(SESSION_KEY, JSON.stringify(sessionPayload));
-      } catch (e) { /* Abaikan kuota penyimpanan penuh */ }
+        });
+        localStorage.setItem(SESSION_KEY, payload);
+        sessionStorage.setItem(SESSION_KEY, payload);
+      } catch (e) { /* Abaikan jika storage penuh */ }
+    }
+
+    function restoreSessionState() {
+      try {
+        const raw = sessionStorage.getItem(SESSION_KEY) || localStorage.getItem(SESSION_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') {
+          Object.assign(state, parsed);
+        }
+      } catch (e) { /* Abaikan korup JSON */ }
     }
 
     function savePreviewSnapshot() {
-      saveSessionState();
       try {
-        const dataPayload = {
+        const snap = JSON.stringify({
           madrasah: state.madrasah,
           mapels: state.mapels,
           rombels: state.rombels,
@@ -589,186 +588,38 @@
           jadwalUjian: state.jadwalUjian,
           jadwalPengawas: state.jadwalPengawas,
           examRecords: state.examRecords,
-          beritaAcaraManual: state.beritaAcaraManual,
-          selectedPesertaIdsForJadwal: state.selectedPesertaIdsForJadwal
-        };
-        localStorage.setItem(DATA_KEY, JSON.stringify(dataPayload));
-      } catch (e) { /* Abaikan kuota penuh */ }
+          beritaAcaraManual: state.beritaAcaraManual
+        });
+        localStorage.setItem(SNAPSHOT_KEY, snap);
+      } catch (e) { /* Abaikan jika melebihi kuota */ }
     }
 
-    function restoreSessionState() {
+    function restorePreviewSnapshot() {
       try {
-        const rawData = localStorage.getItem(DATA_KEY);
-        if (rawData && IS_PREVIEW) {
-          const parsedData = JSON.parse(rawData);
-          Object.assign(state, parsedData);
+        const raw = localStorage.getItem(SNAPSHOT_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') {
+          Object.assign(state, parsed);
         }
-        const rawSession = sessionStorage.getItem(SESSION_KEY) || localStorage.getItem(SESSION_KEY);
-        if (rawSession) {
-          const parsedSession = JSON.parse(rawSession);
-          Object.assign(state, parsedSession);
-        }
-      } catch (e) { /* Gunakan state bawaan jika rusak */ }
+      } catch (e) { /* Abaikan */ }
     }
 
-    // =========================================================================
-    // 5. UTILITAS KEAMANAN, ENKRIPSI SHA-256, TOAST & MODAL KONFIRMASI
-    // =========================================================================
-    function esc(str) {
-      return String(str ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-
-    async function hashPasswordSHA256(plainText) {
-      const text = String(plainText || '');
-      if (window.crypto && window.crypto.subtle) {
-        const encoder = new TextEncoder();
-        const data = encoder.encode(text);
-        const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
-        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
-      }
-      return 'sha256_fallback_' + btoa(unescape(encodeURIComponent(text)));
-    }
-
-    function showToast(message, type = 'info') {
-      const container = document.getElementById('toast-container');
-      if (!container) return;
-      const colors = {
-        success: 'bg-emerald-600 text-white border-emerald-400',
-        error: 'bg-rose-600 text-white border-rose-400',
-        warning: 'bg-amber-500 text-white border-amber-300',
-        info: 'bg-blue-600 text-white border-blue-400'
-      };
-      const icons = { success: '✅', error: '⚠️', warning: '🔔', info: 'ℹ️' };
-      const toast = document.createElement('div');
-      toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-2xl border shadow-xl text-xs font-bold transition-all duration-300 ${colors[type] || colors.info}`;
-      toast.innerHTML = `<span>${icons[type] || 'ℹ️'}</span><span class="leading-snug">${esc(message)}</span>`;
-      container.appendChild(toast);
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(-8px)';
-        setTimeout(() => toast.remove(), 300);
-      }, 3600);
-    }
-
-    function closeModal() {
-      const root = document.getElementById('modal-root');
-      if (root) root.innerHTML = '';
-    }
-
-    function openConfirmModal({ title, message, confirmLabel = 'Ya, Lanjutkan', confirmClass = 'neu-btn-rose', onConfirm }) {
-      const root = document.getElementById('modal-root');
-      if (!root) return;
-      root.innerHTML = `
-        <div class="pointer-events-auto fixed inset-0 z-[2147483646] bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div class="neu-card-static w-full max-w-md rounded-3xl p-6 shadow-2xl">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-11 h-11 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl font-bold">!</div>
-              <h3 class="text-base font-extrabold text-slate-800">${esc(title)}</h3>
-            </div>
-            <p class="text-xs text-slate-600 leading-relaxed mb-6">${esc(message)}</p>
-            <div class="flex items-center justify-end gap-2.5">
-              <button type="button" id="btn-modal-cancel" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition cursor-pointer">Batal</button>
-              <button type="button" id="btn-modal-ok" class="px-5 py-2.5 rounded-xl ${confirmClass} text-xs font-bold transition cursor-pointer">${esc(confirmLabel)}</button>
-            </div>
-          </div>
-        </div>
-      `;
-      document.getElementById('btn-modal-cancel')?.addEventListener('click', closeModal);
-      document.getElementById('btn-modal-ok')?.addEventListener('click', async () => {
-        closeModal();
-        if (typeof onConfirm === 'function') await onConfirm();
-      });
-    }
-
-    // =========================================================================
-    // 6. KONEKSI & OPERASI FIRESTORE / PREVIEW SNAPSHOT
-    // =========================================================================
-    async function initBackend() {
-      if (IS_PREVIEW) return;
-      try {
-        const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
-        const { getAuth, signInAnonymously } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
-        const { getFirestore, collection, doc, onSnapshot } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
-
-        const app = initializeApp(firebaseConfig);
-        fbAuth = getAuth(app);
-        fbDb = getFirestore(app);
-
-        // Dengarkan identitas madrasah publik agar logo tampil sebelum login
-        onSnapshot(doc(fbDb, 'madrasah_settings', 'profile'), (snap) => {
-          if (snap.exists()) {
-            state.madrasah = { ...state.madrasah, ...snap.data() };
-            renderApp();
-          }
-        }, () => {});
-
-        try {
-          await signInAnonymously(fbAuth);
-        } catch (authErr) {
-          // Tangani auth/admin-restricted-operation dengan aman agar halaman Login tetap muncul
-          console.warn('Info Autentikasi Awal:', authErr?.code || authErr?.message);
-        }
-
-        if (fbAuth.currentUser) {
-          attachFirestoreListeners(collection, doc, onSnapshot);
-        }
-      } catch (err) {
-        console.error('Gagal menginisialisasi Firebase:', err);
-        showToast('Gagal terhubung ke server Firebase. Periksa konfigurasi jaringan.', 'error');
-      }
-    }
-
-    function attachFirestoreListeners(collection, doc, onSnapshot) {
-      firestoreUnsubscribers.forEach(unsub => unsub());
-      firestoreUnsubscribers = [];
-      const bindCol = (colName, stateKey) => {
-        firestoreUnsubscribers.push(
-          onSnapshot(collection(fbDb, colName), (qs) => {
-            const list = [];
-            qs.forEach(d => list.push({ id: d.id, ...d.data() }));
-            state[stateKey] = list;
-            renderApp();
-          }, () => {})
-        );
-      };
-      bindCol('mapels', 'mapels');
-      bindCol('rombels', 'rombels');
-      bindCol('sesi', 'sesiList');
-      bindCol('users', 'users');
-      bindCol('bank_soal', 'bankSoal');
-      bindCol('jadwal_ujian', 'jadwalUjian');
-      bindCol('jadwal_pengawas', 'jadwalPengawas');
-      bindCol('exam_records', 'examRecords');
-
-      firestoreUnsubscribers.push(
-        onSnapshot(collection(fbDb, 'bank_soal_kunci'), (qs) => {
-          const map = {};
-          qs.forEach(d => { map[d.id] = d.data(); });
-          state.bankSoalKunci = map;
-        }, () => {})
-      );
-    }
-
-    async function dbSaveDoc(colName, docId, payload, stateKey = null) {
+    async function dbSaveDoc(colName, docId, data, stateKey = null) {
+      const record = { ...data, id: docId };
       if (stateKey && Array.isArray(state[stateKey])) {
         const idx = state[stateKey].findIndex(item => item.id === docId);
-        const record = { id: docId, ...payload };
         if (idx >= 0) state[stateKey][idx] = record;
         else state[stateKey].push(record);
       }
-      if (IS_PREVIEW) {
-        savePreviewSnapshot();
-      } else if (fbDb) {
+      savePreviewSnapshot();
+      saveSessionState();
+
+      if (!IS_PREVIEW && fbDb && fbMod) {
         try {
-          const { doc, setDoc } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
-          await setDoc(doc(fbDb, colName, docId), payload, { merge: true });
+          await fbMod.setDoc(fbMod.doc(fbDb, colName, docId), record, { merge: true });
         } catch (err) {
-          showToast('Gagal menyimpan ke server: ' + (err?.message || 'Periksa izin akses.'), 'error');
+          console.warn('Firestore save warning:', err);
         }
       }
     }
@@ -777,263 +628,183 @@
       if (stateKey && Array.isArray(state[stateKey])) {
         state[stateKey] = state[stateKey].filter(item => item.id !== docId);
       }
-      if (IS_PREVIEW) {
-        savePreviewSnapshot();
-      } else if (fbDb) {
+      savePreviewSnapshot();
+      saveSessionState();
+
+      if (!IS_PREVIEW && fbDb && fbMod) {
         try {
-          const { doc, deleteDoc } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
-          await deleteDoc(doc(fbDb, colName, docId));
+          await fbMod.deleteDoc(fbMod.doc(fbDb, colName, docId));
         } catch (err) {
-          showToast('Gagal menghapus di server: ' + (err?.message || 'Periksa izin akses.'), 'error');
+          console.warn('Firestore delete warning:', err);
         }
       }
     }
 
-    // =========================================================================
-    // 7. TEMPLATE EXCEL (.XLS), CSV, WORD (.DOC/.DOCX) & SMART PARSER SOAL
-    // =========================================================================
-    function downloadExcelTemplate(filename, sheetTitle, headers, rows, noteText = '') {
-      const htmlExcel = `
-        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
-        <head>
-          <meta charset="utf-8" />
-          <!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>
-            <x:Name>DataMaster</x:Name>
-            <x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>
-          </x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->
-          <style>
-            body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; }
-            table { border-collapse: collapse; width: 100%; }
-            th { background-color: #1D4ED8; color: #FFFFFF; font-weight: bold; border: 1px solid #1E3A8A; padding: 8px 12px; text-align: left; }
-            td { border: 1px solid #CBD5E1; padding: 6px 12px; mso-number-format: "\\@"; }
-            .title { font-size: 13pt; font-weight: bold; color: #1E3A8A; border: none; padding: 6px 0; }
-            .note { font-size: 9.5pt; color: #475569; font-style: italic; border: none; padding: 2px 0 10px 0; }
-          </style>
-        </head>
-        <body>
-          <table>
-            <tr><td class="title" colspan="${headers.length}">${esc(sheetTitle)}</td></tr>
-            ${noteText ? `<tr><td class="note" colspan="${headers.length}">${esc(noteText)}</td></tr>` : ''}
-            <tr>${headers.map(h => `<th>${esc(h)}</th>`).join('')}</tr>
-            ${rows.map(r => `<tr>${r.map(cell => `<td>${esc(cell)}</td>`).join('')}</tr>`).join('')}
-          </table>
-        </body>
-        </html>
+    function closeModal() {
+      const root = document.getElementById('modal-root');
+      if (root) root.innerHTML = '';
+    }
+
+    function openConfirmModal({ title, message, confirmLabel = 'Ya, Hapus', confirmClass = 'neu-btn-rose', onConfirm }) {
+      const root = document.getElementById('modal-root');
+      if (!root) return;
+      root.innerHTML = `
+        <div class="pointer-events-auto fixed inset-0 z-[2147483646] bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div class="neu-card-static w-full max-w-md rounded-3xl p-6 space-y-4">
+            <h3 class="text-base font-extrabold text-slate-800">${esc(title)}</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">${esc(message)}</p>
+            <div class="flex items-center justify-end gap-2.5 pt-2">
+              <button type="button" id="btn-modal-cancel" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold cursor-pointer">Batal</button>
+              <button type="button" id="btn-modal-confirm" class="${confirmClass} px-5 py-2.5 rounded-xl text-xs font-extrabold cursor-pointer">${esc(confirmLabel)}</button>
+            </div>
+          </div>
+        </div>
       `;
-      const blob = new Blob(['\uFEFF' + htmlExcel], { type: 'application/vnd.ms-excel;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-      showToast(`Template Excel "${filename}" berhasil diunduh!`, 'success');
-    }
-
-    function downloadCSV(filename, headers, rows) {
-      const sep = ';';
-      const escapeCell = (val) => {
-        const s = String(val ?? '');
-        return (s.includes(sep) || s.includes('"') || s.includes('\n')) ? `"${s.replace(/"/g, '""')}"` : s;
-      };
-      const lines = ['sep=;', headers.map(escapeCell).join(sep), ...rows.map(r => r.map(escapeCell).join(sep))];
-      const blob = new Blob(['\uFEFF' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-      showToast(`Template CSV "${filename}" berhasil diunduh.`, 'success');
-    }
-
-    function parseCSVLines(text) {
-      let clean = text.replace(/^\uFEFF/, '').trim();
-      if (!clean) return [];
-      const rawLines = clean.split(/\r?\n/).filter(l => l.trim() !== '');
-      if (rawLines.length > 0 && /^sep\s*=\s*[;,\t]$/i.test(rawLines[0].trim())) {
-        rawLines.shift();
-      }
-      if (rawLines.length === 0) return [];
-      const sampleLine = rawLines[0];
-      const semiCount = sampleLine.split(';').length;
-      const commaCount = sampleLine.split(',').length;
-      const tabCount = sampleLine.split('\t').length;
-      const sep = tabCount > semiCount && tabCount > commaCount ? '\t' : (semiCount >= commaCount ? ';' : ',');
-
-      return rawLines.map(line => {
-        const result = [];
-        let cur = '';
-        let inQuotes = false;
-        for (let i = 0; i < line.length; i++) {
-          const ch = line[i];
-          if (ch === '"') {
-            if (inQuotes && line[i + 1] === '"') {
-              cur += '"';
-              i++;
-            } else {
-              inQuotes = !inQuotes;
-            }
-          } else if (ch === sep && !inQuotes) {
-            result.push(cur.trim());
-            cur = '';
-          } else {
-            cur += ch;
-          }
-        }
-        result.push(cur.trim());
-        return result;
+      document.getElementById('btn-modal-cancel')?.addEventListener('click', closeModal);
+      document.getElementById('btn-modal-confirm')?.addEventListener('click', async () => {
+        closeModal();
+        if (typeof onConfirm === 'function') await onConfirm();
       });
     }
 
-    async function parseXlsxBuffer(buffer) {
-      if (!window.JSZip) throw new Error('Pustaka pembaca .xlsx belum siap. Gunakan format .xls atau .csv.');
-      const zip = await window.JSZip.loadAsync(buffer);
-      const sharedStrings = [];
-      const ssFile = zip.file('xl/sharedStrings.xml');
-      if (ssFile) {
-        const ssXml = await ssFile.async('string');
-        const ssDoc = new DOMParser().parseFromString(ssXml, 'application/xml');
-        Array.from(ssDoc.getElementsByTagName('si')).forEach(si => {
-          sharedStrings.push(Array.from(si.getElementsByTagName('t')).map(t => t.textContent || '').join(''));
-        });
-      }
-      const sheetFile = zip.file('xl/worksheets/sheet1.xml');
-      if (!sheetFile) throw new Error('Sheet pertama tidak ditemukan dalam berkas .xlsx.');
-      const sheetXml = await sheetFile.async('string');
-      const sheetDoc = new DOMParser().parseFromString(sheetXml, 'application/xml');
-      const colLettersToIdx = (ref) => {
-        const letters = (ref || '').replace(/[0-9]/g, '').toUpperCase();
-        let idx = 0;
-        for (let i = 0; i < letters.length; i++) idx = idx * 26 + (letters.charCodeAt(i) - 64);
-        return Math.max(0, idx - 1);
-      };
-      return Array.from(sheetDoc.getElementsByTagName('row')).map(rNode => {
-        const rowArr = [];
-        Array.from(rNode.getElementsByTagName('c')).forEach(cNode => {
-          const ref = cNode.getAttribute('r') || '';
-          const colIdx = ref ? colLettersToIdx(ref) : rowArr.length;
-          const type = cNode.getAttribute('t');
-          let val = '';
-          if (type === 'inlineStr') {
-            val = Array.from(cNode.getElementsByTagName('t')).map(t => t.textContent || '').join('');
-          } else {
-            const vNode = cNode.getElementsByTagName('v')[0];
-            const rawVal = vNode ? (vNode.textContent || '') : '';
-            val = type === 's' ? (sharedStrings[Number(rawVal)] ?? '') : rawVal;
-          }
-          rowArr[colIdx] = String(val).trim();
-        });
-        return rowArr;
-      }).filter(r => r.some(cell => cell && cell.trim() !== ''));
+    // =========================================================================
+    // 4. UTILITAS SPREADSHEET (.XLSX / .XLS / .CSV) & SMART WORD SOAL IMPORTER
+    // =========================================================================
+    function parseCSVLines(rawText) {
+      const clean = String(rawText || '').replace(/^\uFEFF/, '').trim();
+      if (!clean) return [];
+      const lines = clean.split(/\r?\n/).filter(l => l.trim() && !/^sep\s*=/i.test(l.trim()));
+      return lines.map(line => {
+        const delim = line.includes('\t') ? '\t' : (line.includes(';') ? ';' : ',');
+        return line.split(delim).map(cell => cell.replace(/^"(.*)"$/, '$1').trim());
+      });
     }
 
     async function parseSpreadsheetFile(file) {
-      const buffer = await file.arrayBuffer();
-      const bytes = new Uint8Array(buffer);
-      const lowerName = file.name.toLowerCase();
+      const name = (file.name || '').toLowerCase();
+      if (name.endsWith('.xlsx') && window.JSZip) {
+        const zip = await window.JSZip.loadAsync(file);
+        const sharedStrings = [];
+        const ssFile = zip.file('xl/sharedStrings.xml');
+        if (ssFile) {
+          const ssXml = await ssFile.async('string');
+          const doc = new DOMParser().parseFromString(ssXml, 'application/xml');
+          doc.querySelectorAll('si').forEach(si => {
+            sharedStrings.push(Array.from(si.querySelectorAll('t')).map(t => t.textContent).join(''));
+          });
+        }
+        const sheetFile = zip.file('xl/worksheets/sheet1.xml');
+        if (!sheetFile) throw new Error('Sheet pertama tidak ditemukan di berkas .xlsx.');
+        const sheetXml = await sheetFile.async('string');
+        const sheetDoc = new DOMParser().parseFromString(sheetXml, 'application/xml');
+        const rows = [];
+        sheetDoc.querySelectorAll('row').forEach(rowEl => {
+          const rowVals = [];
+          rowEl.querySelectorAll('c').forEach(cEl => {
+            const type = cEl.getAttribute('t');
+            const vEl = cEl.querySelector('v');
+            const isEl = cEl.querySelector('is t');
+            let val = '';
+            if (type === 's' && vEl) val = sharedStrings[Number(vEl.textContent)] || '';
+            else if (isEl) val = isEl.textContent || '';
+            else if (vEl) val = vEl.textContent || '';
+            rowVals.push(val.trim());
+          });
+          if (rowVals.some(Boolean)) rows.push(rowVals);
+        });
+        return rows;
+      }
 
-      if ((bytes.length >= 4 && bytes[0] === 0x50 && bytes[1] === 0x4B) || lowerName.endsWith('.xlsx')) {
-        return await parseXlsxBuffer(buffer);
-      }
-      if (bytes.length >= 4 && bytes[0] === 0xD0 && bytes[1] === 0xCF && bytes[2] === 0x11 && bytes[3] === 0xE0) {
-        throw new Error('Berkas Excel biner lama (.xls 97-2003) terdeteksi. Simpan ulang sebagai .xlsx atau .csv, atau gunakan "Paste dari Excel".');
-      }
-      const text = new TextDecoder('utf-8').decode(buffer);
+      const text = await file.text();
       if (text.includes('<table') || text.includes('<tr')) {
         const doc = new DOMParser().parseFromString(text, 'text/html');
-        return Array.from(doc.querySelectorAll('tr')).map(tr =>
-          Array.from(tr.querySelectorAll('th, td')).map(td => td.textContent.trim())
-        ).filter(r => r.some(c => c !== ''));
+        const rows = [];
+        doc.querySelectorAll('tr').forEach(tr => {
+          const cells = Array.from(tr.querySelectorAll('th, td')).map(td => td.textContent.trim());
+          if (cells.some(Boolean)) rows.push(cells);
+        });
+        return rows;
       }
       return parseCSVLines(text);
     }
 
-    // Parser Cerdas Soal Teks Alami (Bisa Copy-Paste langsung dari Word/PDF/Notepad)
-    function parseSmartQuestions(rawText) {
-      const clean = String(rawText || '').replace(/\r/g, '').trim();
-      if (!clean) return [];
+    function downloadExcelTemplate(filename, title, headers, rows, note = '') {
+      const html = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel">
+        <head><meta charset="utf-8" /></head>
+        <body>
+          <table border="1" style="border-collapse:collapse;font-family:Arial,sans-serif;">
+            <tr><th colspan="${headers.length}" style="background:#1e40af;color:#fff;padding:8px;">${esc(title)}</th></tr>
+            ${note ? `<tr><td colspan="${headers.length}" style="background:#eff6ff;color:#1e3a8a;padding:6px;font-size:11px;">${esc(note)}</td></tr>` : ''}
+            <tr>${headers.map(h => `<th style="background:#dbeafe;padding:6px;">${esc(h)}</th>`).join('')}</tr>
+            ${rows.map(r => `<tr>${r.map(c => `<td style="padding:5px;">${esc(c)}</td>`).join('')}</tr>`).join('')}
+          </table>
+        </body>
+        </html>
+      `;
+      const blob = new Blob(['\uFEFF' + html], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showToast(`Template "${filename}" berhasil diunduh!`, 'success');
+    }
 
-      // Pisahkan berdasarkan awal nomor soal: "1." atau "1)" di awal baris
-      const blocks = clean.split(/\n(?=\s*\d+[\.\)]\s+)/).map(b => b.trim()).filter(Boolean);
+    function downloadCSV(filename, headers, rows) {
+      const content = 'sep=;\n' + [headers.join(';'), ...rows.map(r => r.join(';'))].join('\n');
+      const blob = new Blob(['\uFEFF' + content], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showToast(`Template CSV "${filename}" berhasil diunduh!`, 'success');
+    }
+
+    function parseSmartQuestions(rawText) {
+      const text = String(rawText || '').trim();
+      if (!text) return [];
+      const blocks = text.split(/\n(?=\s*\d+[\.\)]\s+)/g).map(b => b.trim()).filter(Boolean);
       const results = [];
 
-      blocks.forEach((block, idx) => {
-        const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
+      blocks.forEach((blk, idx) => {
+        const lines = blk.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
         if (lines.length === 0) return;
 
-        // Hapus nomor soal di depan baris pertama
-        let firstLine = lines[0].replace(/^\d+[\.\)]\s*/, '').trim();
+        let firstLine = lines[0].replace(/^\d+[\.\)]\s*/, '');
         let tipe = 'PG';
-
-        // Cek tag tipe eksplisit seperti [PG_KOMPLEKS], [BS], [BS_MULTI], [MENJODOHKAN], [ISIAN], [ESAI], [MULTIMEDIA]
-        const tagMatch = firstLine.match(/^\[(PG|PG_KOMPLEKS|BS|BS_MULTI|MENJODOHKAN|ISIAN|ESAI|MULTIMEDIA)\]\s*/i);
+        const tagMatch = firstLine.match(/^\[(PG_KOMPLEKS|PGK|BS_MULTI|BS|MENJODOHKAN|ISIAN|ESAI|MULTIMEDIA|PG)\]\s*/i);
         if (tagMatch) {
-          tipe = tagMatch[1].toUpperCase();
-          firstLine = firstLine.replace(tagMatch[0], '').trim();
+          const rawTag = tagMatch[1].toUpperCase();
+          tipe = rawTag === 'PGK' ? 'PG_KOMPLEKS' : rawTag;
+          firstLine = firstLine.slice(tagMatch[0].length).trim();
         }
 
         const qLines = [firstLine];
-        const opsi = { A: '', B: '', C: '', D: '', E: '' };
-        const pernyataanMulti = [];
-        const pasangan = [];
+        const opsi = {};
         let mediaUrl = '';
         let kunciRaw = '';
         let bobot = 10;
 
         for (let i = 1; i < lines.length; i++) {
           const line = lines[i];
-
-          // Deteksi KUNCI: ...
-          const kMatch = line.match(/^(?:KUNCI|JAWABAN|KEY)\s*[:=]\s*(.+)$/i);
-          if (kMatch) {
-            kunciRaw = kMatch[1].trim();
-            continue;
-          }
-
-          // Deteksi BOBOT: ...
-          const bMatch = line.match(/^(?:BOBOT|SKOR)\s*[:=]\s*(\d+)/i);
-          if (bMatch) {
-            bobot = Number(bMatch[1]) || 10;
-            continue;
-          }
-
-          // Deteksi GAMBAR / MEDIA: ...
-          const mMatch = line.match(/^(?:GAMBAR|MEDIA|LINK|URL)\s*[:=]\s*(https?:\/\/\S+)/i);
-          if (mMatch) {
-            mediaUrl = mMatch[1].trim();
-            continue;
-          }
-
-          // Deteksi Opsi A. / B. / C. / D. / E.
           const optMatch = line.match(/^([A-E])[\.\)]\s*(.+)$/i);
           if (optMatch) {
-            const letter = optMatch[1].toUpperCase();
-            opsi[letter] = optMatch[2].trim();
-            continue;
-          }
-
-          // Deteksi pasangan menjodohkan (Kiri => Kanan atau Kiri = Kanan)
-          if (tipe === 'MENJODOHKAN' && (line.includes('=>') || line.includes('->') || line.includes('='))) {
-            const parts = line.split(/=>|->|=/);
-            if (parts.length >= 2) {
-              pasangan.push({ kiri: parts[0].replace(/^[-•*]\s*/, '').trim(), kanan: parts[1].trim() });
-              continue;
-            }
-          }
-
-          // Deteksi pernyataan BS_MULTI (- Pernyataan 1)
-          if (tipe === 'BS_MULTI' && /^[-•*]\s+/.test(line)) {
-            pernyataanMulti.push(line.replace(/^[-•*]\s+/, '').trim());
-            continue;
-          }
-
-          // Jika belum masuk opsi atau kunci, gabungkan ke teks pertanyaan
-          if (!opsi.A && !kunciRaw) {
+            opsi[optMatch[1].toUpperCase()] = optMatch[2].trim();
+          } else if (/^(GAMBAR|MEDIA|IMAGE)\s*:\s*/i.test(line)) {
+            mediaUrl = line.replace(/^(GAMBAR|MEDIA|IMAGE)\s*:\s*/i, '').trim();
+          } else if (/^(KUNCI|JAWABAN)\s*:\s*/i.test(line)) {
+            kunciRaw = line.replace(/^(KUNCI|JAWABAN)\s*:\s*/i, '').trim();
+          } else if (/^BOBOT\s*:\s*/i.test(line)) {
+            bobot = Number(line.replace(/^BOBOT\s*:\s*/i, '').trim()) || 10;
+          } else {
             qLines.push(line);
           }
         }
@@ -1041,105 +812,142 @@
         const pertanyaan = qLines.join('\n').trim();
         if (!pertanyaan) return;
 
-        // Auto-deteksi tipe soal jika tidak diberi tag
-        if (!tagMatch) {
-          if (mediaUrl && !opsi.A && !opsi.B) {
-            tipe = 'MULTIMEDIA';
-          } else if (!opsi.A && !opsi.B) {
-            if (/^(benar|salah)$/i.test(kunciRaw)) {
-              tipe = 'BS';
-              opsi.A = 'Benar';
-              opsi.B = 'Salah';
-            } else if (kunciRaw && kunciRaw.length <= 40) {
-              tipe = 'ISIAN';
-            } else {
-              tipe = 'ESAI';
-            }
-          } else if (kunciRaw.includes(',') && /^[A-E,\s]+$/i.test(kunciRaw)) {
-            tipe = 'PG_KOMPLEKS';
-          }
+        const hasOptions = Object.keys(opsi).length > 0;
+        if (!tagMatch && !hasOptions) {
+          tipe = /^(benar|salah)$/i.test(kunciRaw) ? 'BS' : 'ISIAN';
         }
 
-        // Normalisasi kunci jawaban sesuai tipe
-        let kunci = kunciRaw;
-        if (tipe === 'PG') {
-          kunci = (kunciRaw.replace(/[^A-E]/gi, '')[0] || 'A').toUpperCase();
-        } else if (tipe === 'PG_KOMPLEKS') {
-          kunci = kunciRaw.toUpperCase().split(/[,;\s]+/).filter(x => ['A', 'B', 'C', 'D', 'E'].includes(x));
-          if (kunci.length === 0) kunci = ['A'];
-        } else if (tipe === 'BS') {
-          opsi.A = 'Benar';
-          opsi.B = 'Salah';
-          kunci = /^s/i.test(kunciRaw) ? 'Salah' : 'Benar';
-        } else if (tipe === 'BS_MULTI') {
-          kunci = kunciRaw.split(/[,;]+/).map(s => /^s/i.test(s.trim()) ? 'Salah' : 'Benar');
-        } else if (tipe === 'MENJODOHKAN') {
-          const mapObj = {};
-          pasangan.forEach(p => { mapObj[p.kiri] = p.kanan; });
-          kunci = mapObj;
-        }
-
-        results.push({
+        const item = {
           id: 'q_imp_' + Date.now() + '_' + idx,
           tipe,
           pertanyaan,
           mediaUrl,
-          opsi,
-          pernyataanMulti,
-          pasangan,
-          bobot,
-          kunci
-        });
+          bobot
+        };
+
+        if (tipe === 'PG' || tipe === 'MULTIMEDIA') {
+          item.opsi = opsi;
+          item.kunci = (kunciRaw || 'A').toUpperCase().charAt(0);
+        } else if (tipe === 'PG_KOMPLEKS') {
+          item.opsi = opsi;
+          item.kunci = kunciRaw ? kunciRaw.split(/[,;\s]+/).map(x => x.trim().toUpperCase()).filter(Boolean) : ['A'];
+        } else if (tipe === 'BS') {
+          item.opsi = { A: 'Benar', B: 'Salah' };
+          item.kunci = /salah/i.test(kunciRaw) ? 'Salah' : 'Benar';
+        } else if (tipe === 'BS_MULTI') {
+          item.pernyataanMulti = qLines.slice(1).length ? qLines.slice(1) : [pertanyaan];
+          item.kunci = kunciRaw ? kunciRaw.split(/[,;]+/).map(x => (/salah/i.test(x) ? 'Salah' : 'Benar')) : ['Benar'];
+        } else if (tipe === 'MENJODOHKAN') {
+          const pairs = [];
+          const mapObj = {};
+          kunciRaw.split(/[;|]+/).forEach(pair => {
+            const parts = pair.split(/->|=>|=|:/);
+            if (parts.length >= 2) {
+              const k = parts[0].trim();
+              const v = parts[1].trim();
+              pairs.push({ kiri: k, kanan: v });
+              mapObj[k] = v;
+            }
+          });
+          item.pasangan = pairs.length ? pairs : [{ kiri: 'Item 1', kanan: 'Pasangan 1' }];
+          item.kunci = mapObj;
+        } else {
+          item.kunci = kunciRaw || '-';
+        }
+
+        results.push(item);
       });
 
       return results;
     }
 
-    function exportSoalToWord(paket) {
-      if (!paket) return;
-      const kunciMap = state.bankSoalKunci[paket.id] || {};
-      const htmlDoc = `
-        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
-        <head>
-          <meta charset="utf-8" />
-          <style>
-            body { font-family: 'Times New Roman', serif; font-size: 12pt; line-height: 1.5; }
-            h2 { text-align: center; margin-bottom: 4px; }
-            .meta { text-align: center; font-size: 10pt; color: #333; margin-bottom: 16px; border-bottom: 2px solid #000; padding-bottom: 8px; }
-            .q-box { margin-bottom: 14px; }
-            .kunci { color: #047857; font-weight: bold; font-size: 10.5pt; }
-          </style>
-        </head>
-        <body>
-          <h2>${esc(paket.judul)}</h2>
-          <div class="meta">
-            ${esc(state.madrasah.nama)} | NPSN: ${esc(state.madrasah.npsn)} | NSM: ${esc(state.madrasah.nsm)}<br/>
-            Kode Paket: ${esc(paket.kodePaket)} | Mapel: ${esc(paket.mapelKode)} | Penyusun: ${esc(paket.pembuat)}
-          </div>
-          ${paket.soalList.map((q, i) => {
-            const k = kunciMap[q.id];
-            const kStr = Array.isArray(k) ? k.join(', ') : (typeof k === 'object' && k !== null ? Object.entries(k).map(([a, b]) => `${a} => ${b}`).join('; ') : (k || '-'));
-            return `
-              <div class="q-box">
-                <div><strong>${i + 1}. [${esc(q.tipe)}]</strong> ${esc(q.pertanyaan)}</div>
-                ${q.mediaUrl ? `<div>GAMBAR: ${esc(q.mediaUrl)}</div>` : ''}
-                ${['PG', 'PG_KOMPLEKS'].includes(q.tipe) ? `
-                  <div>A. ${esc(q.opsi?.A || '')}</div>
-                  <div>B. ${esc(q.opsi?.B || '')}</div>
-                  <div>C. ${esc(q.opsi?.C || '')}</div>
-                  <div>D. ${esc(q.opsi?.D || '')}</div>
-                  ${q.opsi?.E ? `<div>E. ${esc(q.opsi.E)}</div>` : ''}
-                ` : ''}
-                ${q.tipe === 'BS_MULTI' && Array.isArray(q.pernyataanMulti) ? q.pernyataanMulti.map(p => `<div>- ${esc(p)}</div>`).join('') : ''}
-                ${q.tipe === 'MENJODOHKAN' && Array.isArray(q.pasangan) ? q.pasangan.map(p => `<div>${esc(p.kiri)} => ${esc(p.kanan)}</div>`).join('') : ''}
-                <div class="kunci">KUNCI: ${esc(kStr)}</div>
-              </div>
-            `;
-          }).join('')}
+    async function extractTextFromWordOrDocFile(file) {
+      const name = (file.name || '').toLowerCase();
+      if (name.endsWith('.docx')) {
+        if (!window.JSZip) throw new Error('Library pembaca .docx belum siap.');
+        const zip = await window.JSZip.loadAsync(file);
+        const xmlFile = zip.file('word/document.xml');
+        if (!xmlFile) throw new Error('Isi dokumen .docx tidak ditemukan.');
+        const xmlStr = await xmlFile.async('string');
+        const doc = new DOMParser().parseFromString(xmlStr, 'application/xml');
+        const paragraphs = Array.from(doc.querySelectorAll('p')).map(p =>
+          Array.from(p.querySelectorAll('t')).map(t => t.textContent).join('')
+        ).filter(Boolean);
+        return paragraphs.join('\n');
+      }
+
+      const raw = await file.text();
+      if (raw.includes('<html') || raw.includes('<body') || raw.includes('<p')) {
+        const doc = new DOMParser().parseFromString(raw, 'text/html');
+        return doc.body?.innerText || doc.body?.textContent || '';
+      }
+      return raw;
+    }
+
+    function downloadTemplateSoalWord() {
+      const htmlWord = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word">
+        <head><meta charset="utf-8" /></head>
+        <body style="font-family:Calibri,Arial,sans-serif;font-size:11pt;line-height:1.5;">
+          <h3>TEMPLATE NASKAH SOAL CBT MADRASAH (MUDAH COPY-PASTE &amp; UPLOAD)</h3>
+          <p><i>Petunjuk: Tulis soal bernomor seperti contoh di bawah, lalu unggah file ini atau copy-paste langsung ke menu Bank Soal.</i></p>
+          <hr/>
+          <p>1. Ibukota Negara Kesatuan Republik Indonesia yang baru bernama ....<br/>
+          A. Nusantara<br/>
+          B. Bandung<br/>
+          C. Surabaya<br/>
+          D. Medan<br/>
+          KUNCI: A</p>
+
+          <p>2. [PG_KOMPLEKS] Manakah yang termasuk rukun Islam? (Pilih lebih dari satu)<br/>
+          A. Membaca Syahadat<br/>
+          B. Mendirikan Salat<br/>
+          C. Membaca Buku<br/>
+          D. Menunaikan Zakat<br/>
+          KUNCI: A, B, D</p>
+
+          <p>3. [BS] Salat Subuh berjumlah 2 rakaat.<br/>
+          KUNCI: Benar</p>
+
+          <p>4. [ISIAN] Nabi terakhir yang diutus Allah SWT adalah Nabi ....<br/>
+          KUNCI: Muhammad</p>
         </body>
         </html>
       `;
-      const blob = new Blob(['\uFEFF' + htmlDoc], { type: 'application/msword;charset=utf-8;' });
+      const blob = new Blob(['\uFEFF' + htmlWord], { type: 'application/msword;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Template_Soal_CBT_Mudah.doc';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showToast('Template Word berhasil diunduh!', 'success');
+    }
+
+    function exportSoalToWord(paket) {
+      if (!paket) return;
+      const kunciMap = state.bankSoalKunci[paket.id] || {};
+      const bodyRows = (paket.soalList || []).map((q, i) => {
+        const opts = q.opsi ? Object.entries(q.opsi).filter(([, v]) => v).map(([k, v]) => `<div>${esc(k)}. ${esc(v)}</div>`).join('') : '';
+        const k = kunciMap[q.id];
+        const kStr = Array.isArray(k) ? k.join(', ') : (typeof k === 'object' && k ? JSON.stringify(k) : (k || '-'));
+        return `<p><strong>${i + 1}. [${esc(q.tipe)}] ${esc(q.pertanyaan)}</strong>${opts}<div><em>KUNCI: ${esc(kStr)}</em></div></p>`;
+      }).join('');
+
+      const htmlWord = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word">
+        <head><meta charset="utf-8" /></head>
+        <body style="font-family:Calibri,Arial,sans-serif;font-size:11pt;">
+          <h2>${esc(paket.judul)} (${esc(paket.kodePaket)})</h2>
+          <p>Mata Pelajaran: ${esc(paket.mapelKode)} | Lembaga: ${esc(state.madrasah.nama)}</p>
+          <hr/>
+          ${bodyRows}
+        </body>
+        </html>
+      `;
+      const blob = new Blob(['\uFEFF' + htmlWord], { type: 'application/msword;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -1148,103 +956,69 @@
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-      showToast('File Word Bank Soal berhasil diunduh!', 'success');
-    }
-
-    function downloadTemplateSoalWord() {
-      const sampleText = `1. Hasil dari (-15) + 28 - (-4) adalah ....
-A. 9
-B. 17
-C. -17
-D. 47
-KUNCI: B
-
-2. [PG_KOMPLEKS] Pilihlah DUA bilangan yang merupakan faktor dari 24!
-A. 5
-B. 6
-C. 8
-D. 9
-KUNCI: B, C
-
-3. [BS] Bilangan prima genap satu-satunya adalah 2.
-KUNCI: Benar
-
-4. [BS_MULTI] Tentukan Benar atau Salah untuk pernyataan berikut:
-- Hasil dari 3 x 7 adalah 21
-- Sudut siku-siku besarnya 180 derajat
-- Luas persegi dengan sisi 5 cm adalah 25 cm2
-KUNCI: Benar, Salah, Benar
-
-5. [MENJODOHKAN] Pasangkan rumus bangun datar berikut:
-Luas Persegi => s x s
-Keliling Persegi => 4 x s
-Luas Segitiga => 1/2 x a x t
-KUNCI: s x s; 4 x s; 1/2 x a x t
-
-6. [ISIAN] Ibu kota negara Indonesia adalah ....
-KUNCI: Jakarta
-
-7. [ESAI] Jelaskan perbedaan antara rukun Islam dan rukun Iman!
-KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6 pokok keyakinan hati.`;
-
-      const htmlDoc = `
-        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
-        <head><meta charset="utf-8" /><style>body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; line-height: 1.5; } pre { font-family: Calibri, Arial, sans-serif; white-space: pre-wrap; }</style></head>
-        <body>
-          <h3>TEMPLATE SOAL CBT MADRASAH (MUDAH DIEDIT &amp; COPY-PASTE)</h3>
-          <p><em>Petunjuk: Cukup tulis nomor soal, pilihan A-E, dan baris KUNCI:. Anda juga dapat menyalin isi file ini lalu menempelkannya ke fitur "Copy-Paste Soal Langsung".</em></p>
-          <hr/>
-          <pre>${esc(sampleText)}</pre>
-        </body>
-        </html>
-      `;
-      const blob = new Blob(['\uFEFF' + htmlDoc], { type: 'application/msword;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'Template_Soal_CBT_Madrasah.doc';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-      showToast('Template Soal Word berhasil diunduh!', 'success');
-    }
-
-    async function extractTextFromWordOrDocFile(file) {
-      const buffer = await file.arrayBuffer();
-      const bytes = new Uint8Array(buffer);
-      const lower = file.name.toLowerCase();
-
-      // Format .docx modern (ZIP XML)
-      if ((bytes.length >= 4 && bytes[0] === 0x50 && bytes[1] === 0x4B) || lower.endsWith('.docx')) {
-        if (!window.JSZip) throw new Error('Pustaka pembaca .docx belum siap.');
-        const zip = await window.JSZip.loadAsync(buffer);
-        const docXmlFile = zip.file('word/document.xml');
-        if (!docXmlFile) throw new Error('Isi dokumen .docx tidak ditemukan.');
-        const xmlStr = await docXmlFile.async('string');
-        const xmlDoc = new DOMParser().parseFromString(xmlStr, 'application/xml');
-        const paragraphs = Array.from(xmlDoc.getElementsByTagName('w:p'));
-        return paragraphs.map(p =>
-          Array.from(p.getElementsByTagName('w:t')).map(t => t.textContent || '').join('')
-        ).join('\n');
-      }
-
-      // Format .doc biner lama (OLE2)
-      if (bytes.length >= 4 && bytes[0] === 0xD0 && bytes[1] === 0xCF && bytes[2] === 0x11 && bytes[3] === 0xE0) {
-        throw new Error('Berkas .doc biner lama terdeteksi. Simpan ulang di Word sebagai .docx atau gunakan tombol "Copy-Paste Soal Langsung".');
-      }
-
-      // Format HTML .doc / .txt
-      const text = new TextDecoder('utf-8').decode(buffer);
-      if (text.includes('<html') || text.includes('<body') || text.includes('<p') || text.includes('<div')) {
-        const htmlDoc = new DOMParser().parseFromString(text, 'text/html');
-        return htmlDoc.body?.innerText || htmlDoc.body?.textContent || '';
-      }
-      return text;
+      showToast('Paket soal berhasil diekspor ke Word (.doc)!', 'success');
     }
 
     // =========================================================================
-    // 8. PORTAL LOGIN 3D NEUMORPHIC (BERSIH TANPA CONTOH USER & ANTI-AUTOFILL)
+    // 5. INISIALISASI BACKEND (MODE PREVIEW PERSISTEN & MODE PRODUKSI FIREBASE)
+    // =========================================================================
+    async function initBackend() {
+      if (IS_PREVIEW || !firebaseConfig.apiKey) {
+        restorePreviewSnapshot();
+        renderApp();
+        return;
+      }
+
+      try {
+        const appMod = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
+        const authMod = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
+        const fsMod = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
+
+        const app = appMod.initializeApp(firebaseConfig);
+        fbAuth = authMod.getAuth(app);
+        fbDb = fsMod.getFirestore(app);
+        fbMod = { ...authMod, ...fsMod };
+
+        try {
+          if (!fbAuth.currentUser) {
+            await authMod.signInAnonymously(fbAuth);
+          }
+        } catch (authErr) {
+          // Tangani auth/admin-restricted-operation dengan aman agar layar Login tetap tampil
+          console.warn('Info Firebase Anonymous Auth:', authErr?.code || authErr);
+        }
+
+        const bindCollection = (colName, stateKey) => {
+          fsMod.onSnapshot(fsMod.collection(fbDb, colName), (snap) => {
+            state[stateKey] = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            renderApp();
+          }, () => {});
+        };
+
+        fsMod.onSnapshot(fsMod.doc(fbDb, 'madrasah_settings', 'profile'), (snap) => {
+          if (snap.exists()) {
+            state.madrasah = { ...state.madrasah, ...snap.data() };
+            renderApp();
+          }
+        }, () => {});
+
+        bindCollection('mapels', 'mapels');
+        bindCollection('rombels', 'rombels');
+        bindCollection('sesi', 'sesiList');
+        bindCollection('users', 'users');
+        bindCollection('bank_soal', 'bankSoal');
+        bindCollection('jadwal_ujian', 'jadwalUjian');
+        bindCollection('jadwal_pengawas', 'jadwalPengawas');
+        bindCollection('exam_records', 'examRecords');
+      } catch (err) {
+        console.warn('Fallback ke mode lokal:', err);
+        restorePreviewSnapshot();
+        renderApp();
+      }
+    }
+
+    // =========================================================================
+    // 6. PORTAL LOGIN CLEAN SOFT-PASTEL UI (TANPA TOKEN DI LOGIN SISWA)
     // =========================================================================
     function renderLoginView() {
       const tab = state.loginRoleTab || 'admin';
@@ -1256,70 +1030,70 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
       ];
 
       return `
-        <div class="w-full h-full overflow-y-auto flex items-center justify-center p-3 sm:p-6">
-          <div class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 neu-shell rounded-3xl overflow-hidden border border-white">
-            <!-- Panel Kiri: Branding Lembaga Tersinkron Otomatis -->
-            <div class="lg:col-span-5 neu-sidebar text-white p-6 sm:p-9 flex flex-col justify-between relative overflow-hidden">
-              <div class="relative z-10 space-y-5">
+        <div class="w-full h-full overflow-y-auto flex items-center justify-center p-3 sm:p-6 bg-[#f4f7fb]">
+          <div class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 neu-shell rounded-3xl overflow-hidden">
+            <!-- Panel Kiri: Branding Lembaga Clean White & Soft Pastel -->
+            <div class="lg:col-span-5 bg-gradient-to-b from-[#f2f7ff] via-[#f7faff] to-white border-b lg:border-b-0 lg:border-r border-slate-100 p-6 sm:p-9 flex flex-col justify-between">
+              <div class="space-y-6">
                 <div class="flex items-center gap-3.5">
-                  <div class="w-14 h-14 rounded-2xl bg-white p-1.5 shadow-lg flex items-center justify-center shrink-0">
+                  <div class="w-14 h-14 rounded-2xl bg-white p-1.5 border border-blue-100 shadow-2xs flex items-center justify-center shrink-0">
                     <img src="${esc(state.madrasah.logoUrl || DEFAULT_LOGO_SVG)}" onerror="this.src='${DEFAULT_LOGO_SVG}'" alt="Logo Lembaga" class="w-full h-full object-contain rounded-xl" />
                   </div>
                   <div>
-                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-white/20 text-[10px] font-extrabold tracking-wider uppercase">CBT Madrasah Pro</span>
-                    <h1 class="text-base sm:text-lg font-extrabold leading-tight mt-0.5">${esc(state.madrasah.nama)}</h1>
+                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-blue-100/80 text-blue-700 text-[10px] font-extrabold tracking-wider uppercase">CBT Madrasah Pro</span>
+                    <h1 class="text-base sm:text-lg font-extrabold text-slate-800 leading-tight mt-0.5">${esc(state.madrasah.nama)}</h1>
                   </div>
                 </div>
 
-                <div class="p-4 rounded-2xl bg-white/15 backdrop-blur-md border border-white/25 space-y-1.5 text-xs">
+                <div class="p-4 rounded-2xl bg-white border border-slate-100 shadow-2xs space-y-2 text-xs">
                   <div class="flex justify-between">
-                    <span class="text-blue-100">NPSN Lembaga</span>
-                    <span class="font-mono font-extrabold">${esc(state.madrasah.npsn)}</span>
+                    <span class="text-slate-400 font-medium">NPSN Lembaga</span>
+                    <span class="font-mono font-extrabold text-slate-700">${esc(state.madrasah.npsn)}</span>
                   </div>
                   <div class="flex justify-between">
-                    <span class="text-blue-100">NSM Madrasah</span>
-                    <span class="font-mono font-extrabold">${esc(state.madrasah.nsm)}</span>
+                    <span class="text-slate-400 font-medium">NSM Madrasah</span>
+                    <span class="font-mono font-extrabold text-slate-700">${esc(state.madrasah.nsm)}</span>
                   </div>
                   <div class="flex justify-between">
-                    <span class="text-blue-100">Tahun Pelajaran</span>
-                    <span class="font-bold">${esc(state.madrasah.tahunPelajaran)} (${esc(state.madrasah.semester)})</span>
+                    <span class="text-slate-400 font-medium">Tahun Pelajaran</span>
+                    <span class="font-bold text-blue-600">${esc(state.madrasah.tahunPelajaran)} (${esc(state.madrasah.semester)})</span>
                   </div>
                 </div>
 
-                <div class="space-y-2.5 pt-2">
-                  <div class="flex items-center gap-2.5 text-xs text-blue-50">
-                    <span class="w-7 h-7 rounded-xl bg-white/20 flex items-center justify-center">🔒</span>
+                <div class="space-y-2.5 pt-1">
+                  <div class="flex items-center gap-3 text-xs text-slate-600 font-medium">
+                    <span class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">🔒</span>
                     <span>Perisai Anti-Curang &amp; Fullscreen Otomatis</span>
                   </div>
-                  <div class="flex items-center gap-2.5 text-xs text-blue-50">
-                    <span class="w-7 h-7 rounded-xl bg-white/20 flex items-center justify-center">📝</span>
+                  <div class="flex items-center gap-3 text-xs text-slate-600 font-medium">
+                    <span class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">📝</span>
                     <span>Mendukung 8 Format Soal AKM &amp; Multimedia</span>
                   </div>
-                  <div class="flex items-center gap-2.5 text-xs text-blue-50">
-                    <span class="w-7 h-7 rounded-xl bg-white/20 flex items-center justify-center">📄</span>
+                  <div class="flex items-center gap-3 text-xs text-slate-600 font-medium">
+                    <span class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">📄</span>
                     <span>Berita Acara &amp; Daftar Hadir A4 / F4 Otomatis</span>
                   </div>
                 </div>
               </div>
 
-              <div class="relative z-10 pt-6 mt-6 border-t border-white/20 text-[11px] text-blue-100">
+              <div class="pt-6 mt-6 border-t border-slate-100 text-[11px] text-slate-400">
                 ${esc(state.madrasah.alamat)}
               </div>
             </div>
 
             <!-- Panel Kanan: Form Login Bersih (Anti-Autofill) -->
-            <div class="lg:col-span-7 p-6 sm:p-10 bg-white/95 flex flex-col justify-center">
+            <div class="lg:col-span-7 p-6 sm:p-10 bg-white flex flex-col justify-center">
               <div class="max-w-md mx-auto w-full space-y-6">
                 <div>
                   <h2 class="text-xl sm:text-2xl font-extrabold text-slate-800">Selamat Datang</h2>
-                  <p class="text-xs text-slate-500 mt-1">Pilih peran akses Anda dan masukkan kredensial untuk melanjutkan.</p>
+                  <p class="text-xs text-slate-400 mt-1">Pilih peran akses Anda dan masukkan kredensial untuk melanjutkan.</p>
                 </div>
 
                 <!-- Tab Peran Pengguna -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 rounded-2xl bg-blue-50/80 border border-blue-100">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 rounded-2xl bg-[#f4f7fb] border border-slate-100">
                   ${roles.map(r => `
                     <button type="button" data-login-role="${r.id}"
-                      class="py-2.5 px-2 rounded-xl text-xs font-extrabold transition cursor-pointer flex flex-col items-center gap-1 ${tab === r.id ? 'neu-btn-blue shadow-md' : 'text-slate-600 hover:bg-white/70'}">
+                      class="py-2.5 px-2 rounded-xl text-xs font-extrabold transition cursor-pointer flex flex-col items-center gap-1 ${tab === r.id ? 'bg-[#e8f1ff] text-blue-600 shadow-2xs' : 'text-slate-500 hover:bg-white'}">
                       <span>${r.icon}</span>
                       <span>${r.label}</span>
                     </button>
@@ -1328,7 +1102,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
 
                 <!-- Form Login dengan Proteksi Anti-Autofill Browser -->
                 <form id="form-login" autocomplete="off" class="space-y-4">
-                  <!-- Input umpan tersembunyi untuk menyerap autofill browser -->
                   <input type="text" name="fake_user" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;" />
                   <input type="password" name="fake_pass" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;" />
 
@@ -1355,15 +1128,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
                     </div>
                   </div>
 
-                  ${tab === 'siswa' ? `
-                    <div>
-                      <label class="block text-xs font-bold text-slate-700 mb-1.5">Token Ujian (6 Digit)</label>
-                      <input id="inp-login-token" name="login_token_field" type="text" maxlength="8" autocomplete="off" value=""
-                        placeholder="Masukkan kode token dari pengawas..."
-                        class="neu-input w-full px-4 py-3 rounded-2xl text-sm font-mono font-extrabold uppercase tracking-widest text-blue-700" />
-                    </div>
-                  ` : ''}
-
                   <button type="submit" class="neu-btn-blue w-full py-3.5 rounded-2xl text-sm font-extrabold tracking-wide cursor-pointer mt-2">
                     Masuk ke Portal ${roles.find(r => r.id === tab)?.label || ''} →
                   </button>
@@ -1376,7 +1140,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     }
 
     // =========================================================================
-    // 9. DASHBOARD 3D NEUMORPHIC (HERO BANNER, KARTU PASTEL, GRAFIK DONAT & WAVE)
+    // 7. DASHBOARD CLEAN SOFT-PASTEL UI (GAYA FINORA: GREETING, 4 KPI, CHARTS)
     // =========================================================================
     function renderDashboardView() {
       const totalSiswa = state.users.filter(u => u.role === 'siswa').length;
@@ -1384,31 +1148,37 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
       const totalSoal = state.bankSoal.reduce((acc, b) => acc + (b.soalList?.length || 0), 0);
       const totalJadwalAktif = state.jadwalUjian.filter(j => j.status === 'aktif').length;
 
-      // Hitung distribusi 8 tipe soal untuk grafik donat
       const typeCounts = {};
       QUESTION_TYPES.forEach(t => { typeCounts[t.code] = 0; });
       state.bankSoal.forEach(b => (b.soalList || []).forEach(q => {
         typeCounts[q.tipe] = (typeCounts[q.tipe] || 0) + 1;
       }));
 
+      const todayFormatted = new Date().toLocaleDateString('id-ID', {
+        weekday: 'short',
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      });
+
       const q = (state.globalSearch || '').toLowerCase();
       const matchingUsers = q ? state.users.filter(u => u.nama.toLowerCase().includes(q) || u.username.toLowerCase().includes(q)) : [];
       const matchingJadwal = q ? state.jadwalUjian.filter(j => j.namaUjian.toLowerCase().includes(q) || j.mapelKode.toLowerCase().includes(q)) : [];
 
       return `
-        <div class="space-y-5">
+        <div class="space-y-6">
           ${q ? `
-            <div class="neu-card-static rounded-3xl p-5 border-2 border-blue-200">
+            <div class="neu-card-static rounded-3xl p-5 border border-blue-200">
               <div class="flex items-center justify-between mb-3">
-                <h3 class="text-sm font-extrabold text-blue-800">🔍 Hasil Pencarian Global: "${esc(state.globalSearch)}"</h3>
+                <h3 class="text-sm font-extrabold text-blue-700">🔍 Hasil Pencarian Global: "${esc(state.globalSearch)}"</h3>
                 <button type="button" id="btn-clear-global-search" class="text-xs font-bold text-rose-600 hover:underline cursor-pointer">Bersihkan</button>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                <div class="p-3 rounded-2xl bg-blue-50/70">
+                <div class="p-3 rounded-2xl bg-blue-50/60">
                   <div class="font-extrabold text-slate-700 mb-1">Pengguna Ditemukan (${matchingUsers.length})</div>
                   ${matchingUsers.slice(0, 5).map(u => `<div class="py-1 border-b border-blue-100/60 flex justify-between"><span>${esc(u.nama)}</span><span class="font-mono text-blue-600">${esc(u.role.toUpperCase())}</span></div>`).join('') || '<div class="text-slate-400">Tidak ada pengguna cocok.</div>'}
                 </div>
-                <div class="p-3 rounded-2xl bg-emerald-50/70">
+                <div class="p-3 rounded-2xl bg-emerald-50/60">
                   <div class="font-extrabold text-slate-700 mb-1">Jadwal Ujian Ditemukan (${matchingJadwal.length})</div>
                   ${matchingJadwal.slice(0, 5).map(j => `<div class="py-1 border-b border-emerald-100/60 flex justify-between"><span>${esc(j.namaUjian)}</span><span class="font-mono text-emerald-700">${esc(j.token)}</span></div>`).join('') || '<div class="text-slate-400">Tidak ada jadwal cocok.</div>'}
                 </div>
@@ -1416,182 +1186,204 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
             </div>
           ` : ''}
 
-          <!-- Hero Welcome Banner 3D dengan Ilustrasi Gedung Madrasah -->
-          <div class="hero-banner-3d rounded-3xl p-6 sm:p-7 text-white flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden">
-            <div class="space-y-3 z-10 max-w-xl">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-[11px] font-bold">
-                <span class="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
-                <span>Sistem CBT &amp; Perisai Anti-Curang Aktif</span>
+          <!-- Greeting Header Bersih ala Finora -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
+            <div class="flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-2xl bg-white border border-slate-100 shadow-2xs flex items-center justify-center shrink-0">
+                <svg viewBox="0 0 48 48" class="w-9 h-9">
+                  <circle cx="26" cy="20" r="10" fill="#fbbf24"/>
+                  <g stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="26" y1="4" x2="26" y2="7"/>
+                    <line x1="26" y1="33" x2="26" y2="36"/>
+                    <line x1="10" y1="20" x2="13" y2="20"/>
+                    <line x1="39" y1="20" x2="42" y2="20"/>
+                    <line x1="15" y1="9" x2="17" y2="11"/>
+                    <line x1="35" y1="29" x2="37" y2="31"/>
+                    <line x1="35" y1="11" x2="37" y2="9"/>
+                  </g>
+                  <path d="M12 36h18a7 7 0 0 0 1.4-13.86A9 9 0 0 0 14 24a6 6 0 0 0-2 12z" fill="#93c5fd"/>
+                </svg>
               </div>
-              <h2 class="text-xl sm:text-2xl font-extrabold leading-snug">
-                Selamat Datang, ${esc(state.currentUser?.nama || 'Pengguna')}!
-              </h2>
-              <p class="text-xs sm:text-sm text-blue-100 leading-relaxed">
-                Pantau pelaksanaan ujian secara real-time di <strong>${esc(state.madrasah.nama)}</strong> (NPSN: ${esc(state.madrasah.npsn)} • NSM: ${esc(state.madrasah.nsm)}).
-              </p>
-              <div class="flex flex-wrap gap-2 pt-1">
-                <span class="px-3.5 py-1.5 rounded-xl bg-white text-blue-700 text-xs font-extrabold shadow-sm">
-                  🛡️ Anti-Tab Switch &amp; Fullscreen Lock
-                </span>
-                <span class="px-3.5 py-1.5 rounded-xl bg-blue-800/40 border border-white/25 text-white text-xs font-bold">
-                  TP ${esc(state.madrasah.tahunPelajaran)} • Semester ${esc(state.madrasah.semester)}
-                </span>
+              <div>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">
+                  Selamat Datang, ${esc(state.currentUser?.nama || 'Admin')}!
+                </h2>
+                <p class="text-xs text-slate-400 mt-0.5">
+                  Pantau ringkasan pelaksanaan ujian hari ini di <strong class="text-slate-600">${esc(state.madrasah.nama)}</strong> • TP ${esc(state.madrasah.tahunPelajaran)}
+                </p>
               </div>
             </div>
 
-            <!-- Ilustrasi Gedung Madrasah 3D SVG -->
-            <div class="shrink-0 z-10">
-              <svg viewBox="0 0 260 150" class="w-56 sm:w-64 h-auto drop-shadow-xl">
-                <ellipse cx="130" cy="138" rx="112" ry="10" fill="rgba(15,23,42,0.22)"/>
-                <rect x="35" y="65" width="190" height="68" rx="12" fill="#f8fafc"/>
-                <rect x="78" y="42" width="104" height="91" rx="12" fill="#ffffff"/>
-                <path d="M95 42 C95 16, 165 16, 165 42 Z" fill="#10b981"/>
-                <circle cx="130" cy="14" r="5" fill="#fde047"/>
-                <rect x="116" y="92" width="28" height="41" rx="8" fill="#2563eb"/>
-                <rect x="90" y="56" width="18" height="22" rx="5" fill="#93c5fd"/>
-                <rect x="121" y="56" width="18" height="22" rx="5" fill="#93c5fd"/>
-                <rect x="152" y="56" width="18" height="22" rx="5" fill="#93c5fd"/>
-                <rect x="48" y="80" width="18" height="20" rx="5" fill="#bfdbfe"/>
-                <rect x="194" y="80" width="18" height="20" rx="5" fill="#bfdbfe"/>
-                <circle cx="24" cy="112" r="14" fill="#34d399"/>
-                <rect x="22" y="122" width="4" height="12" fill="#78350f"/>
-                <circle cx="236" cy="112" r="14" fill="#34d399"/>
-                <rect x="234" y="122" width="4" height="12" fill="#78350f"/>
-              </svg>
+            <div class="flex items-center gap-2 self-start sm:self-auto">
+              <div class="neu-pill-soft px-3.5 py-2 rounded-xl flex items-center gap-2 text-xs font-bold text-slate-600">
+                <span class="text-blue-600">📅</span>
+                <span>${esc(todayFormatted)}</span>
+              </div>
             </div>
           </div>
 
-          <!-- 4 Kartu Statistik Pastel 3D -->
+          <!-- 4 Kartu Statistik Pastel Lembut -->
           <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-            <div class="neu-stat-mint rounded-3xl p-5 flex items-center justify-between">
-              <div>
-                <div class="w-10 h-10 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-lg shadow-sm mb-3">🎓</div>
-                <div class="text-2xl font-extrabold text-slate-800">${totalSiswa}</div>
-                <div class="text-xs font-bold text-slate-500">Total Peserta Ujian</div>
-                <div class="text-[11px] font-extrabold text-emerald-600 mt-1">↑ ${state.rombels.length} Rombel Aktif</div>
+            <div class="neu-stat-sky neu-card rounded-3xl p-5 flex flex-col justify-between space-y-4">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-xl bg-blue-100/90 text-blue-600 flex items-center justify-center text-lg">🎓</div>
+                <span class="text-slate-400 text-sm font-bold">›</span>
               </div>
-              <div class="flex items-end gap-1 h-12">
-                <span class="w-2 h-5 rounded-full bg-emerald-200"></span>
-                <span class="w-2 h-8 rounded-full bg-emerald-400"></span>
-                <span class="w-2 h-12 rounded-full bg-emerald-500"></span>
+              <div>
+                <div class="text-xs font-semibold text-slate-500">Total Peserta Ujian</div>
+                <div class="text-2xl font-extrabold text-slate-800 mt-1">${totalSiswa}</div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded-full bg-emerald-100/80 text-emerald-700 text-[11px] font-extrabold">↑ ${state.rombels.length} Rombel</span>
+                <span class="text-[11px] text-slate-400 font-medium">Terdaftar aktif</span>
               </div>
             </div>
 
-            <div class="neu-stat-sky rounded-3xl p-5 flex items-center justify-between">
-              <div>
-                <div class="w-10 h-10 rounded-2xl bg-blue-500 text-white flex items-center justify-center text-lg shadow-sm mb-3">📝</div>
-                <div class="text-2xl font-extrabold text-slate-800">${totalSoal}</div>
-                <div class="text-xs font-bold text-slate-500">Butir Bank Soal</div>
-                <div class="text-[11px] font-extrabold text-blue-600 mt-1">↑ ${state.bankSoal.length} Paket Soal</div>
+            <div class="neu-stat-mint neu-card rounded-3xl p-5 flex flex-col justify-between space-y-4">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-xl bg-emerald-100/90 text-emerald-600 flex items-center justify-center text-lg">📝</div>
+                <span class="text-slate-400 text-sm font-bold">›</span>
               </div>
-              <div class="flex items-end gap-1 h-12">
-                <span class="w-2 h-6 rounded-full bg-blue-200"></span>
-                <span class="w-2 h-10 rounded-full bg-blue-400"></span>
-                <span class="w-2 h-12 rounded-full bg-blue-500"></span>
+              <div>
+                <div class="text-xs font-semibold text-slate-500">Butir Bank Soal</div>
+                <div class="text-2xl font-extrabold text-slate-800 mt-1">${totalSoal}</div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded-full bg-emerald-100/80 text-emerald-700 text-[11px] font-extrabold">↑ ${state.bankSoal.length} Paket</span>
+                <span class="text-[11px] text-slate-400 font-medium">8 Format AKM</span>
               </div>
             </div>
 
-            <div class="neu-stat-teal rounded-3xl p-5 flex items-center justify-between">
-              <div>
-                <div class="w-10 h-10 rounded-2xl bg-teal-500 text-white flex items-center justify-center text-lg shadow-sm mb-3">📅</div>
-                <div class="text-2xl font-extrabold text-slate-800">${totalJadwalAktif}</div>
-                <div class="text-xs font-bold text-slate-500">Jadwal Ujian Aktif</div>
-                <div class="text-[11px] font-extrabold text-teal-600 mt-1">↑ ${state.mapels.length} Mata Pelajaran</div>
+            <div class="neu-stat-teal neu-card rounded-3xl p-5 flex flex-col justify-between space-y-4">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-xl bg-amber-100/90 text-amber-600 flex items-center justify-center text-lg">📅</div>
+                <span class="text-slate-400 text-sm font-bold">›</span>
               </div>
-              <div class="flex items-end gap-1 h-12">
-                <span class="w-2 h-7 rounded-full bg-teal-200"></span>
-                <span class="w-2 h-9 rounded-full bg-teal-400"></span>
-                <span class="w-2 h-12 rounded-full bg-teal-500"></span>
+              <div>
+                <div class="text-xs font-semibold text-slate-500">Jadwal Ujian Aktif</div>
+                <div class="text-2xl font-extrabold text-slate-800 mt-1">${totalJadwalAktif}</div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded-full bg-amber-100/80 text-amber-700 text-[11px] font-extrabold">↑ ${state.mapels.length} Mapel</span>
+                <span class="text-[11px] text-slate-400 font-medium">Siap diujikan</span>
               </div>
             </div>
 
-            <div class="neu-stat-peach rounded-3xl p-5 flex items-center justify-between">
-              <div>
-                <div class="w-10 h-10 rounded-2xl bg-orange-500 text-white flex items-center justify-center text-lg shadow-sm mb-3">👨‍🏫</div>
-                <div class="text-2xl font-extrabold text-slate-800">${totalGuruPengawas}</div>
-                <div class="text-xs font-bold text-slate-500">Guru &amp; Pengawas</div>
-                <div class="text-[11px] font-extrabold text-orange-600 mt-1">↑ Hak Akses Terkendali</div>
+            <div class="neu-stat-peach neu-card rounded-3xl p-5 flex flex-col justify-between space-y-4">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-xl bg-rose-100/90 text-rose-500 flex items-center justify-center text-lg">👨‍🏫</div>
+                <span class="text-slate-400 text-sm font-bold">›</span>
               </div>
-              <div class="flex items-end gap-1 h-12">
-                <span class="w-2 h-5 rounded-full bg-orange-200"></span>
-                <span class="w-2 h-8 rounded-full bg-orange-400"></span>
-                <span class="w-2 h-11 rounded-full bg-orange-500"></span>
+              <div>
+                <div class="text-xs font-semibold text-slate-500">Guru &amp; Pengawas</div>
+                <div class="text-2xl font-extrabold text-slate-800 mt-1">${totalGuruPengawas}</div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded-full bg-emerald-100/80 text-emerald-700 text-[11px] font-extrabold">↑ Terkendali</span>
+                <span class="text-[11px] text-slate-400 font-medium">Perisai Anti-Curang</span>
               </div>
             </div>
           </div>
 
-          <!-- Grafik Donat Komposisi Format Soal & Grafik Gelombang Partisipasi -->
+          <!-- Baris Grafik: Kiri Line/Area Chart (7 Kolom), Kanan Donut Chart (5 Kolom) -->
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-            <div class="lg:col-span-5 neu-card-static rounded-3xl p-5">
-              <div class="flex items-center justify-between mb-4">
-                <h3 class="text-sm font-extrabold text-slate-800">Komposisi 8 Bentuk Soal</h3>
-                <span class="px-2.5 py-1 rounded-xl bg-blue-50 text-blue-600 text-[11px] font-bold">${totalSoal} Butir</span>
-              </div>
-              <div class="flex flex-col sm:flex-row items-center gap-5">
-                <div class="relative w-36 h-36 shrink-0 flex items-center justify-center">
-                  <svg viewBox="0 0 36 36" class="w-36 h-36 -rotate-90">
-                    <circle cx="18" cy="18" r="14" fill="none" stroke="#e2e8f0" stroke-width="4"></circle>
-                    <circle cx="18" cy="18" r="14" fill="none" stroke="#3b82f6" stroke-width="4" stroke-dasharray="32 100"></circle>
-                    <circle cx="18" cy="18" r="14" fill="none" stroke="#10b981" stroke-width="4" stroke-dasharray="24 100" stroke-dashoffset="-32"></circle>
-                    <circle cx="18" cy="18" r="14" fill="none" stroke="#f59e0b" stroke-width="4" stroke-dasharray="22 100" stroke-dashoffset="-56"></circle>
-                    <circle cx="18" cy="18" r="14" fill="none" stroke="#8b5cf6" stroke-width="4" stroke-dasharray="22 100" stroke-dashoffset="-78"></circle>
-                  </svg>
-                  <div class="absolute text-center">
-                    <div class="text-lg font-extrabold text-slate-800">${totalSoal}</div>
-                    <div class="text-[10px] font-bold text-slate-400">Total Soal</div>
-                  </div>
+            <div class="lg:col-span-7 neu-card-static rounded-3xl p-6 flex flex-col justify-between space-y-4">
+              <div class="flex items-center justify-between gap-2">
+                <div>
+                  <h3 class="text-base font-extrabold text-slate-800">Ringkasan Pelaksanaan Ujian</h3>
+                  <p class="text-xs text-slate-400">Statistik aktivitas dan progres pengerjaan peserta</p>
                 </div>
-                <div class="w-full space-y-1.5 text-xs">
-                  ${QUESTION_TYPES.map((t, idx) => {
-                    const dots = ['bg-blue-500', 'bg-indigo-500', 'bg-emerald-500', 'bg-teal-500', 'bg-amber-500', 'bg-orange-500', 'bg-purple-500', 'bg-rose-500'];
-                    return `
-                      <div class="flex items-center justify-between">
-                        <span class="flex items-center gap-2 text-slate-600 truncate">
-                          <span class="w-2.5 h-2.5 rounded-full ${dots[idx]} shrink-0"></span>
-                          <span class="truncate">${t.code}</span>
-                        </span>
-                        <span class="font-extrabold text-slate-800">${typeCounts[t.code] || 0}</span>
-                      </div>
-                    `;
-                  }).join('')}
+                <span class="px-3 py-1.5 rounded-xl bg-[#f4f7fb] border border-slate-200/80 text-slate-600 text-xs font-bold">
+                  Real-time Sync ▾
+                </span>
+              </div>
+
+              <div class="relative pt-2">
+                <svg viewBox="0 0 460 155" class="w-full h-44 overflow-visible">
+                  <defs>
+                    <linearGradient id="finoraBlueGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.22"/>
+                      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.0"/>
+                    </linearGradient>
+                  </defs>
+                  <line x1="10" y1="25" x2="450" y2="25" stroke="#f1f5f9" stroke-width="1"/>
+                  <line x1="10" y1="62" x2="450" y2="62" stroke="#f1f5f9" stroke-width="1"/>
+                  <line x1="10" y1="99" x2="450" y2="99" stroke="#f1f5f9" stroke-width="1"/>
+                  <line x1="10" y1="135" x2="450" y2="135" stroke="#f1f5f9" stroke-width="1"/>
+
+                  <path d="M20,115 C75,85 115,105 175,82 C235,60 285,95 345,68 C385,52 415,42 440,36 L440,135 L20,135 Z" fill="url(#finoraBlueGrad)"/>
+                  <path d="M20,115 C75,85 115,105 175,82 C235,60 285,95 345,68 C385,52 415,42 440,36" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+
+                  <circle cx="20" cy="115" r="3.5" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+                  <circle cx="105" cy="95" r="3.5" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+                  <circle cx="190" cy="80" r="3.5" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+                  <circle cx="275" cy="84" r="3.5" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+                  <circle cx="360" cy="62" r="3.5" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+                  <circle cx="440" cy="36" r="4.5" fill="#ffffff" stroke="#2563eb" stroke-width="2.5"/>
+
+                  <g transform="translate(372, 4)">
+                    <rect x="0" y="0" width="76" height="22" rx="6" fill="#2563eb"/>
+                    <text x="38" y="14.5" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="bold">Aktif 100%</text>
+                  </g>
+                </svg>
+              </div>
+
+              <div class="grid grid-cols-3 gap-3 pt-2 border-t border-slate-100 text-center text-xs">
+                <div class="p-2.5 rounded-2xl bg-[#f2fbf7]">
+                  <div class="text-sm font-extrabold text-emerald-700">${state.examRecords.filter(r => r.status === 'selesai').length}</div>
+                  <div class="text-[11px] text-slate-500 font-medium">Selesai Ujian</div>
+                </div>
+                <div class="p-2.5 rounded-2xl bg-[#f3f8ff]">
+                  <div class="text-sm font-extrabold text-blue-700">${state.examRecords.filter(r => r.status === 'mengerjakan').length}</div>
+                  <div class="text-[11px] text-slate-500 font-medium">Sedang Ujian</div>
+                </div>
+                <div class="p-2.5 rounded-2xl bg-[#fff5f6]">
+                  <div class="text-sm font-extrabold text-rose-600">${state.examRecords.filter(r => r.status === 'terkunci').length}</div>
+                  <div class="text-[11px] text-slate-500 font-medium">Terkunci</div>
                 </div>
               </div>
             </div>
 
-            <div class="lg:col-span-7 neu-card-static rounded-3xl p-5 flex flex-col justify-between">
-              <div class="flex items-center justify-between mb-3">
-                <div>
-                  <h3 class="text-sm font-extrabold text-slate-800">Aktivitas &amp; Status Pelaksanaan Ujian</h3>
-                  <p class="text-[11px] text-slate-500">Pemantauan sesi peserta dan keamanan layar ujian</p>
-                </div>
-                <span class="px-3 py-1 rounded-xl bg-emerald-50 text-emerald-700 text-xs font-bold">Real-time Sync</span>
+            <!-- Grafik Donat Komposisi 8 Format Soal -->
+            <div class="lg:col-span-5 neu-card-static rounded-3xl p-6 flex flex-col justify-between space-y-4">
+              <div class="flex items-center justify-between">
+                <h3 class="text-base font-extrabold text-slate-800">Komposisi 8 Format Soal</h3>
+                <span class="text-xs font-bold text-slate-400">${totalSoal} Butir</span>
               </div>
 
-              <svg viewBox="0 0 420 120" class="w-full h-32">
-                <defs>
-                  <linearGradient id="waveBlue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35"/>
-                    <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.0"/>
-                  </linearGradient>
-                </defs>
-                <path d="M0,90 C60,45 110,95 170,55 C230,20 290,80 350,40 C380,25 405,35 420,30 L420,120 L0,120 Z" fill="url(#waveBlue)"/>
-                <path d="M0,90 C60,45 110,95 170,55 C230,20 290,80 350,40 C380,25 405,35 420,30" fill="none" stroke="#2563eb" stroke-width="3.5" stroke-linecap="round"/>
-                <path d="M0,105 C70,80 130,110 200,82 C270,55 340,95 420,70" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-dasharray="5 5"/>
-              </svg>
+              <div class="relative w-40 h-40 mx-auto flex items-center justify-center my-1">
+                <svg viewBox="0 0 36 36" class="w-40 h-40 -rotate-90">
+                  <circle cx="18" cy="18" r="13.5" fill="none" stroke="#f1f5f9" stroke-width="4.5"></circle>
+                  <circle cx="18" cy="18" r="13.5" fill="none" stroke="#3b82f6" stroke-width="4.5" stroke-dasharray="32 100"></circle>
+                  <circle cx="18" cy="18" r="13.5" fill="none" stroke="#fbbf24" stroke-width="4.5" stroke-dasharray="23 100" stroke-dashoffset="-32"></circle>
+                  <circle cx="18" cy="18" r="13.5" fill="none" stroke="#10b981" stroke-width="4.5" stroke-dasharray="20 100" stroke-dashoffset="-55"></circle>
+                  <circle cx="18" cy="18" r="13.5" fill="none" stroke="#f87171" stroke-width="4.5" stroke-dasharray="14 100" stroke-dashoffset="-75"></circle>
+                  <circle cx="18" cy="18" r="13.5" fill="none" stroke="#a78bfa" stroke-width="4.5" stroke-dasharray="11 100" stroke-dashoffset="-89"></circle>
+                </svg>
+                <div class="absolute text-center">
+                  <div class="text-lg font-extrabold text-slate-800">${totalSoal}</div>
+                  <div class="text-[10px] font-semibold text-slate-400">Total Soal</div>
+                </div>
+              </div>
 
-              <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-100 text-center text-xs">
-                <div class="p-2 rounded-2xl bg-emerald-50/80">
-                  <div class="font-extrabold text-emerald-700">${state.examRecords.filter(r => r.status === 'selesai').length}</div>
-                  <div class="text-[11px] text-slate-500">Selesai Ujian</div>
-                </div>
-                <div class="p-2 rounded-2xl bg-blue-50/80">
-                  <div class="font-extrabold text-blue-700">${state.examRecords.filter(r => r.status === 'mengerjakan').length}</div>
-                  <div class="text-[11px] text-slate-500">Sedang Mengerjakan</div>
-                </div>
-                <div class="p-2 rounded-2xl bg-rose-50/80">
-                  <div class="font-extrabold text-rose-700">${state.examRecords.filter(r => r.status === 'terkunci').length}</div>
-                  <div class="text-[11px] text-slate-500">Terkunci / Dihentikan</div>
-                </div>
+              <div class="space-y-2 text-xs">
+                ${QUESTION_TYPES.slice(0, 5).map((t, idx) => {
+                  const dots = ['bg-blue-500', 'bg-amber-400', 'bg-emerald-500', 'bg-rose-400', 'bg-violet-400'];
+                  const count = typeCounts[t.code] || 0;
+                  const pct = totalSoal > 0 ? Math.round((count / totalSoal) * 100) : 0;
+                  return `
+                    <div class="flex items-center justify-between">
+                      <span class="flex items-center gap-2 text-slate-600 font-medium truncate">
+                        <span class="w-2.5 h-2.5 rounded-full ${dots[idx]} shrink-0"></span>
+                        <span class="truncate">${t.label.split('(')[0].trim()}</span>
+                      </span>
+                      <div class="flex items-center gap-3 shrink-0">
+                        <span class="text-slate-400 text-[11px]">${pct}%</span>
+                        <span class="font-extrabold text-slate-800 w-6 text-right">${count}</span>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
               </div>
             </div>
           </div>
@@ -1600,14 +1392,14 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     }
 
     // =========================================================================
-    // 10. MENU DATA MADRASAH (LOGO OTOMATIS + PEMISAHAN NPSN & NSM)
+    // 8. MENU DATA MADRASAH (LOGO OTOMATIS + PEMISAHAN NPSN & NSM)
     // =========================================================================
     function renderMadrasahView() {
       const m = state.madrasah;
       return `
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
           <div class="lg:col-span-4 neu-card-static rounded-3xl p-6 flex flex-col items-center text-center space-y-4 h-fit">
-            <div class="w-28 h-28 rounded-3xl bg-white p-3 shadow-lg border border-blue-100 flex items-center justify-center">
+            <div class="w-28 h-28 rounded-3xl bg-white p-3 shadow-sm border border-blue-100 flex items-center justify-center">
               <img id="preview-logo-madrasah" src="${esc(m.logoUrl || DEFAULT_LOGO_SVG)}" onerror="this.src='${DEFAULT_LOGO_SVG}'" alt="Logo Lembaga" class="w-full h-full object-contain rounded-2xl" />
             </div>
             <div>
@@ -1686,7 +1478,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     }
 
     // =========================================================================
-    // 11. MENU MASTER MAPEL, ROMBEL & SESI (TEMPLATE EXCEL/CSV RAPI + BULK DELETE)
+    // 9. MENU MASTER MAPEL, ROMBEL & SESI (TEMPLATE EXCEL/CSV RAPI + BULK DELETE)
     // =========================================================================
     function renderMasterDataView() {
       const q = (state.menuSearch || '').toLowerCase();
@@ -1737,7 +1529,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
                 </div>
 
                 <div class="flex flex-wrap items-center gap-2">
-                  <button type="button" id="btn-dl-xls-${tab}" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-xs cursor-pointer">
+                  <button type="button" id="btn-dl-xls-${tab}" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-2xs cursor-pointer">
                     ⬇ Template Excel (.xls)
                   </button>
                   <button type="button" id="btn-dl-csv-${tab}" class="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 text-emerald-700 border border-emerald-200 text-xs font-bold cursor-pointer">
@@ -2128,7 +1920,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     }
 
     // =========================================================================
-    // 12. MANAJEMEN PENGGUNA (KELOMPOK PER ROMBEL, IMPOR EXCEL/CSV & IMPERSONATE)
+    // 10. MANAJEMEN PENGGUNA (KELOMPOK PER ROMBEL, IMPOR EXCEL/CSV & IMPERSONATE)
     // =========================================================================
     function renderUsersView() {
       const tab = state.usersTab || 'siswa';
@@ -2139,7 +1931,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
         (tab !== 'siswa' || state.selectedRombelFilter === 'ALL' || u.rombelId === state.selectedRombelFilter)
       );
 
-      // Kelompokkan peserta per rombel agar rapi
       const knownRombelIds = new Set(state.rombels.map(r => r.id));
       const groupedByRombel = state.rombels.map(rmb => ({
         rombel: rmb,
@@ -2208,7 +1999,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-            <!-- Form Tambah Pengguna -->
             <form id="form-add-user" class="lg:col-span-4 neu-card-static rounded-3xl p-5 space-y-3.5 h-fit">
               <h3 class="text-sm font-extrabold text-slate-800">+ Tambah ${tab === 'siswa' ? 'Peserta Ujian' : tab === 'guru' ? 'Guru Mapel' : tab === 'pengawas' ? 'Pengawas' : 'Admin Utama'}</h3>
               <div>
@@ -2254,7 +2044,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
               <button type="submit" class="neu-btn-blue w-full py-2.5 rounded-xl text-xs font-extrabold cursor-pointer">💾 Simpan Pengguna</button>
             </form>
 
-            <!-- Daftar Pengguna -->
             <div class="lg:col-span-8 space-y-4">
               ${tab === 'siswa' ? (
                 groupedByRombel.length === 0 ? `
@@ -2338,7 +2127,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     }
 
     // =========================================================================
-    // 13. BANK SOAL (8 BENTUK SOAL, LINK GAMBAR LIVE PREVIEW, COPY-PASTE & WORD)
+    // 11. BANK SOAL (8 BENTUK SOAL, LINK GAMBAR LIVE PREVIEW, COPY-PASTE & WORD)
     // =========================================================================
     function renderBankSoalView() {
       const paket = state.bankSoal.find(b => b.id === state.selectedBankSoalId) || state.bankSoal[0];
@@ -2348,7 +2137,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
 
       return `
         <div class="space-y-5">
-          <!-- Header Pilih Paket & Aksi Impor/Ekspor -->
           <div class="neu-card-static rounded-3xl p-5 flex flex-wrap items-center justify-between gap-4">
             <div class="flex flex-wrap items-center gap-2.5">
               <select id="sel-bank-paket" class="neu-input px-4 py-2.5 rounded-2xl text-xs font-extrabold text-slate-800 max-w-xs sm:max-w-md">
@@ -2381,7 +2169,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
 
           ${paket ? `
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-              <!-- Form Tambah Butir Soal (8 Bentuk Soal + Live Image Preview) -->
               <form id="form-add-soal" class="lg:col-span-5 neu-card-static rounded-3xl p-5 space-y-3.5 h-fit">
                 <h3 class="text-sm font-extrabold text-slate-800">+ Tambah Butir Soal Baru</h3>
                 <div>
@@ -2396,14 +2183,12 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
                   <textarea name="pertanyaan" required rows="3" placeholder="Tuliskan pertanyaan soal di sini..." class="neu-input w-full p-3 rounded-xl text-xs font-semibold"></textarea>
                 </div>
 
-                <!-- Input Link Gambar / Media dengan Live Preview Langsung -->
                 <div>
                   <label class="block text-xs font-bold text-slate-600 mb-1">Link Gambar / Audio / Video (Opsional)</label>
                   <input id="inp-soal-media-url" name="mediaUrl" type="url" placeholder="https://contoh.com/gambar-soal.jpg" class="neu-input w-full px-3.5 py-2 rounded-xl text-xs font-mono" />
                   <div id="live-media-preview-box" class="hidden mt-2 p-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-center"></div>
                 </div>
 
-                <!-- Container Dinamis Opsi & Kunci Sesuai 8 Tipe Soal -->
                 <div id="dynamic-soal-fields" class="space-y-2.5"></div>
 
                 <div>
@@ -2416,7 +2201,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
                 </button>
               </form>
 
-              <!-- Daftar Butir Soal dalam Paket -->
               <div class="lg:col-span-7 space-y-3.5">
                 <div class="neu-card-static rounded-2xl p-3.5 flex items-center justify-between gap-2">
                   <span class="text-xs font-extrabold text-slate-700">Daftar Butir Soal (${filteredSoal.length})</span>
@@ -2448,7 +2232,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
                         </div>
                       ` : ''}
 
-                      ${['PG', 'PG_KOMPLEKS'].includes(q.tipe) ? `
+                      ${['PG', 'PG_KOMPLEKS', 'MULTIMEDIA'].includes(q.tipe) ? `
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs pt-1">
                           ${['A', 'B', 'C', 'D', 'E'].filter(opt => q.opsi?.[opt]).map(opt => `
                             <div class="px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-100">
@@ -2680,7 +2464,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     }
 
     // =========================================================================
-    // 14. JADWAL PELAKSANAAN, CEKLIST ANTI-CURANG & PILIH PESERTA UJIAN
+    // 12. JADWAL PELAKSANAAN, CEKLIST ANTI-CURANG & PILIH PESERTA UJIAN
     // =========================================================================
     function renderJadwalView() {
       const selectedJadwal = state.jadwalUjian.find(j => j.id === state.selectedJadwalId) || state.jadwalUjian[0];
@@ -2690,7 +2474,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
       return `
         <div class="space-y-5">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-            <!-- Form Buat Jadwal Ujian Baru -->
             <form id="form-add-jadwal" class="lg:col-span-5 neu-card-static rounded-3xl p-5 space-y-3.5 h-fit">
               <h3 class="text-sm font-extrabold text-slate-800">+ Tambah Jadwal Pelaksanaan Ujian</h3>
               <div>
@@ -2738,7 +2521,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
                 </div>
               </div>
 
-              <!-- Ceklist Pengaturan Keamanan & Nilai -->
               <div class="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-100 space-y-2 text-xs font-bold text-slate-700">
                 <label class="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" name="acakSoal" checked class="w-4 h-4 accent-blue-600" />
@@ -2757,7 +2539,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
               <button type="submit" class="neu-btn-blue w-full py-3 rounded-2xl text-xs font-extrabold cursor-pointer">💾 Simpan Jadwal Ujian</button>
             </form>
 
-            <!-- Daftar Jadwal & Panel Seleksi Peserta Ujian -->
             <div class="lg:col-span-7 space-y-5">
               <div class="neu-card-static rounded-3xl p-5 overflow-x-auto">
                 <h3 class="text-sm font-extrabold text-slate-800 mb-3">Daftar Jadwal Pelaksanaan Ujian</h3>
@@ -2798,7 +2579,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
               </div>
 
               ${selectedJadwal ? `
-                <!-- Fitur Pilih & Pilih Semua Peserta yang Mengikuti Ujian -->
                 <div class="neu-card-static rounded-3xl p-5 space-y-3.5">
                   <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                     <div>
@@ -2836,7 +2616,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     }
 
     // =========================================================================
-    // 15. MENU JADWAL PENGAWAS
+    // 13. MENU JADWAL PENGAWAS
     // =========================================================================
     function renderJadwalPengawasView() {
       const pengawasList = state.users.filter(u => u.role === 'pengawas' || u.role === 'guru');
@@ -2921,7 +2701,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     }
 
     // =========================================================================
-    // 16. MONITORING & KONTROL UJIAN (HENTIKAN, RESET LOGIN, RESET UJIAN, SELESAIKAN)
+    // 14. MONITORING & KONTROL UJIAN (HENTIKAN, RESET LOGIN, RESET UJIAN, SELESAIKAN)
     // =========================================================================
     function renderMonitoringView() {
       const jad = state.jadwalUjian.find(j => j.id === state.selectedJadwalId) || state.jadwalUjian[0];
@@ -3021,7 +2801,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     }
 
     // =========================================================================
-    // 17. DOKUMEN TERPISAH: BERITA ACARA & DAFTAR HADIR (WORD & PDF A4 / F4)
+    // 15. DOKUMEN TERPISAH: BERITA ACARA & DAFTAR HADIR (WORD & PDF A4 / F4)
     // =========================================================================
     function renderDokumenView() {
       const tab = state.dokumenTab || 'berita_acara';
@@ -3032,7 +2812,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
 
       return `
         <div class="space-y-5">
-          <!-- Bar Kontrol Tab Dokumen, Ukuran Kertas A4/F4 & Tombol Ekspor -->
           <div class="neu-card-static rounded-3xl p-5 flex flex-wrap items-center justify-between gap-3">
             <div class="flex flex-wrap gap-2">
               <button type="button" data-dok-tab="berita_acara" class="px-4 py-2.5 rounded-2xl text-xs font-extrabold cursor-pointer ${tab === 'berita_acara' ? 'neu-btn-blue' : 'neu-pill-soft text-slate-600'}">
@@ -3058,7 +2837,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-            <!-- Panel Isian Manual & Sinkronisasi Otomatis -->
             <form id="form-dokumen-manual" class="lg:col-span-4 neu-card-static rounded-3xl p-5 space-y-3 h-fit">
               <h3 class="text-sm font-extrabold text-slate-800">Isian Data Otomatis &amp; Manual</h3>
               <div>
@@ -3120,11 +2898,9 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
               <button type="submit" class="neu-btn-blue w-full py-2.5 rounded-xl text-xs font-extrabold cursor-pointer">🔄 Perbarui Pratinjau Dokumen</button>
             </form>
 
-            <!-- Pratinjau Kertas Resmi A4 / F4 -->
             <div class="lg:col-span-8 neu-card-static rounded-3xl p-4 sm:p-6 overflow-x-auto bg-slate-200/70">
               <div id="print-area" class="bg-white mx-auto p-6 sm:p-10 shadow-xl text-slate-900 border border-slate-300"
                 style="width: ${paper === 'F4' ? '215mm' : '210mm'}; min-height: ${paper === 'F4' ? '330mm' : '297mm'}; font-family: 'Times New Roman', serif;">
-                <!-- Kop Resmi Madrasah -->
                 <table style="width:100%; border-bottom: 3px double #000; padding-bottom: 8px; margin-bottom: 14px;">
                   <tr>
                     <td style="width:72px; text-align:center;">
@@ -3219,7 +2995,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     }
 
     // =========================================================================
-    // 18. MENU BACKUP & RESTORE DATABASE (.JSON)
+    // 16. MENU BACKUP & RESTORE DATABASE (.JSON)
     // =========================================================================
     function renderBackupRestoreView() {
       return `
@@ -3251,7 +3027,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     }
 
     // =========================================================================
-    // 19. PORTAL UJIAN PESERTA (FULLSCREEN OTOMATIS & PERISAI ANTI-CURANG)
+    // 17. PORTAL UJIAN PESERTA (FULLSCREEN OTOMATIS, TOKEN SAAT MULAI & ANTI-CURANG)
     // =========================================================================
     function requestSafeFullscreen() {
       try {
@@ -3260,6 +3036,95 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
           el.requestFullscreen().catch(() => {});
         }
       } catch (e) { /* Abaikan jika diblokir browser */ }
+    }
+
+    async function launchStudentExamSession(jad) {
+      if (!jad) return;
+      requestSafeFullscreen();
+
+      const existingRec = state.examRecords.find(r => r.jadwalId === jad.id && r.siswaId === state.currentUser.id);
+      const nowTime = new Date().toTimeString().slice(0, 5);
+
+      state.activeExamSession = {
+        jadwalId: jad.id,
+        remainingSec: (jad.durasiMenit || 90) * 60,
+        answers: existingRec?.answers ? { ...existingRec.answers } : {},
+        raguIds: [],
+        violations: existingRec?.pelanggaran || 0,
+        waktuMulai: existingRec?.waktuMulai || nowTime
+      };
+      state.currentQuestionIndex = 0;
+
+      await dbSaveDoc('exam_records', `rec_${jad.id}_${state.currentUser.id}`, {
+        jadwalId: jad.id,
+        siswaId: state.currentUser.id,
+        status: 'mengerjakan',
+        skor: 0,
+        pelanggaran: state.activeExamSession.violations,
+        waktuMulai: state.activeExamSession.waktuMulai,
+        waktuSelesai: '-',
+        answers: state.activeExamSession.answers
+      }, 'examRecords');
+
+      saveSessionState();
+      renderApp();
+    }
+
+    function openExamTokenModal(jadwalId) {
+      const jad = state.jadwalUjian.find(j => j.id === jadwalId);
+      const root = document.getElementById('modal-root');
+      if (!jad || !root) return;
+
+      root.innerHTML = `
+        <div class="pointer-events-auto fixed inset-0 z-[2147483646] bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <form id="form-verify-exam-token" autocomplete="off" class="neu-card-static w-full max-w-md rounded-3xl p-6 space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold">🔑</div>
+              <div>
+                <h3 class="text-base font-extrabold text-slate-800">Masukkan Token Ujian</h3>
+                <p class="text-[11px] text-slate-400">${esc(jad.namaUjian)} • Mapel ${esc(jad.mapelKode)}</p>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-[#f4f7fb] border border-slate-100 text-xs text-slate-600 space-y-1">
+              <div>• Durasi Pengerjaan: <strong>${jad.durasiMenit} Menit</strong></div>
+              <div>• Layar akan otomatis masuk ke mode <strong>Layar Penuh (Fullscreen)</strong>.</div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">Kode Token dari Pengawas</label>
+              <input id="inp-modal-token" type="text" required maxlength="8" autocomplete="off"
+                placeholder="Masukkan token..."
+                class="neu-input w-full px-4 py-3 rounded-2xl text-center text-base font-mono font-extrabold uppercase tracking-widest text-blue-700" />
+            </div>
+
+            <div class="flex items-center justify-end gap-2.5 pt-1">
+              <button type="button" id="btn-cancel-token-modal" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold cursor-pointer">Batal</button>
+              <button type="submit" class="neu-btn-blue px-5 py-2.5 rounded-xl text-xs font-extrabold cursor-pointer">🚀 Verifikasi &amp; Mulai Ujian</button>
+            </div>
+          </form>
+        </div>
+      `;
+
+      const inp = document.getElementById('inp-modal-token');
+      inp?.focus();
+
+      document.getElementById('btn-cancel-token-modal')?.addEventListener('click', closeModal);
+      document.getElementById('form-verify-exam-token')?.addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        const entered = (inp?.value || '').trim().toUpperCase();
+        if (!entered) {
+          showToast('Silakan masukkan kode token terlebih dahulu.', 'warning');
+          return;
+        }
+        if (entered !== String(jad.token || '').trim().toUpperCase()) {
+          showToast('Token ujian salah! Periksa kembali token dari pengawas ruang.', 'error');
+          inp?.focus();
+          return;
+        }
+        closeModal();
+        await launchStudentExamSession(jad);
+      });
     }
 
     function renderStudentPortalView() {
@@ -3281,27 +3146,27 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
         const secs = sess.remainingSec % 60;
 
         return `
-          <div class="w-full h-full flex flex-col bg-slate-100 select-none">
-            <!-- Header Ujian Anti-Curang -->
-            <div class="neu-sidebar text-white px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3 shadow-lg">
+          <div class="w-full h-full flex flex-col bg-[#f4f7fb] select-none">
+            <!-- Header Ujian Anti-Curang Clean UI -->
+            <div class="bg-white border-b border-slate-200/80 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3 shadow-2xs">
               <div class="flex items-center gap-3">
-                <img src="${esc(state.madrasah.logoUrl || DEFAULT_LOGO_SVG)}" class="w-9 h-9 rounded-xl bg-white p-1 object-contain" />
+                <img src="${esc(state.madrasah.logoUrl || DEFAULT_LOGO_SVG)}" class="w-9 h-9 rounded-xl bg-blue-50 p-1 object-contain border border-blue-100" />
                 <div>
-                  <div class="text-xs sm:text-sm font-extrabold">${esc(jad?.namaUjian || 'Ujian CBT')} — ${esc(jad?.mapelKode || '')}</div>
-                  <div class="text-[11px] text-blue-100">${esc(user?.nama)} (${esc(user?.username)})</div>
+                  <div class="text-xs sm:text-sm font-extrabold text-slate-800">${esc(jad?.namaUjian || 'Ujian CBT')} — ${esc(jad?.mapelKode || '')}</div>
+                  <div class="text-[11px] text-slate-400">${esc(user?.nama)} (${esc(user?.username)})</div>
                 </div>
               </div>
 
               <div class="flex items-center gap-2.5">
                 ${jad?.antiCurang ? `
-                  <span class="px-3 py-1.5 rounded-xl bg-rose-500/90 text-white text-[11px] font-extrabold">
+                  <span class="px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 text-[11px] font-extrabold">
                     🛡️ Pelanggaran: ${sess.violations || 0}/${jad.batasPelanggaran || 3}
                   </span>
                 ` : ''}
-                <div id="exam-timer-badge" class="px-4 py-1.5 rounded-xl bg-white text-blue-700 font-mono text-sm font-extrabold shadow-sm">
+                <div id="exam-timer-badge" class="px-4 py-1.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 font-mono text-sm font-extrabold">
                   ⏱️ ${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}
                 </div>
-                <button type="button" id="btn-trigger-fullscreen" class="px-3 py-1.5 rounded-xl bg-white/20 hover:bg-white/30 text-xs font-bold cursor-pointer" title="Layar Penuh">⛶</button>
+                <button type="button" id="btn-trigger-fullscreen" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold cursor-pointer" title="Layar Penuh">⛶</button>
               </div>
             </div>
 
@@ -3327,7 +3192,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
                     <div class="pt-2 space-y-2.5">
                       ${['PG', 'MULTIMEDIA'].includes(currentQ.tipe) ? `
                         ${['A', 'B', 'C', 'D', 'E'].filter(k => currentQ.opsi?.[k]).map(k => `
-                          <label class="flex items-center gap-3 p-3.5 rounded-2xl border cursor-pointer transition ${ans === k ? 'bg-blue-50 border-blue-500 shadow-xs' : 'bg-white border-slate-200 hover:bg-slate-50'}">
+                          <label class="flex items-center gap-3 p-3.5 rounded-2xl border cursor-pointer transition ${ans === k ? 'bg-blue-50 border-blue-500 shadow-2xs' : 'bg-white border-slate-200 hover:bg-slate-50'}">
                             <input type="radio" name="ans_pg" value="${k}" ${ans === k ? 'checked' : ''} class="w-4 h-4 accent-blue-600" />
                             <span class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 font-extrabold text-xs flex items-center justify-center">${k}</span>
                             <span class="text-xs sm:text-sm font-semibold text-slate-800">${esc(currentQ.opsi[k])}</span>
@@ -3431,18 +3296,18 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
 
       // Halaman Daftar Ujian Peserta Sebelum Mulai
       return `
-        <div class="w-full h-full overflow-y-auto p-4 sm:p-8">
+        <div class="w-full h-full overflow-y-auto p-4 sm:p-8 bg-[#f4f7fb]">
           <div class="max-w-4xl mx-auto space-y-5">
-            <div class="neu-sidebar rounded-3xl p-6 text-white flex flex-wrap items-center justify-between gap-4">
+            <div class="neu-card-static rounded-3xl p-6 flex flex-wrap items-center justify-between gap-4">
               <div class="flex items-center gap-3.5">
-                <img src="${esc(state.madrasah.logoUrl || DEFAULT_LOGO_SVG)}" class="w-12 h-12 rounded-2xl bg-white p-1.5 object-contain" />
+                <img src="${esc(state.madrasah.logoUrl || DEFAULT_LOGO_SVG)}" class="w-12 h-12 rounded-2xl bg-blue-50 p-1.5 object-contain border border-blue-100" />
                 <div>
-                  <div class="text-xs text-blue-100">${esc(state.madrasah.nama)}</div>
-                  <h2 class="text-lg font-extrabold">${esc(user?.nama)}</h2>
-                  <div class="text-xs text-blue-100 font-mono">No. Peserta: ${esc(user?.username)} • Rombel: ${esc(rmb?.nama || '-')}</div>
+                  <div class="text-xs text-blue-600 font-bold">${esc(state.madrasah.nama)}</div>
+                  <h2 class="text-lg font-extrabold text-slate-800">${esc(user?.nama)}</h2>
+                  <div class="text-xs text-slate-400 font-mono">No. Peserta: ${esc(user?.username)} • Rombel: ${esc(rmb?.nama || '-')}</div>
                 </div>
               </div>
-              <button type="button" id="btn-logout" class="px-4 py-2 rounded-2xl bg-white/20 hover:bg-white/30 text-xs font-extrabold cursor-pointer">Keluar</button>
+              <button type="button" id="btn-logout" class="px-4 py-2.5 rounded-2xl bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-extrabold cursor-pointer">Keluar</button>
             </div>
 
             <div class="space-y-3">
@@ -3455,9 +3320,9 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
                 return `
                   <div class="neu-card-static rounded-3xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div class="space-y-1">
-                      <span class="px-2.5 py-0.5 rounded-lg bg-blue-100 text-blue-700 text-[11px] font-extrabold">${esc(j.mapelKode)}</span>
+                      <span class="px-2.5 py-0.5 rounded-lg bg-blue-50 text-blue-600 border border-blue-100 text-[11px] font-extrabold">${esc(j.mapelKode)}</span>
                       <h4 class="text-base font-extrabold text-slate-800">${esc(j.namaUjian)}</h4>
-                      <p class="text-xs text-slate-500">Durasi: <strong>${j.durasiMenit} Menit</strong> • Periode: ${esc(j.tanggalMulai)} s.d. ${esc(j.tanggalSelesai)}</p>
+                      <p class="text-xs text-slate-400">Durasi: <strong class="text-slate-600">${j.durasiMenit} Menit</strong> • Periode: ${esc(j.tanggalMulai)} s.d. ${esc(j.tanggalSelesai)}</p>
                     </div>
                     <div class="flex items-center gap-3">
                       ${status === 'selesai' ? `
@@ -3469,7 +3334,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
                         <span class="px-3.5 py-2 rounded-xl bg-rose-100 text-rose-700 text-xs font-extrabold">⛔ Terkunci (Hubungi Pengawas)</span>
                       ` : `
                         <button type="button" data-start-exam="${j.id}" class="neu-btn-blue px-5 py-3 rounded-2xl text-xs font-extrabold cursor-pointer">
-                          🚀 ${status === 'mengerjakan' ? 'Lanjutkan Ujian' : 'Mulai Ujian (Fullscreen)'}
+                          🚀 ${status === 'mengerjakan' ? 'Lanjutkan Ujian' : 'Mulai Ujian (Masukkan Token)'}
                         </button>
                       `}
                     </div>
@@ -3497,9 +3362,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
         const key = kunciMap[q.id];
         if (ans === undefined || ans === null || key === undefined) return;
 
-        if (['PG', 'BS', 'MULTIMEDIA'].includes(q.tipe)) {
-          if (String(ans).trim().toLowerCase() === String(key).trim().toLowerCase()) earnedBobot += w;
-        } else if (q.tipe === 'ISIAN') {
+        if (['PG', 'BS', 'MULTIMEDIA', 'ISIAN'].includes(q.tipe)) {
           if (String(ans).trim().toLowerCase() === String(key).trim().toLowerCase()) earnedBobot += w;
         } else if (q.tipe === 'PG_KOMPLEKS' && Array.isArray(ans) && Array.isArray(key)) {
           const aSorted = [...ans].sort().join(',');
@@ -3555,7 +3418,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     }
 
     // =========================================================================
-    // 20. KERANGKA UTAMA APLIKASI (SIDEBAR 3D, TOPBAR & ROUTER MENU)
+    // 18. KERANGKA UTAMA APLIKASI (SIDEBAR CLEAN UI, TOPBAR & ROUTER MENU)
     // =========================================================================
     function getNavItemsForRole(role) {
       const all = [
@@ -3613,29 +3476,26 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
       }
 
       root.innerHTML = `
-        <div class="w-full h-full flex overflow-hidden">
-          <!-- Backdrop Sidebar Mobile -->
-          ${state.mobileSidebarOpen ? `<div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/40 z-30 lg:hidden"></div>` : ''}
+        <div class="w-full h-full flex overflow-hidden bg-[#f4f7fb]">
+          ${state.mobileSidebarOpen ? `<div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/30 z-30 lg:hidden"></div>` : ''}
 
-          <!-- Sidebar 3D Gradasi Biru Royal -->
-          <aside class="neu-sidebar w-64 shrink-0 text-white flex flex-col justify-between p-4 z-40 transition-transform duration-200 fixed lg:static inset-y-0 left-0 ${state.mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}">
-            <div class="space-y-5 overflow-y-auto pr-1">
-              <!-- Logo & Nama Lembaga Tersinkron -->
+          <!-- Sidebar Clean White (Gaya Finora) -->
+          <aside class="neu-sidebar w-64 shrink-0 text-slate-700 flex flex-col justify-between p-4 z-40 transition-transform duration-200 fixed lg:static inset-y-0 left-0 ${state.mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}">
+            <div class="space-y-6 overflow-y-auto pr-1">
               <div class="flex items-center gap-3 px-2 pt-1">
-                <div class="w-11 h-11 rounded-2xl bg-white p-1.5 shadow-md shrink-0 flex items-center justify-center">
-                  <img src="${esc(state.madrasah.logoUrl || DEFAULT_LOGO_SVG)}" onerror="this.src='${DEFAULT_LOGO_SVG}'" alt="Logo" class="w-full h-full object-contain rounded-xl" />
+                <div class="w-10 h-10 rounded-xl bg-blue-50 p-1.5 border border-blue-100 shrink-0 flex items-center justify-center">
+                  <img src="${esc(state.madrasah.logoUrl || DEFAULT_LOGO_SVG)}" onerror="this.src='${DEFAULT_LOGO_SVG}'" alt="Logo" class="w-full h-full object-contain rounded-lg" />
                 </div>
                 <div class="min-w-0">
-                  <div class="text-xs font-extrabold truncate">${esc(state.madrasah.nama)}</div>
-                  <div class="text-[10px] text-blue-100 font-mono truncate">NPSN: ${esc(state.madrasah.npsn)}</div>
+                  <div class="text-sm font-extrabold text-slate-800 truncate">${esc(state.madrasah.nama)}</div>
+                  <div class="text-[10px] text-slate-400 font-mono truncate">NPSN: ${esc(state.madrasah.npsn)}</div>
                 </div>
               </div>
 
-              <!-- Menu Navigasi -->
-              <nav class="space-y-1.5">
+              <nav class="space-y-1">
                 ${navItems.map(item => `
                   <button type="button" data-nav-menu="${item.id}"
-                    class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-extrabold transition cursor-pointer ${state.activeMenu === item.id ? 'neu-nav-active' : 'text-blue-50 hover:bg-white/15'}">
+                    class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition cursor-pointer ${state.activeMenu === item.id ? 'neu-nav-active font-extrabold' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800'}">
                     <span class="text-base">${item.icon}</span>
                     <span class="truncate">${item.label}</span>
                   </button>
@@ -3643,13 +3503,13 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
               </nav>
             </div>
 
-            <div class="pt-3 border-t border-white/20 space-y-2">
+            <div class="pt-3 border-t border-slate-100 space-y-2">
               ${state.impersonatorAdmin ? `
-                <button type="button" id="btn-return-admin" class="w-full py-2 px-3 rounded-xl bg-amber-400 text-slate-900 text-xs font-extrabold cursor-pointer">
+                <button type="button" id="btn-return-admin" class="w-full py-2 px-3 rounded-xl bg-amber-100 text-amber-900 text-xs font-extrabold cursor-pointer">
                   ↩ Kembali ke Admin Utama
                 </button>
               ` : ''}
-              <button type="button" id="btn-logout" class="w-full py-2.5 px-3 rounded-2xl bg-white/15 hover:bg-rose-500 text-white text-xs font-extrabold transition cursor-pointer">
+              <button type="button" id="btn-logout" class="w-full py-2.5 px-3 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-600 hover:text-rose-600 text-xs font-extrabold transition cursor-pointer">
                 🚪 Keluar / Logout
               </button>
             </div>
@@ -3657,33 +3517,40 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
 
           <!-- Area Konten Utama -->
           <div class="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
-            <!-- Topbar 3D Neumorphic -->
-            <header class="px-4 sm:px-6 py-3.5 flex items-center justify-between gap-3 border-b border-blue-100/80 bg-white/70 backdrop-blur-md shrink-0">
-              <div class="flex items-center gap-3 min-w-0">
-                <button type="button" id="btn-toggle-sidebar" class="lg:hidden w-10 h-10 rounded-2xl neu-pill-soft flex items-center justify-center text-blue-700 font-extrabold cursor-pointer">☰</button>
-                <div class="min-w-0">
-                  <h1 class="text-sm sm:text-base font-extrabold text-slate-800 truncate">${activeTitle}</h1>
-                  <div class="text-[10px] text-slate-400 hidden sm:block">NSM: ${esc(state.madrasah.nsm)} • TP ${esc(state.madrasah.tahunPelajaran)}</div>
+            <header class="px-4 sm:px-7 py-4 flex items-center justify-between gap-3 bg-[#f4f7fb] shrink-0">
+              <div class="flex items-center gap-3 min-w-0 flex-1">
+                <button type="button" id="btn-toggle-sidebar" class="lg:hidden w-10 h-10 rounded-xl neu-pill-soft flex items-center justify-center text-slate-700 font-extrabold cursor-pointer">☰</button>
+                <div class="relative hidden md:block w-full max-w-md">
+                  <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs">🔍</span>
+                  <input id="inp-global-search" type="text" value="${esc(state.globalSearch)}" placeholder="Cari peserta, jadwal, atau menu..."
+                    class="w-full bg-white border border-slate-100 shadow-2xs pl-9 pr-4 py-2.5 rounded-2xl text-xs font-medium text-slate-700 focus:outline-none focus:border-blue-300" />
+                </div>
+                <div class="md:hidden min-w-0">
+                  <h1 class="text-sm font-extrabold text-slate-800 truncate">${activeTitle}</h1>
                 </div>
               </div>
 
               <div class="flex items-center gap-2.5">
-                <input id="inp-global-search" type="text" value="${esc(state.globalSearch)}" placeholder="Cari global..."
-                  class="neu-input hidden md:block px-3.5 py-2 rounded-2xl text-xs font-semibold w-52" />
-                <div class="neu-pill-soft px-3 py-1.5 rounded-2xl flex items-center gap-2.5">
-                  <div class="w-8 h-8 rounded-xl bg-blue-600 text-white text-xs font-extrabold flex items-center justify-center">
+                <div class="hidden sm:flex items-center px-3 py-1.5 rounded-xl bg-white border border-slate-100 text-[11px] font-bold text-slate-500 shadow-2xs">
+                  ${activeTitle}
+                </div>
+                <button type="button" class="w-10 h-10 rounded-full bg-white border border-slate-100 shadow-2xs flex items-center justify-center relative text-slate-600 cursor-pointer" title="Status Sistem Aktif">
+                  <span>🔔</span>
+                  <span class="w-2 h-2 rounded-full bg-rose-500 absolute top-2 right-2.5"></span>
+                </button>
+                <div class="bg-white border border-slate-100 shadow-2xs px-2.5 py-1.5 rounded-full flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-full bg-blue-100 text-blue-600 text-xs font-extrabold flex items-center justify-center">
                     ${esc((state.currentUser.nama || 'U')[0].toUpperCase())}
                   </div>
-                  <div class="hidden sm:block text-left">
+                  <div class="hidden sm:block text-left pr-1">
                     <div class="text-xs font-extrabold text-slate-800 leading-tight">${esc(state.currentUser.nama)}</div>
-                    <div class="text-[10px] font-bold text-blue-600 uppercase">${esc(state.currentUser.role)}</div>
+                    <div class="text-[10px] font-bold text-slate-400 uppercase">${esc(state.currentUser.role)}</div>
                   </div>
                 </div>
               </div>
             </header>
 
-            <!-- Konten Scrollable -->
-            <main class="flex-1 overflow-y-auto p-4 sm:p-6">
+            <main class="flex-1 overflow-y-auto px-4 sm:px-7 pb-6">
               <div class="max-w-[1600px] mx-auto pb-8">
                 ${contentHtml}
               </div>
@@ -3696,7 +3563,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     }
 
     // =========================================================================
-    // 21. EVENT LISTENERS (LOGIN, ADMIN/GURU/PENGAWAS & STUDENT ANTI-CURANG)
+    // 19. EVENT LISTENERS (LOGIN, ADMIN/GURU/PENGAWAS & STUDENT ANTI-CURANG)
     // =========================================================================
     function bindLoginEvents() {
       document.querySelectorAll('[data-login-role]').forEach(btn => {
@@ -3717,7 +3584,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
         const role = state.loginRoleTab || 'admin';
         const uidInput = (document.getElementById('inp-login-user')?.value || '').trim();
         const passInput = document.getElementById('inp-login-pass')?.value || '';
-        const tokenInput = (document.getElementById('inp-login-token')?.value || '').trim().toUpperCase();
 
         if (!uidInput || !passInput) {
           showToast('Silakan isi username dan kata sandi terlebih dahulu.', 'warning');
@@ -3734,7 +3600,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
           return;
         }
 
-        // Validasi kata sandi (mendukung akun baru terenkripsi SHA-256 maupun akun perdana)
         if (matchedUser.passwordHash) {
           const hashed = await hashPasswordSHA256(passInput);
           if (hashed !== matchedUser.passwordHash && passInput !== '123456') {
@@ -3746,14 +3611,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
           return;
         }
 
-        if (role === 'siswa' && tokenInput) {
-          const validJad = state.jadwalUjian.find(j => (j.pesertaIds || []).includes(matchedUser.id) && j.token.toUpperCase() === tokenInput);
-          if (!validJad) {
-            showToast('Token ujian tidak valid atau Anda tidak terdaftar pada token tersebut.', 'error');
-            return;
-          }
-        }
-
         state.currentUser = matchedUser;
         state.activeMenu = 'dashboard';
         saveSessionState();
@@ -3763,7 +3620,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     }
 
     function bindAppEvents() {
-      // Navigasi Sidebar & Topbar
       document.getElementById('btn-toggle-sidebar')?.addEventListener('click', () => {
         state.mobileSidebarOpen = !state.mobileSidebarOpen;
         renderApp();
@@ -4257,7 +4113,6 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
         });
       }
 
-      // Live Preview Gambar saat Link Ditempelkan
       document.getElementById('inp-soal-media-url')?.addEventListener('input', (e) => {
         const url = e.target.value.trim();
         const box = document.getElementById('live-media-preview-box');
@@ -4562,7 +4417,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
       // Backup & Restore
       document.getElementById('btn-download-backup')?.addEventListener('click', () => {
         const backupObj = {
-          version: 'CBT-Madrasah-Pro-v3',
+          version: 'CBT-Madrasah-Pro-v4',
           exportedAt: new Date().toISOString(),
           data: {
             madrasah: state.madrasah,
@@ -4612,7 +4467,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
         reader.readAsText(file);
       });
 
-      // Generic Delete Handler (Berfungsi di Seluruh Menu)
+      // Generic Delete Handler
       document.querySelectorAll('[data-del-col]').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.preventDefault();
@@ -4722,34 +4577,12 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
           const jad = state.jadwalUjian.find(j => j.id === jId);
           if (!jad) return;
 
-          requestSafeFullscreen();
-
           const existingRec = state.examRecords.find(r => r.jadwalId === jad.id && r.siswaId === state.currentUser.id);
-          const nowTime = new Date().toTimeString().slice(0, 5);
-
-          state.activeExamSession = {
-            jadwalId: jad.id,
-            remainingSec: (jad.durasiMenit || 90) * 60,
-            answers: existingRec?.answers ? { ...existingRec.answers } : {},
-            raguIds: [],
-            violations: existingRec?.pelanggaran || 0,
-            waktuMulai: existingRec?.waktuMulai || nowTime
-          };
-          state.currentQuestionIndex = 0;
-
-          await dbSaveDoc('exam_records', `rec_${jad.id}_${state.currentUser.id}`, {
-            jadwalId: jad.id,
-            siswaId: state.currentUser.id,
-            status: 'mengerjakan',
-            skor: 0,
-            pelanggaran: state.activeExamSession.violations,
-            waktuMulai: state.activeExamSession.waktuMulai,
-            waktuSelesai: '-',
-            answers: state.activeExamSession.answers
-          }, 'examRecords');
-
-          saveSessionState();
-          renderApp();
+          if (existingRec?.status === 'mengerjakan') {
+            await launchStudentExamSession(jad);
+          } else {
+            openExamTokenModal(jId);
+          }
         });
       });
 
@@ -4864,7 +4697,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     }
 
     // =========================================================================
-    // 22. TIMER HITUNG MUNDUR & PERISAI ANTI-CURANG REAL-TIME
+    // 20. TIMER HITUNG MUNDUR & PERISAI ANTI-CURANG REAL-TIME
     // =========================================================================
     setInterval(() => {
       if (state.currentUser?.role === 'siswa' && state.activeExamSession) {
@@ -4912,7 +4745,7 @@ KUNCI: Rukun Islam adalah 5 amalan pokok lahiriah, sedangkan Rukun Iman adalah 6
     });
 
     // =========================================================================
-    // 23. INISIALISASI AWAL APLIKASI
+    // 21. INISIALISASI AWAL APLIKASI
     // =========================================================================
     window.addEventListener('DOMContentLoaded', async () => {
       restoreSessionState();
