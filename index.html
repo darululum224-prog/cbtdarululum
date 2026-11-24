@@ -6,6 +6,8 @@
   <title>CBT Madrasah Pro — Sistem Ujian Berbasis Komputer 3D Neumorphic</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- JSZip untuk membaca berkas Microsoft Word (.docx) secara langsung di browser -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <!-- Google Fonts: Plus Jakarta Sans & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1138,56 +1140,160 @@
       showToast(isTemplateOnly ? 'Template Soal Word (.doc) berhasil diunduh!' : 'Bank Soal berhasil diekspor ke Word (.doc)!', 'success');
     }
 
-    async function importSoalFromWordHTML(rawText, paketId) {
+    function decodeQuotedPrintable(input) {
+      return input
+        .replace(/=\r?\n/g, '')
+        .replace(/=([0-9A-Fa-f]{2})/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)));
+    }
+
+    async function extractDocxTableRows(arrayBuffer) {
+      let xmlString = '';
+
+      if (window.JSZip) {
+        const zip = await window.JSZip.loadAsync(arrayBuffer);
+        const docFile = zip.file('word/document.xml');
+        if (!docFile) {
+          throw new Error('Berkas .docx tidak memiliki struktur word/document.xml yang valid.');
+        }
+        xmlString = await docFile.async('string');
+      } else if (typeof DecompressionStream !== 'undefined') {
+        // Fallback ZIP reader bawaan browser jika CDN offline
+        const view = new DataView(arrayBuffer);
+        const bytes = new Uint8Array(arrayBuffer);
+        let eocdOffset = -1;
+        for (let i = bytes.length - 22; i >= Math.max(0, bytes.length - 65557); i--) {
+          if (view.getUint32(i, true) === 0x06054b50) {
+            eocdOffset = i;
+            break;
+          }
+        }
+        if (eocdOffset < 0) throw new Error('Struktur arsip .docx tidak dikenali.');
+        const cdSize = view.getUint32(eocdOffset + 12, true);
+        const cdOffset = view.getUint32(eocdOffset + 16, true);
+        const decoder = new TextDecoder('utf-8');
+        let ptr = cdOffset;
+        while (ptr < cdOffset + cdSize) {
+          if (view.getUint32(ptr, true) !== 0x02014b50) break;
+          const method = view.getUint16(ptr + 10, true);
+          const compSize = view.getUint32(ptr + 20, true);
+          const nameLen = view.getUint16(ptr + 28, true);
+          const extraLen = view.getUint16(ptr + 30, true);
+          const commentLen = view.getUint16(ptr + 32, true);
+          const localHeaderOffset = view.getUint32(ptr + 42, true);
+          const fileName = decoder.decode(bytes.subarray(ptr + 46, ptr + 46 + nameLen));
+          if (fileName === 'word/document.xml') {
+            const lhNameLen = view.getUint16(localHeaderOffset + 26, true);
+            const lhExtraLen = view.getUint16(localHeaderOffset + 28, true);
+            const dataStart = localHeaderOffset + 30 + lhNameLen + lhExtraLen;
+            const compData = bytes.subarray(dataStart, dataStart + compSize);
+            if (method === 0) {
+              xmlString = decoder.decode(compData);
+            } else if (method === 8) {
+              const ds = new DecompressionStream('deflate-raw');
+              const writer = ds.writable.getWriter();
+              writer.write(compData);
+              writer.close();
+              const decompBuf = await new Response(ds.readable).arrayBuffer();
+              xmlString = decoder.decode(decompBuf);
+            }
+            break;
+          }
+          ptr += 46 + nameLen + extraLen + commentLen;
+        }
+      } else {
+        throw new Error('Browser tidak mendukung ekstraksi .docx. Simpan file Word sebagai Web Page (.htm).');
+      }
+
+      if (!xmlString) {
+        throw new Error('Isi dokumen word/document.xml kosong atau tidak dapat dibaca.');
+      }
+
       const parser = new DOMParser();
-      const doc = parser.parseFromString(rawText, 'text/html');
-      const tables = Array.from(doc.querySelectorAll('table'));
-      const targetTable = tables.find(t => t.querySelectorAll('tr').length >= 2);
-      if (!targetTable) {
-        showToast('Tabel soal tidak ditemukan di berkas Word (.doc/.html). Pastikan menggunakan Template Word CBT.', 'error');
+      const xmlDoc = parser.parseFromString(xmlString, 'application/xml');
+      const tables = Array.from(xmlDoc.getElementsByTagName('*')).filter(el => el.localName === 'tbl');
+      const targetTable = tables.find(t => {
+        const trs = Array.from(t.getElementsByTagName('*')).filter(el => el.localName === 'tr');
+        return trs.length >= 2;
+      });
+
+      if (!targetTable) return [];
+
+      const trList = Array.from(targetTable.children).filter(el => el.localName === 'tr');
+      return trList.map(tr => {
+        const tcList = Array.from(tr.children).filter(el => el.localName === 'tc');
+        return tcList.map(tc => {
+          const paragraphs = Array.from(tc.getElementsByTagName('*')).filter(el => el.localName === 'p');
+          if (paragraphs.length === 0) {
+            return (tc.textContent || '').trim();
+          }
+          return paragraphs
+            .map(p => {
+              const texts = Array.from(p.getElementsByTagName('*')).filter(el => el.localName === 't');
+              return texts.map(t => t.textContent || '').join('');
+            })
+            .join('\n')
+            .trim();
+        });
+      });
+    }
+
+    async function processImportedSoalRows(tableRows, paketId) {
+      const paket = state.bankSoal.find(b => b.id === paketId) || state.bankSoal[0];
+      if (!paket) {
+        showToast('Paket Bank Soal tujuan tidak ditemukan. Silakan pilih paket terlebih dahulu.', 'error');
         return;
       }
 
-      const paket = state.bankSoal.find(b => b.id === paketId);
-      if (!paket) return;
+      if (!Array.isArray(tableRows) || tableRows.length < 2) {
+        showToast('Tabel soal tidak ditemukan di dalam dokumen Word. Pastikan menggunakan Template Soal Word CBT.', 'error');
+        return;
+      }
 
-      const rows = Array.from(targetTable.querySelectorAll('tr')).slice(1);
+      // Lewati baris header tabel
+      const dataRows = tableRows.filter((cells, rowIndex) => {
+        if (rowIndex === 0) return false;
+        const c0 = (cells[0] || '').toLowerCase();
+        const c1 = (cells[1] || '').toLowerCase();
+        if (c0 === 'no' || c1 === 'tipe soal' || c1 === 'tipe') return false;
+        return true;
+      });
+
       const kunciObj = { ...(state.bankSoalKunci[paket.id] || {}) };
       let addedCount = 0;
 
-      rows.forEach((tr, idx) => {
-        const cells = Array.from(tr.querySelectorAll('td, th')).map(c => c.textContent.trim());
-        if (cells.length < 3 || !cells[2]) return;
+      dataRows.forEach((cells, idx) => {
+        const pertanyaanText = (cells[2] || '').trim();
+        if (!pertanyaanText) return;
 
-        const tipeRaw = (cells[1] || 'pg').toLowerCase();
+        const tipeRaw = (cells[1] || 'pg').trim().toLowerCase();
         const validTipe = QUESTION_TYPES.some(t => t.id === tipeRaw) ? tipeRaw : 'pg';
         const qId = 'q_imp_' + Date.now() + '_' + idx;
-        const extra = cells[9] || '';
-        const kunciRaw = cells[10] || '';
+        const extra = (cells[9] || '').trim();
+        const kunciRaw = (cells[10] || '').trim();
         const bobot = Number(cells[11]) || 10;
 
         const newQ = {
           id: qId,
           tipe: validTipe,
-          pertanyaan: cells[2],
-          mediaUrl: cells[3] || '',
+          pertanyaan: pertanyaanText,
+          mediaUrl: (cells[3] || '').trim(),
           mediaType: 'image',
           bobot
         };
 
         if (validTipe === 'pg' || validTipe === 'pg_kompleks' || validTipe === 'multimedia') {
           newQ.opsi = {
-            A: cells[4] || '',
-            B: cells[5] || '',
-            C: cells[6] || '',
-            D: cells[7] || '',
-            E: cells[8] || ''
+            A: (cells[4] || '').trim(),
+            B: (cells[5] || '').trim(),
+            C: (cells[6] || '').trim(),
+            D: (cells[7] || '').trim(),
+            E: (cells[8] || '').trim()
           };
           kunciObj[qId] = validTipe === 'pg_kompleks'
             ? kunciRaw.split(',').map(x => x.trim().toUpperCase()).filter(Boolean)
             : kunciRaw.toUpperCase();
         } else if (validTipe === 'bs') {
-          newQ.pernyataanTunggal = cells[2];
+          newQ.pernyataanTunggal = pertanyaanText;
           kunciObj[qId] = kunciRaw || 'Benar';
         } else if (validTipe === 'bs_multi') {
           newQ.pernyataanList = extra.split('|').map(x => x.trim()).filter(Boolean);
@@ -1207,12 +1313,66 @@
 
       if (addedCount > 0) {
         state.bankSoalKunci[paket.id] = kunciObj;
-        await dbSaveDoc('bank_soal', paket.id, paket, 'bankSoal');
-        await dbSaveDoc('bank_soal_kunci', paket.id, kunciObj);
-        showToast(`${addedCount} soal berhasil diimpor dari berkas Word!`, 'success');
         renderApp();
+        showToast(`Berhasil mengimpor ${addedCount} butir soal ke paket "${paket.judul}"!`, 'success');
+        try {
+          await dbSaveDoc('bank_soal', paket.id, paket, 'bankSoal');
+          await dbSaveDoc('bank_soal_kunci', paket.id, kunciObj);
+        } catch (syncErr) {
+          console.warn('Sinkronisasi cloud tertunda:', syncErr);
+        }
       } else {
-        showToast('Tidak ada baris soal valid yang ditemukan di tabel.', 'warning');
+        showToast('Tidak ada baris soal valid yang ditemukan. Pastikan kolom Pertanyaan (kolom ke-3) terisi.', 'warning');
+      }
+    }
+
+    async function importSoalFromFile(file, paketId) {
+      if (!file) return;
+      showToast(`Memproses berkas "${file.name}"...`, 'info');
+
+      try {
+        const buffer = await file.arrayBuffer();
+        const bytes = new Uint8Array(buffer);
+        const lowerName = file.name.toLowerCase();
+
+        // 1. Deteksi format Microsoft Word modern (.docx / arsip ZIP PK)
+        const isZipDocx = (bytes.length >= 4 && bytes[0] === 0x50 && bytes[1] === 0x4B) || lowerName.endsWith('.docx');
+        if (isZipDocx) {
+          const docxRows = await extractDocxTableRows(buffer);
+          await processImportedSoalRows(docxRows, paketId);
+          return;
+        }
+
+        // 2. Deteksi format Microsoft Word biner lama (.doc OLE2)
+        const isLegacyBinaryDoc = bytes.length >= 4 && bytes[0] === 0xD0 && bytes[1] === 0xCF && bytes[2] === 0x11 && bytes[3] === 0xE0;
+        if (isLegacyBinaryDoc) {
+          showToast('Format Word lama (.doc biner) terdeteksi. Di Word, klik File > Save As > pilih Word Document (.docx) atau Web Page (.htm), lalu unggah kembali.', 'error');
+          return;
+        }
+
+        // 3. Format HTML / MHTML / Template .doc berbasis HTML
+        let rawText = new TextDecoder('utf-8').decode(buffer);
+        if (rawText.includes('Content-Transfer-Encoding: quoted-printable') || rawText.includes('=3D')) {
+          rawText = decodeQuotedPrintable(rawText);
+        }
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(rawText, 'text/html');
+        const tables = Array.from(doc.querySelectorAll('table'));
+        const targetTable = tables.find(t => t.querySelectorAll('tr').length >= 2);
+
+        if (!targetTable) {
+          showToast('Tabel soal tidak ditemukan di berkas. Gunakan Template Word CBT (.doc / .docx) yang memiliki tabel 12 kolom.', 'error');
+          return;
+        }
+
+        const htmlRows = Array.from(targetTable.querySelectorAll('tr')).map(tr =>
+          Array.from(tr.querySelectorAll('td, th')).map(c => c.textContent.trim())
+        );
+        await processImportedSoalRows(htmlRows, paketId);
+      } catch (err) {
+        console.error('Error impor soal Word:', err);
+        showToast('Gagal mengimpor berkas soal: ' + (err?.message || 'Format berkas tidak valid.'), 'error');
       }
     }
 
@@ -2972,8 +3132,8 @@
                 ⬇ Ekspor Soal Word (.doc)
               </button>
               <label class="px-3.5 py-2 rounded-xl bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold cursor-pointer">
-                ⬆ Impor Soal Word
-                <input id="inp-import-word-soal" type="file" accept=".doc,.html,.htm" class="hidden" />
+                ⬆ Impor Soal Word (.doc / .docx)
+                <input id="inp-import-word-soal" type="file" accept=".doc,.docx,.html,.htm,.xml" class="hidden" />
               </label>
             </div>
           </div>
@@ -4280,14 +4440,15 @@
         downloadSoalWord(paket, false);
       });
 
-      document.getElementById('inp-import-word-soal')?.addEventListener('change', (e) => {
-        const file = e.target.files?.[0];
+      document.getElementById('inp-import-word-soal')?.addEventListener('change', async (e) => {
+        const inputEl = e.target;
+        const file = inputEl.files?.[0];
         if (!file) return;
-        const reader = new FileReader();
-        reader.onload = async () => {
-          await importSoalFromWordHTML(String(reader.result), state.selectedBankSoalId);
-        };
-        reader.readAsText(file);
+        try {
+          await importSoalFromFile(file, state.selectedBankSoalId);
+        } finally {
+          inputEl.value = '';
+        }
       });
 
       // Live Preview Link Gambar / Multimedia saat input soal
