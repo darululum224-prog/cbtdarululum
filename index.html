@@ -1406,7 +1406,10 @@
         const unsub = fbMod.onSnapshot(fbMod.collection(fbDb, colName), (snap) => {
           const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
           onDocs(list);
-          renderApp();
+          // Lewati render ulang otomatis saat berada di menu monitoring agar layar tidak berkedip
+          if (state.activeMenu !== 'monitoring') {
+            renderApp();
+          }
         }, () => {});
         firestoreUnsubs.push(unsub);
       };
@@ -1761,7 +1764,7 @@
           { id: 'guru', label: 'Guru', icon: uiIcon('book', 'w-4 h-4'), group: 'UTAMA', groupIcon: 'book', count: totalGuru },
           { id: 'pengawas', label: 'Pengawas', icon: uiIcon('eye-scan', 'w-4 h-4'), group: 'UTAMA', groupIcon: 'eye-scan', count: totalPengawas },
           { id: 'admin', label: 'Admin', icon: uiIcon('shield-lock', 'w-4 h-4'), group: 'UTAMA', groupIcon: 'shield-lock', count: totalAdmin },
-          { id: 'monitoring', label: 'Monitoring Ujian', icon: uiIcon('eye-scan', 'w-4 h-4'), group: 'PENGAWASAN & AKADEMIK', groupIcon: 'calendar', badge: 'Live' },
+          { id: 'monitoring', label: 'Monitoring Ujian', icon: uiIcon('eye-scan', 'w-4 h-4'), group: 'PENGAWASAN & AKADEMIK', groupIcon: 'calendar' },
           { id: 'madrasah', label: 'Data Madrasah', icon: uiIcon('building', 'w-4 h-4'), group: 'PENGAWASAN & AKADEMIK', groupIcon: 'calendar' },
           { id: 'master', label: 'Mapel, Rombel & Sesi', icon: uiIcon('book', 'w-4 h-4'), group: 'PENGAWASAN & AKADEMIK', groupIcon: 'calendar', count: state.mapels.length + totalRombel + state.sesiList.length },
           { id: 'kartu_peserta', label: 'Kartu Peserta', icon: uiIcon('scan-frame', 'w-4 h-4'), group: 'PENGAWASAN & AKADEMIK', groupIcon: 'calendar' },
@@ -1786,7 +1789,7 @@
         { id: 'dashboard', label: 'Dashboard', icon: uiIcon('dashboard', 'w-4 h-4'), group: 'UTAMA', groupIcon: 'dashboard' },
         { id: 'siswa', label: 'Siswa', icon: uiIcon('user-frame', 'w-4 h-4'), group: 'UTAMA', groupIcon: 'user-frame', count: totalSiswa },
         { id: 'pengawas', label: 'Pengawas', icon: uiIcon('eye-scan', 'w-4 h-4'), group: 'UTAMA', groupIcon: 'eye-scan', count: totalPengawas },
-        { id: 'monitoring', label: 'Kontrol Ruang Ujian', icon: uiIcon('eye-scan', 'w-4 h-4'), group: 'PENGAWASAN', groupIcon: 'eye-scan', badge: 'Live' },
+        { id: 'monitoring', label: 'Kontrol Ruang Ujian', icon: uiIcon('eye-scan', 'w-4 h-4'), group: 'PENGAWASAN', groupIcon: 'eye-scan' },
         { id: 'dokumen', label: 'Berita Acara & Hadir', icon: uiIcon('printer', 'w-4 h-4'), group: 'PENGAWASAN', groupIcon: 'eye-scan' }
       ];
     }
@@ -3707,7 +3710,7 @@
               <input id="inp-mon-search" type="text" value="${esc(state.monSearch)}" placeholder="Cari nama / nomor peserta..." class="neu-input px-3.5 py-2 rounded-xl font-medium" />
             </div>
             <div class="flex items-center gap-2">
-              <button type="button" id="btn-recalc-scores" class="px-3.5 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-extrabold cursor-pointer">🔄 Hitung Ulang Nilai</button>
+              <button type="button" id="btn-update-nilai" class="neu-btn-blue px-4 py-2 rounded-xl text-xs font-extrabold cursor-pointer">🔄 Update Nilai</button>
               <button type="button" id="btn-export-nilai-xls" class="neu-btn-emerald px-4 py-2 rounded-xl text-xs font-extrabold cursor-pointer">📥 Ekspor Nilai (.xls)</button>
             </div>
           </div>
@@ -5940,20 +5943,23 @@
         });
       });
 
-      document.getElementById('btn-recalc-scores')?.addEventListener('click', async () => {
+      const handleUpdateNilai = async () => {
+        loadPreviewSnapshot();
         const jad = state.jadwalUjian.find(j => j.id === state.selectedJadwalId) || state.jadwalUjian[0];
         if (!jad) return;
         const recs = state.examRecords.filter(r => r.jadwalId === jad.id);
         let updatedCount = 0;
         for (const r of recs) {
-          const newSkor = calculateExamScore(jad, r.answers || {});
+          const newSkor = typeof r.manualSkor === 'number' ? r.manualSkor : calculateExamScore(jad, r.answers || {});
           await dbSaveDoc('exam_records', r.id, { ...r, skor: newSkor }, 'examRecords');
           updatedCount++;
         }
-        showToast(updatedCount > 0 ? `Nilai ${updatedCount} peserta berhasil dihitung ulang!` : 'Belum ada data pengerjaan untuk dihitung ulang.', updatedCount > 0 ? 'success' : 'info');
+        showToast(updatedCount > 0 ? `Nilai ${updatedCount} peserta berhasil diupdate!` : 'Data nilai telah dimuat ulang.', 'success');
         renderApp();
-      });
+      };
 
+      document.getElementById('btn-update-nilai')?.addEventListener('click', handleUpdateNilai);
+      document.getElementById('btn-recalc-scores')?.addEventListener('click', handleUpdateNilai);
       document.getElementById('btn-export-nilai-xls')?.addEventListener('click', () => {
         const jad = state.jadwalUjian.find(j => j.id === state.selectedJadwalId) || state.jadwalUjian[0];
         if (!jad) return;
