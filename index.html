@@ -779,35 +779,58 @@
     }
 
     @media print {
-      html, body, #app-root, #app-root > div, #app-root > div > div, main {
+      html, body {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      body > *:not(#app-root):not(#print-area):not(#print-staging-root) {
+        display: none !important;
+      }
+      #app-root {
         position: static !important;
         inset: auto !important;
-        width: auto !important;
+        width: 100% !important;
         height: auto !important;
+        min-height: 0 !important;
         overflow: visible !important;
         display: block !important;
         padding: 0 !important;
         margin: 0 !important;
         background: #ffffff !important;
       }
-      body * {
-        visibility: hidden !important;
+      #app-root.printing-active > * {
+        display: none !important;
       }
-      #print-area, #print-area * {
+      #print-staging-root {
+        display: block !important;
         visibility: visible !important;
-      }
-      #print-area {
         position: static !important;
-        left: auto !important;
-        top: auto !important;
         width: 100% !important;
         height: auto !important;
         overflow: visible !important;
         background: #ffffff !important;
+        color: #000000 !important;
         padding: 0 !important;
         margin: 0 !important;
-        box-shadow: none !important;
-        border: none !important;
+      }
+      #print-staging-root * {
+        visibility: visible !important;
+      }
+      .dok-rombel-sheet {
+        display: block !important;
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+      }
+      .dok-rombel-sheet + .dok-rombel-sheet {
+        break-before: page !important;
+        page-break-before: always !important;
       }
     }
   </style>
@@ -815,6 +838,8 @@
 <body>
   <!-- Kontainer Utama Aplikasi -->
   <div id="app-root"></div>
+  <!-- Kontainer Khusus Cetak / PDF agar tidak terpotong oleh layout fixed -->
+  <div id="print-staging-root" style="display:none;"></div>
   <!-- Kontainer Modal Konfirmasi & Editor -->
   <div id="modal-root"></div>
   <!-- Kontainer Notifikasi Toast -->
@@ -1091,6 +1116,7 @@
       ],
       beritaAcaraManual: {
         jadwalId: 'jad_1',
+        rombelId: '',
         kopInstansi: 'KEMENTERIAN AGAMA REPUBLIK INDONESIA',
         kopLembaga: '',
         kopAlamat: '',
@@ -3807,8 +3833,173 @@
         : `${m.alamat} • NPSN: ${m.npsn} • NSM: ${m.nsm}`;
       const jad = state.jadwalUjian.find(j => j.id === ba.jadwalId) || state.jadwalUjian[0];
       const sesi = state.sesiList.find(s => s.id === jad?.sesiId) || state.sesiList[0];
-      const pesertaList = state.users.filter(u => u.role === 'siswa');
+      const targetRombels = ba.rombelId
+        ? state.rombels.filter(r => r.id === ba.rombelId)
+        : state.rombels;
+      const rombelList = targetRombels.length > 0
+        ? targetRombels
+        : [{ id: '', kode: 'SEMUA', nama: 'Semua Peserta', tingkat: '-', waliKelas: '-' }];
       const pageRule = state.paperSize === 'F4' ? '215mm 330mm portrait' : 'A4 portrait';
+
+      const renderKopBlock = (rmbObj) => `
+        <table class="w-full border-collapse border-b-4 border-double border-slate-900 mb-3">
+          <tr>
+            <td class="w-20 pb-2.5 align-middle text-left">
+              <img src="${esc(logoLembagaSrc)}" alt="Logo Lembaga" onerror="this.src='${DEFAULT_LOGO_SVG}'" class="w-16 h-16 object-contain inline-block" />
+            </td>
+            <td class="pb-2.5 px-2 align-middle text-center leading-snug">
+              <div class="text-xs font-extrabold uppercase tracking-wide">${esc(kopInstansiText)}</div>
+              <div class="text-base sm:text-lg font-black uppercase text-slate-950">${esc(kopLembagaText)}</div>
+              <div class="text-[11px] font-medium text-slate-700">${esc(kopAlamatText)}</div>
+              ${rmbObj && rmbObj.id ? `<div class="mt-1 inline-block px-2.5 py-0.5 rounded bg-slate-100 border border-slate-300 text-[10px] font-extrabold uppercase text-slate-900">Rombel: ${esc(rmbObj.kode)} — ${esc(rmbObj.nama)}</div>` : ''}
+            </td>
+            <td class="w-20 pb-2.5 align-middle text-right">
+              <img src="${esc(logoKemenagSrc)}" alt="Logo Kemenag" onerror="this.src='${DEFAULT_LOGO_SVG}'" class="w-16 h-16 object-contain inline-block" />
+            </td>
+          </tr>
+        </table>
+      `;
+
+      const sheetsHtml = rombelList.map((rmb, rIdx) => {
+        const siswaRombel = state.users.filter(u => u.role === 'siswa' && (!rmb.id || u.rombelId === rmb.id));
+        const jmlSeharusnya = rmb.id ? String(siswaRombel.length) : ba.jumlahSeharusnya;
+        const jmlHadirRombel = rmb.id
+          ? String(siswaRombel.filter(s => {
+              const rec = state.examRecords.find(r => r.jadwalId === jad?.id && r.siswaId === s.id);
+              return rec && rec.status !== 'belum_mulai';
+            }).length)
+          : ba.jumlahHadir;
+        const jmlTidakHadirRombel = rmb.id
+          ? String(Math.max(0, Number(jmlSeharusnya) - Number(jmlHadirRombel)))
+          : ba.jumlahTidakHadir;
+
+        return `
+          <div class="dok-rombel-sheet space-y-4 ${rIdx > 0 ? 'pt-6 mt-6 border-t-2 border-dashed border-slate-300' : ''}">
+            ${renderKopBlock(rmb)}
+
+            ${tab === 'berita_acara' ? `
+              <div class="text-center space-y-0.5 pt-1">
+                <div class="text-sm font-extrabold uppercase underline">BERITA ACARA PELAKSANAAN UJIAN BERBASIS KOMPUTER</div>
+                <div class="text-xs font-bold uppercase">${esc(m.namaUjianDefault)} TAHUN PELAJARAN ${esc(m.tahunPelajaran)}</div>
+                ${rmb.id ? `<div class="text-xs font-extrabold uppercase text-slate-800">ROMBONGAN BELAJAR: ${esc(rmb.kode)} (${esc(rmb.nama)})</div>` : ''}
+              </div>
+
+              <p class="text-xs leading-relaxed text-justify">
+                Pada hari ini <strong>${esc(ba.hariTanggal)}</strong>, telah diselenggarakan Ujian Berbasis Komputer (CBT) untuk mata ujian <strong>${esc(jad?.namaUjian || 'Asesmen Madrasah')}</strong>${rmb.id ? ` khusus rombongan belajar <strong>${esc(rmb.kode)} — ${esc(rmb.nama)}</strong>` : ''} bertempat di <strong>${esc(ba.ruang)}</strong> (${esc(sesi?.nama || 'Sesi 1')} pukul ${esc(sesi?.mulai || '07:30')} – ${esc(sesi?.selesai || '09:30')} WIB) dengan rincian sebagai berikut:
+              </p>
+
+              <table class="w-full text-xs border-collapse border border-slate-800">
+                <tr><td class="border border-slate-800 px-3.5 py-2 w-64 font-bold bg-slate-50/70">Rombongan Belajar</td><td class="border border-slate-800 px-3.5 py-2 font-extrabold">${esc(rmb.id ? `${rmb.kode} — ${rmb.nama}` : 'Semua Rombel')}</td></tr>
+                <tr><td class="border border-slate-800 px-3.5 py-2 font-bold bg-slate-50/70">Jumlah Peserta Seharusnya</td><td class="border border-slate-800 px-3.5 py-2 font-extrabold">${esc(jmlSeharusnya)} Orang</td></tr>
+                <tr><td class="border border-slate-800 px-3.5 py-2 font-bold bg-slate-50/70">Jumlah Peserta Hadir</td><td class="border border-slate-800 px-3.5 py-2 font-extrabold text-emerald-800">${esc(jmlHadirRombel)} Orang</td></tr>
+                <tr><td class="border border-slate-800 px-3.5 py-2 font-bold bg-slate-50/70">Jumlah Peserta Tidak Hadir</td><td class="border border-slate-800 px-3.5 py-2 font-extrabold text-rose-700">${esc(jmlTidakHadirRombel)} Orang</td></tr>
+                <tr><td class="border border-slate-800 px-3.5 py-2 font-bold bg-slate-50/70">Catatan Selama Pelaksanaan</td><td class="border border-slate-800 px-3.5 py-2">${esc(ba.catatanKejadian)}</td></tr>
+              </table>
+
+              <table class="w-full mt-6 text-xs text-center border-collapse">
+                <tr>
+                  <td class="w-1/2 align-top px-4">
+                    <div>Proktor Ruang,</div>
+                    <div class="h-14"></div>
+                    <div class="font-extrabold underline">${esc(ba.namaProktor)}</div>
+                    <div>NIP. ${esc(ba.nipProktor)}</div>
+                  </td>
+                  <td class="w-1/2 align-top px-4">
+                    <div>Pengawas Ruang,</div>
+                    <div class="h-14"></div>
+                    <div class="font-extrabold underline">${esc(ba.namaPengawas)}</div>
+                    <div>NIP. ${esc(ba.nipPengawas)}</div>
+                  </td>
+                </tr>
+              </table>
+            ` : `
+              <div class="text-center space-y-0.5 pt-1">
+                <div class="text-sm font-extrabold uppercase underline">DAFTAR HADIR PESERTA UJIAN BERBASIS KOMPUTER</div>
+                <div class="text-xs font-bold uppercase">${esc(m.namaUjianDefault)} • TP ${esc(m.tahunPelajaran)}</div>
+                ${rmb.id ? `<div class="text-xs font-extrabold uppercase text-slate-800">ROMBONGAN BELAJAR: ${esc(rmb.kode)} (${esc(rmb.nama)})</div>` : ''}
+              </div>
+
+              <table class="w-full text-xs border-collapse border border-slate-800">
+                <tr>
+                  <td class="border border-slate-800 px-3 py-1.5 font-bold bg-slate-50 w-32">Mata Ujian</td>
+                  <td class="border border-slate-800 px-3 py-1.5 font-extrabold">${esc(jad?.namaUjian || '-')}</td>
+                  <td class="border border-slate-800 px-3 py-1.5 font-bold bg-slate-50 w-28">Rombel / Ruang</td>
+                  <td class="border border-slate-800 px-3 py-1.5 font-bold">${esc(rmb.kode)} • ${esc(ba.ruang)}</td>
+                </tr>
+                <tr>
+                  <td class="border border-slate-800 px-3 py-1.5 font-bold bg-slate-50">Hari, Tanggal</td>
+                  <td class="border border-slate-800 px-3 py-1.5">${esc(ba.hariTanggal)}</td>
+                  <td class="border border-slate-800 px-3 py-1.5 font-bold bg-slate-50">Sesi / Waktu</td>
+                  <td class="border border-slate-800 px-3 py-1.5">${esc(sesi?.nama || 'Sesi 1')} (${esc(sesi?.mulai || '07:30')}–${esc(sesi?.selesai || '09:30')})</td>
+                </tr>
+              </table>
+
+              <div class="overflow-x-auto">
+                <table class="w-full text-[11px] border-collapse border border-slate-800">
+                  <thead>
+                    <tr class="bg-slate-100 text-center font-extrabold">
+                      <th class="border border-slate-800 px-2 py-2 w-9">No.</th>
+                      <th class="border border-slate-800 px-2 py-2 w-24">No. Peserta</th>
+                      <th class="border border-slate-800 px-2 py-2 w-24">NISN</th>
+                      <th class="border border-slate-800 px-2.5 py-2 text-left">Nama Lengkap Peserta</th>
+                      <th class="border border-slate-800 px-2 py-2 w-16">Rombel</th>
+                      <th class="border border-slate-800 px-2 py-2 w-20">Kehadiran</th>
+                      <th colspan="2" class="border border-slate-800 px-2 py-2 w-36">Tanda Tangan</th>
+                      <th class="border border-slate-800 px-2 py-2 w-20">Keterangan</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${siswaRombel.length === 0 ? `
+                      <tr><td colspan="9" class="border border-slate-800 px-3 py-4 text-center text-slate-500">Tidak ada peserta pada rombel ini.</td></tr>
+                    ` : siswaRombel.map((s, i) => {
+                      const rec = state.examRecords.find(r => r.jadwalId === jad?.id && r.siswaId === s.id);
+                      const hadirLabel = rec && rec.status !== 'belum_mulai' ? 'Hadir' : '—';
+                      const isOdd = (i + 1) % 2 === 1;
+                      return `
+                        <tr>
+                          <td class="border border-slate-800 px-2 py-2 text-center font-bold">${i + 1}</td>
+                          <td class="border border-slate-800 px-2 py-2 text-center font-mono font-bold">${esc(s.username)}</td>
+                          <td class="border border-slate-800 px-2 py-2 text-center font-mono">${esc(s.nisn || '-')}</td>
+                          <td class="border border-slate-800 px-2.5 py-2 font-bold uppercase">${esc(s.nama)}</td>
+                          <td class="border border-slate-800 px-2 py-2 text-center font-bold">${esc(rmb.kode)}</td>
+                          <td class="border border-slate-800 px-2 py-2 text-center font-extrabold">${hadirLabel}</td>
+                          <td class="border border-slate-800 px-2 py-2 text-left w-18">${isOdd ? `${i + 1}.` : ''}</td>
+                          <td class="border border-slate-800 px-2 py-2 text-left w-18">${!isOdd ? `${i + 1}.` : ''}</td>
+                          <td class="border border-slate-800 px-2 py-2 text-center"></td>
+                        </tr>
+                      `;
+                    }).join('')}
+                  </tbody>
+                </table>
+              </div>
+
+              <table class="w-full mt-4 text-xs border-collapse">
+                <tr>
+                  <td class="w-1/3 align-top pr-2">
+                    <table class="w-full border-collapse border border-slate-800 text-[11px]">
+                      <tr><td class="border border-slate-800 px-2.5 py-1 font-bold">Jumlah Seharusnya</td><td class="border border-slate-800 px-2.5 py-1 font-extrabold text-right">${esc(jmlSeharusnya)}</td></tr>
+                      <tr><td class="border border-slate-800 px-2.5 py-1 font-bold">Jumlah Hadir</td><td class="border border-slate-800 px-2.5 py-1 font-extrabold text-right">${esc(jmlHadirRombel)}</td></tr>
+                      <tr><td class="border border-slate-800 px-2.5 py-1 font-bold">Tidak Hadir</td><td class="border border-slate-800 px-2.5 py-1 font-extrabold text-right">${esc(jmlTidakHadirRombel)}</td></tr>
+                    </table>
+                  </td>
+                  <td class="w-1/3 align-top px-2 text-center">
+                    <div>Proktor Ruang,</div>
+                    <div class="h-12"></div>
+                    <div class="font-extrabold underline">${esc(ba.namaProktor)}</div>
+                    <div>NIP. ${esc(ba.nipProktor)}</div>
+                  </td>
+                  <td class="w-1/3 align-top pl-2 text-center">
+                    <div>Pengawas Ruang,</div>
+                    <div class="h-12"></div>
+                    <div class="font-extrabold underline">${esc(ba.namaPengawas)}</div>
+                    <div>NIP. ${esc(ba.nipPengawas)}</div>
+                  </td>
+                </tr>
+              </table>
+            `}
+          </div>
+        `;
+      }).join('');
 
       return `
         <div class="anim-fade-up space-y-4">
@@ -3826,6 +4017,11 @@
                 border-radius: 0 !important;
                 box-shadow: none !important;
               }
+              .dok-rombel-sheet {
+                padding-top: 0 !important;
+                margin-top: 0 !important;
+                border-top: none !important;
+              }
               #print-area table {
                 page-break-inside: auto;
               }
@@ -3842,6 +4038,13 @@
               <button type="button" data-dok-tab="daftar_hadir" class="px-4 py-2 rounded-xl text-xs font-extrabold cursor-pointer ${tab === 'daftar_hadir' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600'}">📋 Absensi / Daftar Hadir Peserta</button>
             </div>
             <div class="flex flex-wrap items-center gap-2">
+              <select id="sel-dok-jadwal" class="neu-input px-3 py-2 rounded-xl text-xs font-bold">
+                ${state.jadwalUjian.map(j => `<option value="${esc(j.id)}" ${jad?.id === j.id ? 'selected' : ''}>${esc(j.namaUjian)} (${esc(j.mapelKode)})</option>`).join('')}
+              </select>
+              <select id="sel-dok-rombel" class="neu-input px-3 py-2 rounded-xl text-xs font-bold">
+                <option value="">Semua Rombel (Pisah Per Lembar)</option>
+                ${state.rombels.map(r => `<option value="${esc(r.id)}" ${ba.rombelId === r.id ? 'selected' : ''}>Rombel ${esc(r.kode)} — ${esc(r.nama)}</option>`).join('')}
+              </select>
               <select id="sel-paper-size" class="neu-input px-3 py-2 rounded-xl text-xs font-bold">
                 <option value="A4" ${state.paperSize === 'A4' ? 'selected' : ''}>Kertas A4</option>
                 <option value="F4" ${state.paperSize === 'F4' ? 'selected' : ''}>Kertas F4 / Folio</option>
@@ -3853,7 +4056,10 @@
 
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
             <form id="form-dokumen-manual" class="lg:col-span-4 neu-card-static rounded-3xl p-5 space-y-3 text-xs">
-              <h3 class="text-sm font-extrabold text-slate-800">Edit Manual Kop & Data Dokumen</h3>
+              <div class="flex items-center justify-between gap-2">
+                <h3 class="text-sm font-extrabold text-slate-800">Edit Manual Kop & Data Dokumen</h3>
+                <button type="button" id="btn-reset-dok-manual" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 text-[10px] font-bold cursor-pointer">↺ Reset</button>
+              </div>
 
               <div class="p-3 rounded-2xl bg-slate-50/90 border border-slate-200/80 space-y-2.5">
                 <div class="font-extrabold text-slate-700 text-[11px] uppercase tracking-wide">✏️ Edit Manual Bagian Kop</div>
@@ -3911,7 +4117,10 @@
               </div>
               <div class="grid grid-cols-3 gap-2">
                 <div>
-                  <label class="block font-bold text-slate-600 mb-1">Seharusnya</label>
+                  <div class="flex items-center justify-between gap-1 mb-1">
+                    <label class="font-bold text-slate-600">Seharusnya</label>
+                    <button type="button" id="btn-sync-hadir" class="text-[10px] font-extrabold text-blue-600 hover:underline cursor-pointer">Auto</button>
+                  </div>
                   <input name="jumlahSeharusnya" value="${esc(ba.jumlahSeharusnya)}" class="neu-input w-full px-2.5 py-2 rounded-xl font-bold" />
                 </div>
                 <div>
@@ -3950,139 +4159,8 @@
               <button type="submit" class="neu-btn-blue w-full py-2.5 rounded-xl font-extrabold cursor-pointer">🔄 Perbarui Pratinjau</button>
             </form>
 
-            <div id="print-area" class="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 text-slate-900 space-y-4">
-              <table class="w-full border-collapse border-b-4 border-double border-slate-900 mb-3">
-                <tr>
-                  <td class="w-20 pb-3 align-middle text-left">
-                    <img src="${esc(logoLembagaSrc)}" alt="Logo Lembaga" onerror="this.src='${DEFAULT_LOGO_SVG}'" class="w-16 h-16 object-contain inline-block" />
-                  </td>
-                  <td class="pb-3 px-2 align-middle text-center leading-snug">
-                    <div class="text-xs font-extrabold uppercase tracking-wide">${esc(kopInstansiText)}</div>
-                    <div class="text-base sm:text-lg font-black uppercase text-slate-950">${esc(kopLembagaText)}</div>
-                    <div class="text-[11px] font-medium text-slate-700">${esc(kopAlamatText)}</div>
-                  </td>
-                  <td class="w-20 pb-3 align-middle text-right">
-                    <img src="${esc(logoKemenagSrc)}" alt="Logo Kemenag" onerror="this.src='${DEFAULT_LOGO_SVG}'" class="w-16 h-16 object-contain inline-block" />
-                  </td>
-                </tr>
-              </table>
-
-              ${tab === 'berita_acara' ? `
-                <div class="text-center space-y-0.5 pt-1">
-                  <div class="text-sm font-extrabold uppercase underline">BERITA ACARA PELAKSANAAN UJIAN BERBASIS KOMPUTER</div>
-                  <div class="text-xs font-bold uppercase">${esc(m.namaUjianDefault)} TAHUN PELAJARAN ${esc(m.tahunPelajaran)}</div>
-                </div>
-
-                <p class="text-xs leading-relaxed text-justify">
-                  Pada hari ini <strong>${esc(ba.hariTanggal)}</strong>, telah diselenggarakan Ujian Berbasis Komputer (CBT) untuk mata ujian <strong>${esc(jad?.namaUjian || 'Asesmen Madrasah')}</strong> bertempat di <strong>${esc(ba.ruang)}</strong> (${esc(sesi?.nama || 'Sesi 1')} pukul ${esc(sesi?.mulai || '07:30')} – ${esc(sesi?.selesai || '09:30')} WIB) dengan rincian sebagai berikut:
-                </p>
-
-                <table class="w-full text-xs border-collapse border border-slate-800">
-                  <tr><td class="border border-slate-800 px-3.5 py-2 w-64 font-bold bg-slate-50/70">Jumlah Peserta Seharusnya</td><td class="border border-slate-800 px-3.5 py-2 font-extrabold">${esc(ba.jumlahSeharusnya)} Orang</td></tr>
-                  <tr><td class="border border-slate-800 px-3.5 py-2 font-bold bg-slate-50/70">Jumlah Peserta Hadir</td><td class="border border-slate-800 px-3.5 py-2 font-extrabold text-emerald-800">${esc(ba.jumlahHadir)} Orang</td></tr>
-                  <tr><td class="border border-slate-800 px-3.5 py-2 font-bold bg-slate-50/70">Jumlah Peserta Tidak Hadir</td><td class="border border-slate-800 px-3.5 py-2 font-extrabold text-rose-700">${esc(ba.jumlahTidakHadir)} Orang</td></tr>
-                  <tr><td class="border border-slate-800 px-3.5 py-2 font-bold bg-slate-50/70">Catatan Selama Pelaksanaan</td><td class="border border-slate-800 px-3.5 py-2">${esc(ba.catatanKejadian)}</td></tr>
-                </table>
-
-                <table class="w-full mt-6 text-xs text-center border-collapse">
-                  <tr>
-                    <td class="w-1/2 align-top px-4">
-                      <div>Proktor Ruang,</div>
-                      <div class="h-14"></div>
-                      <div class="font-extrabold underline">${esc(ba.namaProktor)}</div>
-                      <div>NIP. ${esc(ba.nipProktor)}</div>
-                    </td>
-                    <td class="w-1/2 align-top px-4">
-                      <div>Pengawas Ruang,</div>
-                      <div class="h-14"></div>
-                      <div class="font-extrabold underline">${esc(ba.namaPengawas)}</div>
-                      <div>NIP. ${esc(ba.nipPengawas)}</div>
-                    </td>
-                  </tr>
-                </table>
-              ` : `
-                <div class="text-center space-y-0.5 pt-1">
-                  <div class="text-sm font-extrabold uppercase underline">DAFTAR HADIR PESERTA UJIAN BERBASIS KOMPUTER</div>
-                  <div class="text-xs font-bold uppercase">${esc(m.namaUjianDefault)} • TP ${esc(m.tahunPelajaran)}</div>
-                </div>
-
-                <table class="w-full text-xs border-collapse border border-slate-800">
-                  <tr>
-                    <td class="border border-slate-800 px-3 py-1.5 font-bold bg-slate-50 w-32">Mata Ujian</td>
-                    <td class="border border-slate-800 px-3 py-1.5 font-extrabold">${esc(jad?.namaUjian || '-')}</td>
-                    <td class="border border-slate-800 px-3 py-1.5 font-bold bg-slate-50 w-28">Ruang Ujian</td>
-                    <td class="border border-slate-800 px-3 py-1.5 font-bold">${esc(ba.ruang)}</td>
-                  </tr>
-                  <tr>
-                    <td class="border border-slate-800 px-3 py-1.5 font-bold bg-slate-50">Hari, Tanggal</td>
-                    <td class="border border-slate-800 px-3 py-1.5">${esc(ba.hariTanggal)}</td>
-                    <td class="border border-slate-800 px-3 py-1.5 font-bold bg-slate-50">Sesi / Waktu</td>
-                    <td class="border border-slate-800 px-3 py-1.5">${esc(sesi?.nama || 'Sesi 1')} (${esc(sesi?.mulai || '07:30')}–${esc(sesi?.selesai || '09:30')})</td>
-                  </tr>
-                </table>
-
-                <div class="overflow-x-auto">
-                  <table class="w-full text-[11px] border-collapse border border-slate-800">
-                    <thead>
-                      <tr class="bg-slate-100 text-center font-extrabold">
-                        <th class="border border-slate-800 px-2 py-2 w-9">No.</th>
-                        <th class="border border-slate-800 px-2 py-2 w-24">No. Peserta</th>
-                        <th class="border border-slate-800 px-2 py-2 w-24">NISN</th>
-                        <th class="border border-slate-800 px-2.5 py-2 text-left">Nama Lengkap Peserta</th>
-                        <th class="border border-slate-800 px-2 py-2 w-16">Rombel</th>
-                        <th class="border border-slate-800 px-2 py-2 w-20">Kehadiran</th>
-                        <th colspan="2" class="border border-slate-800 px-2 py-2 w-36">Tanda Tangan</th>
-                        <th class="border border-slate-800 px-2 py-2 w-20">Keterangan</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      ${pesertaList.map((s, i) => {
-                        const rmb = state.rombels.find(r => r.id === s.rombelId);
-                        const rec = state.examRecords.find(r => r.jadwalId === jad?.id && r.siswaId === s.id);
-                        const hadirLabel = rec && rec.status !== 'belum_mulai' ? 'Hadir' : '—';
-                        const isOdd = (i + 1) % 2 === 1;
-                        return `
-                          <tr>
-                            <td class="border border-slate-800 px-2 py-2 text-center font-bold">${i + 1}</td>
-                            <td class="border border-slate-800 px-2 py-2 text-center font-mono font-bold">${esc(s.username)}</td>
-                            <td class="border border-slate-800 px-2 py-2 text-center font-mono">${esc(s.nisn || '-')}</td>
-                            <td class="border border-slate-800 px-2.5 py-2 font-bold uppercase">${esc(s.nama)}</td>
-                            <td class="border border-slate-800 px-2 py-2 text-center font-bold">${esc(rmb?.kode || '-')}</td>
-                            <td class="border border-slate-800 px-2 py-2 text-center font-extrabold">${hadirLabel}</td>
-                            <td class="border border-slate-800 px-2 py-2 text-left w-18">${isOdd ? `${i + 1}.` : ''}</td>
-                            <td class="border border-slate-800 px-2 py-2 text-left w-18">${!isOdd ? `${i + 1}.` : ''}</td>
-                            <td class="border border-slate-800 px-2 py-2 text-center"></td>
-                          </tr>
-                        `;
-                      }).join('')}
-                    </tbody>
-                  </table>
-                </div>
-
-                <table class="w-full mt-4 text-xs border-collapse">
-                  <tr>
-                    <td class="w-1/3 align-top pr-2">
-                      <table class="w-full border-collapse border border-slate-800 text-[11px]">
-                        <tr><td class="border border-slate-800 px-2.5 py-1 font-bold">Jumlah Seharusnya</td><td class="border border-slate-800 px-2.5 py-1 font-extrabold text-right">${esc(ba.jumlahSeharusnya)}</td></tr>
-                        <tr><td class="border border-slate-800 px-2.5 py-1 font-bold">Jumlah Hadir</td><td class="border border-slate-800 px-2.5 py-1 font-extrabold text-right">${esc(ba.jumlahHadir)}</td></tr>
-                        <tr><td class="border border-slate-800 px-2.5 py-1 font-bold">Tidak Hadir</td><td class="border border-slate-800 px-2.5 py-1 font-extrabold text-right">${esc(ba.jumlahTidakHadir)}</td></tr>
-                      </table>
-                    </td>
-                    <td class="w-1/3 align-top px-2 text-center">
-                      <div>Proktor Ruang,</div>
-                      <div class="h-12"></div>
-                      <div class="font-extrabold underline">${esc(ba.namaProktor)}</div>
-                      <div>NIP. ${esc(ba.nipProktor)}</div>
-                    </td>
-                    <td class="w-1/3 align-top pl-2 text-center">
-                      <div>Pengawas Ruang,</div>
-                      <div class="h-12"></div>
-                      <div class="font-extrabold underline">${esc(ba.namaPengawas)}</div>
-                      <div>NIP. ${esc(ba.nipPengawas)}</div>
-                    </td>
-                  </tr>
-                </table>
-              `}
+            <div id="print-area" class="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 text-slate-900">
+              ${sheetsHtml}
             </div>
           </div>
         </div>
@@ -5516,7 +5594,7 @@
         if (!box) return;
         if (url) {
           box.classList.remove('hidden');
-          box.innerHTML = `<img src="${esc(url)}" alt="Pratinjau Media" class="max-h-36 mx-auto rounded-xl object-contain" onerror="this.parentElement.innerHTML='<span class=\\'text-rose-500 text-[11px]\\'>URL gambar tidak dapat dimuat</span>'" />`;
+          box.innerHTML = `<img src="${esc(url)}" alt="Pratinjau Media" class="max-h-36 mx-auto rounded-xl object-contain" onerror="this.parentElement.innerHTML='<span class=&quot;text-rose-500 text-[11px]&quot;>URL gambar tidak dapat dimuat</span>'" />`;
         } else {
           box.classList.add('hidden');
           box.innerHTML = '';
@@ -5967,15 +6045,13 @@
         const totalSoal = paket?.soalList?.length || 0;
         const mapelObj = state.mapels.find(m => m.kode === jad.mapelKode);
         const kkm = Number(mapelObj?.kkm) || 75;
-        const peserta = state.users.filter(u =>
-          u.role === 'siswa' &&
-          ((jad.pesertaIds || []).includes(u.id) || state.examRecords.some(r => r.jadwalId === jad.id && r.siswaId === u.id))
-        );
+        const peserta = state.users.filter(u => u.role === 'siswa' && ((jad.pesertaIds || []).includes(u.id) || state.examRecords.some(r => r.jadwalId === jad.id && r.siswaId === u.id)));
         const rowsData = peserta.map(s => {
           const rmb = state.rombels.find(r => r.id === s.rombelId);
           const rec = state.examRecords.find(r => r.jadwalId === jad.id && r.siswaId === s.id);
           const status = rec?.status || 'belum_mulai';
-          const answeredCount = rec?.answers ? Object.values(rec.answers).filter(v => v !== undefined && v !== '').length : 0;
+          const answeredCount = rec?.answers ? Object.values(rec.answers).filter(v => v !== undefined && v !== '' && !(Array.isArray(v) && v.length === 0)).length : 0;
+          const nilaiTampil = rec ? getResolvedStudentScore(jad, rec) : null;
           return {
             siswa: s,
             rombelKode: rmb?.kode || '-',
@@ -5983,56 +6059,80 @@
             answeredCount,
             totalSoal,
             pelanggaran: rec?.pelanggaran || 0,
-            nilaiTampil: rec ? getResolvedStudentScore(jad, rec) : null
+            nilaiTampil
           };
         });
         exportNilaiToExcel(jad, rowsData, kkm);
       });
-
-      document.querySelectorAll('[data-exam-ctrl]').forEach(btn => {
-        btn.addEventListener('click', async () => {
-          const action = btn.getAttribute('data-exam-ctrl');
-          const jid = btn.getAttribute('data-jad-id');
-          const sid = btn.getAttribute('data-siswa-id');
-          const jad = state.jadwalUjian.find(j => j.id === jid);
-          const siswa = state.users.find(u => u.id === sid);
-          const actionLabels = {
-            hentikan: { title: 'Kunci Sesi Peserta', msg: `Kunci akses ujian sementara untuk "${siswa?.nama || 'peserta'}"?`, variant: 'danger', btn: 'Ya, Kunci Ujian' },
-            reset_login: { title: 'Buka Kunci Sesi Peserta', msg: `Izinkan "${siswa?.nama || 'peserta'}" melanjutkan ujian kembali?`, variant: 'success', btn: 'Ya, Buka Kunci' },
-            selesaikan: { title: 'Selesaikan Ujian Paksa', msg: `Hitung nilai dan selesaikan ujian milik "${siswa?.nama || 'peserta'}" sekarang?`, variant: 'save', btn: 'Ya, Selesaikan' },
-            reset_ujian: { title: 'Reset Jawaban Ujian', msg: `Hapus seluruh jawaban dan ulangi ujian dari awal untuk "${siswa?.nama || 'peserta'}"?`, variant: 'danger', btn: 'Ya, Reset Ujian' }
-          };
-          const info = actionLabels[action] || actionLabels.hentikan;
-
-          openConfirmModal(info.title, info.msg, async () => {
-            const recId = `rec_${jid}_${sid}`;
-            const rec = state.examRecords.find(r => r.jadwalId === jid && r.siswaId === sid) || {
-              id: recId, jadwalId: jid, siswaId: sid, status: 'belum_mulai', skor: 0, pelanggaran: 0, answers: {}
-            };
-
-            if (action === 'hentikan') rec.status = 'terkunci';
-            else if (action === 'reset_login') rec.status = 'mengerjakan';
-            else if (action === 'selesaikan') {
-              rec.status = 'selesai';
-              rec.skor = calculateExamScore(jad, rec.answers);
-            } else if (action === 'reset_ujian') {
-              rec.status = 'belum_mulai';
-              rec.skor = 0;
-              rec.pelanggaran = 0;
-              rec.answers = {};
-            }
-            await dbSaveDoc('exam_records', recId, rec, 'examRecords');
-            showToast('Status ujian peserta diperbarui!', 'success');
-            renderApp();
-          }, { variant: info.variant, confirmText: info.btn });
+      document.querySelectorAll('[data-dok-tab]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.dokumenTab = btn.getAttribute('data-dok-tab') || 'berita_acara';
+          renderApp();
         });
       });
 
-      document.querySelectorAll('[data-dok-tab]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          state.dokumenTab = btn.getAttribute('data-dok-tab');
-          renderApp();
-        });
+      document.getElementById('sel-dok-jadwal')?.addEventListener('change', (e) => {
+        state.beritaAcaraManual.jadwalId = e.target.value;
+        const jad = state.jadwalUjian.find(j => j.id === state.beritaAcaraManual.jadwalId);
+        const pgwAssign = state.jadwalPengawas.find(jp => jp.jadwalId === jad?.id);
+        if (pgwAssign) {
+          const pgw = state.users.find(u => u.id === pgwAssign.pengawasId);
+          if (pgwAssign.ruang) state.beritaAcaraManual.ruang = pgwAssign.ruang;
+          if (pgw?.nama) state.beritaAcaraManual.namaPengawas = pgw.nama;
+          if (pgw?.nip) state.beritaAcaraManual.nipPengawas = pgw.nip;
+        }
+        savePreviewSnapshot();
+        renderApp();
+      });
+
+      document.getElementById('sel-dok-rombel')?.addEventListener('change', (e) => {
+        state.beritaAcaraManual.rombelId = e.target.value;
+        savePreviewSnapshot();
+        renderApp();
+      });
+
+      document.getElementById('btn-sync-hadir')?.addEventListener('click', () => {
+        const ba = state.beritaAcaraManual;
+        const jad = state.jadwalUjian.find(j => j.id === ba.jadwalId) || state.jadwalUjian[0];
+        const siswaList = state.users.filter(u => u.role === 'siswa' && (!ba.rombelId || u.rombelId === ba.rombelId));
+        const total = siswaList.length;
+        const hadir = siswaList.filter(s => {
+          const rec = state.examRecords.find(r => r.jadwalId === jad?.id && r.siswaId === s.id);
+          return rec && rec.status !== 'belum_mulai';
+        }).length;
+        ba.jumlahSeharusnya = String(total);
+        ba.jumlahHadir = String(hadir);
+        ba.jumlahTidakHadir = String(Math.max(0, total - hadir));
+        savePreviewSnapshot();
+        showToast('Rekap jumlah hadir otomatis disinkronkan!', 'success');
+        renderApp();
+      });
+
+      document.getElementById('btn-reset-dok-manual')?.addEventListener('click', () => {
+        const m = state.madrasah;
+        const adminUsr = state.users.find(u => u.role === 'admin');
+        const pgwUsr = state.users.find(u => u.role === 'pengawas');
+        state.beritaAcaraManual = {
+          jadwalId: state.jadwalUjian[0]?.id || '',
+          rombelId: '',
+          kopInstansi: 'KEMENTERIAN AGAMA REPUBLIK INDONESIA',
+          kopLembaga: m.nama,
+          kopAlamat: `${m.alamat} • NPSN: ${m.npsn} • NSM: ${m.nsm}`,
+          hariTanggal: new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }),
+          ruang: pgwUsr?.ruang || 'Lab Komputer 01',
+          jumlahSeharusnya: String(state.users.filter(u => u.role === 'siswa').length),
+          jumlahHadir: '0',
+          jumlahTidakHadir: '0',
+          nomorTidakHadir: '-',
+          catatanKejadian: 'Pelaksanaan ujian berjalan tertib, lancar, dan aman tanpa kendala teknis.',
+          namaPengawas: pgwUsr?.nama || '-',
+          nipPengawas: pgwUsr?.nip || '-',
+          namaProktor: adminUsr?.nama || 'Administrator Utama',
+          nipProktor: adminUsr?.nip || '-'
+        };
+        savePreviewSnapshot();
+        showToast('Data berita acara & kop dikembalikan ke bawaan.', 'info');
+        renderApp();
       });
       document.getElementById('sel-paper-size')?.addEventListener('change', (e) => {
         state.paperSize = e.target.value;
@@ -6046,11 +6146,43 @@
         showToast('Pratinjau dokumen diperbarui!', 'success');
         renderApp();
       });
-      document.getElementById('btn-print-dok-pdf')?.addEventListener('click', () => window.print());
+      document.getElementById('btn-print-dok-pdf')?.addEventListener('click', () => {
+        const area = document.getElementById('print-area');
+        const staging = document.getElementById('print-staging-root');
+        const appRoot = document.getElementById('app-root');
+        if (!area || !staging) {
+          window.print();
+          return;
+        }
+        staging.innerHTML = area.innerHTML;
+        staging.style.display = 'block';
+        appRoot?.classList.add('printing-active');
+
+        let cleanedUp = false;
+        const cleanupPrint = () => {
+          if (cleanedUp) return;
+          cleanedUp = true;
+          appRoot?.classList.remove('printing-active');
+          staging.style.display = 'none';
+          staging.innerHTML = '';
+        };
+
+        window.addEventListener('afterprint', cleanupPrint, { once: true });
+        setTimeout(() => {
+          try {
+            window.print();
+          } catch (e) {}
+          setTimeout(cleanupPrint, 800);
+        }, 50);
+      });
       document.getElementById('btn-export-dok-word')?.addEventListener('click', () => {
         const area = document.getElementById('print-area');
         if (!area) return;
-        const html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8" /></head><body>${area.innerHTML}</body></html>`;
+        const sheets = Array.from(area.querySelectorAll('.dok-rombel-sheet'));
+        const wordContent = sheets.length > 0
+          ? sheets.map((sh, i) => `<div style="${i > 0 ? 'page-break-before:always;' : ''}">${sh.innerHTML}</div>`).join('')
+          : area.innerHTML;
+        const html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8" /></head><body>${wordContent}</body></html>`;
         const blob = new Blob(['\uFEFF' + html], { type: 'application/msword;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
