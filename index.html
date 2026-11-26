@@ -1091,6 +1091,9 @@
       ],
       beritaAcaraManual: {
         jadwalId: 'jad_1',
+        kopInstansi: 'KEMENTERIAN AGAMA REPUBLIK INDONESIA',
+        kopLembaga: '',
+        kopAlamat: '',
         hariTanggal: 'Senin, 24 November 2026',
         ruang: 'Lab Komputer 01',
         jumlahSeharusnya: '3',
@@ -1103,6 +1106,7 @@
         namaProktor: 'Administrator Utama',
         nipProktor: '198201012008011001'
       },
+      kopLogoLembagaUrl: '',
       kopLogoKemenagUrl: '',
 
       // UI & Session States
@@ -1290,6 +1294,9 @@
         if (data.beritaAcaraManual && typeof data.beritaAcaraManual === 'object') {
           Object.assign(state.beritaAcaraManual, data.beritaAcaraManual);
         }
+        if (typeof data.kopLogoLembagaUrl === 'string') {
+          state.kopLogoLembagaUrl = data.kopLogoLembagaUrl;
+        }
         if (typeof data.kopLogoKemenagUrl === 'string') {
           state.kopLogoKemenagUrl = data.kopLogoKemenagUrl;
         }
@@ -1310,6 +1317,7 @@
           jadwalPengawas: state.jadwalPengawas,
           examRecords: state.examRecords,
           beritaAcaraManual: state.beritaAcaraManual,
+          kopLogoLembagaUrl: state.kopLogoLembagaUrl,
           kopLogoKemenagUrl: state.kopLogoKemenagUrl
         };
         localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot));
@@ -3787,13 +3795,44 @@
       const m = state.madrasah;
       const ba = state.beritaAcaraManual;
       const tab = state.dokumenTab || 'berita_acara';
-      const kopLogoSrc = state.kopLogoKemenagUrl || m.logoUrl || DEFAULT_LOGO_SVG;
+      const logoLembagaSrc = state.kopLogoLembagaUrl || m.logoUrl || DEFAULT_LOGO_SVG;
+      const logoKemenagSrc = state.kopLogoKemenagUrl || m.logoUrl || DEFAULT_LOGO_SVG;
+      const kopInstansiText = (ba.kopInstansi && ba.kopInstansi.trim()) ? ba.kopInstansi.trim() : 'KEMENTERIAN AGAMA REPUBLIK INDONESIA';
+      const kopLembagaText = (ba.kopLembaga && ba.kopLembaga.trim()) ? ba.kopLembaga.trim() : m.nama;
+      const kopAlamatText = (ba.kopAlamat && ba.kopAlamat.trim())
+        ? ba.kopAlamat.trim()
+        : `${m.alamat} • NPSN: ${m.npsn} • NSM: ${m.nsm}`;
       const jad = state.jadwalUjian.find(j => j.id === ba.jadwalId) || state.jadwalUjian[0];
       const sesi = state.sesiList.find(s => s.id === jad?.sesiId) || state.sesiList[0];
       const pesertaList = state.users.filter(u => u.role === 'siswa');
+      const pageRule = state.paperSize === 'F4' ? '215mm 330mm portrait' : 'A4 portrait';
 
       return `
         <div class="anim-fade-up space-y-4">
+          <style>
+            @media print {
+              @page {
+                size: ${pageRule};
+                margin: 10mm 12mm;
+              }
+              #print-area {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 0 !important;
+                border: none !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+              }
+              #print-area table {
+                page-break-inside: auto;
+              }
+              #print-area tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+              }
+            }
+          </style>
+
           <div class="neu-card-static rounded-3xl p-4 flex flex-wrap items-center justify-between gap-3">
             <div class="flex flex-wrap gap-2">
               <button type="button" data-dok-tab="berita_acara" class="px-4 py-2 rounded-xl text-xs font-extrabold cursor-pointer ${tab === 'berita_acara' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600'}">📜 Berita Acara Ujian</button>
@@ -3809,9 +3848,56 @@
             </div>
           </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
-            <form id="form-dokumen-manual" class="neu-card-static rounded-3xl p-5 space-y-3 text-xs h-fit">
-              <h3 class="text-sm font-extrabold text-slate-800">Pengaturan Data Dokumen</h3>
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+            <form id="form-dokumen-manual" class="lg:col-span-4 neu-card-static rounded-3xl p-5 space-y-3 text-xs">
+              <h3 class="text-sm font-extrabold text-slate-800">Edit Manual Kop & Data Dokumen</h3>
+
+              <div class="p-3 rounded-2xl bg-slate-50/90 border border-slate-200/80 space-y-2.5">
+                <div class="font-extrabold text-slate-700 text-[11px] uppercase tracking-wide">✏️ Edit Manual Bagian Kop</div>
+                <div>
+                  <label class="block font-bold text-slate-600 mb-1">Baris Instansi / Kementerian</label>
+                  <input name="kopInstansi" value="${esc(kopInstansiText)}" class="neu-input w-full px-3 py-2 rounded-xl font-bold" />
+                </div>
+                <div>
+                  <label class="block font-bold text-slate-600 mb-1">Nama Lembaga / Madrasah</label>
+                  <input name="kopLembaga" value="${esc(kopLembagaText)}" class="neu-input w-full px-3 py-2 rounded-xl font-bold" />
+                </div>
+                <div>
+                  <label class="block font-bold text-slate-600 mb-1">Alamat, NPSN & NSM</label>
+                  <input name="kopAlamat" value="${esc(kopAlamatText)}" class="neu-input w-full px-3 py-2 rounded-xl font-medium" />
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 pt-1">
+                  <div class="p-2 rounded-xl bg-white border border-slate-200/80 space-y-1.5">
+                    <div class="flex items-center justify-between gap-1">
+                      <span class="text-[10px] font-extrabold text-slate-700">Logo Lembaga</span>
+                      ${state.kopLogoLembagaUrl ? `<button type="button" id="btn-reset-kop-lembaga" class="text-[10px] font-bold text-rose-600 hover:underline cursor-pointer">Reset</button>` : ''}
+                    </div>
+                    <div class="h-11 flex items-center justify-center bg-slate-50 rounded-lg border border-slate-100 p-1">
+                      <img src="${esc(logoLembagaSrc)}" alt="Logo Lembaga" onerror="this.src='${DEFAULT_LOGO_SVG}'" class="max-h-full max-w-full object-contain" />
+                    </div>
+                    <label class="block w-full text-center px-2 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-[10px] cursor-pointer">
+                      📤 Upload Lembaga
+                      <input id="inp-upload-kop-lembaga" type="file" accept="image/*" class="hidden" />
+                    </label>
+                  </div>
+
+                  <div class="p-2 rounded-xl bg-white border border-slate-200/80 space-y-1.5">
+                    <div class="flex items-center justify-between gap-1">
+                      <span class="text-[10px] font-extrabold text-slate-700">Logo Kemenag</span>
+                      ${state.kopLogoKemenagUrl ? `<button type="button" id="btn-reset-kop-kemenag" class="text-[10px] font-bold text-rose-600 hover:underline cursor-pointer">Reset</button>` : ''}
+                    </div>
+                    <div class="h-11 flex items-center justify-center bg-slate-50 rounded-lg border border-slate-100 p-1">
+                      <img src="${esc(logoKemenagSrc)}" alt="Logo Kemenag" onerror="this.src='${DEFAULT_LOGO_SVG}'" class="max-h-full max-w-full object-contain" />
+                    </div>
+                    <label class="block w-full text-center px-2 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-[10px] cursor-pointer">
+                      📤 Upload Kemenag
+                      <input id="inp-upload-kop-kemenag" type="file" accept="image/*" class="hidden" />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
               <div>
                 <label class="block font-bold text-slate-600 mb-1">Hari, Tanggal Pelaksanaan</label>
                 <input name="hariTanggal" value="${esc(ba.hariTanggal)}" class="neu-input w-full px-3.5 py-2 rounded-xl font-bold" />
@@ -3859,38 +3945,24 @@
                 </div>
               </div>
               <button type="submit" class="neu-btn-blue w-full py-2.5 rounded-xl font-extrabold cursor-pointer">🔄 Perbarui Pratinjau</button>
-
-              <div class="pt-3 border-t border-slate-100 space-y-2">
-                <div class="font-extrabold text-slate-700">Logo Kemenag Khusus Bagian Kop</div>
-                <div class="flex items-center gap-2.5 p-2 rounded-2xl bg-slate-50 border border-slate-200/80">
-                  <img src="${esc(kopLogoSrc)}" alt="Logo Kop Kemenag" onerror="this.src='${DEFAULT_LOGO_SVG}'" class="w-10 h-10 object-contain shrink-0 bg-white rounded-xl p-1 border border-slate-100" />
-                  <div class="flex-1 min-w-0">
-                    <div class="text-[11px] font-bold text-slate-700 truncate">${state.kopLogoKemenagUrl ? 'Logo Kemenag Kustom Aktif' : 'Menggunakan Logo Madrasah'}</div>
-                    <div class="flex flex-wrap gap-1.5 mt-1">
-                      <label class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-[10px] cursor-pointer">
-                        📤 Upload Logo Kemenag
-                        <input id="inp-upload-kop-kemenag" type="file" accept="image/*" class="hidden" />
-                      </label>
-                      ${state.kopLogoKemenagUrl ? `
-                        <button type="button" id="btn-reset-kop-kemenag" class="px-2 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold text-[10px] cursor-pointer">
-                          ✕ Hapus
-                        </button>
-                      ` : ''}
-                    </div>
-                  </div>
-                </div>
-              </div>
             </form>
 
-            <div id="print-area" class="lg:col-span-2 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 text-slate-900 space-y-4">
-              <div class="flex items-center gap-4 border-b-4 border-double border-slate-900 pb-3">
-                <img src="${esc(kopLogoSrc)}" alt="Logo Kop Kemenag" onerror="this.src='${DEFAULT_LOGO_SVG}'" class="w-14 h-14 object-contain shrink-0" />
-                <div class="text-center flex-1 leading-snug">
-                  <div class="text-xs font-bold uppercase">KEMENTERIAN AGAMA REPUBLIK INDONESIA</div>
-                  <div class="text-base font-extrabold uppercase">${esc(m.nama)}</div>
-                  <div class="text-[11px]">${esc(m.alamat)} • NPSN: ${esc(m.npsn)} • NSM: ${esc(m.nsm)}</div>
-                </div>
-              </div>
+            <div id="print-area" class="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 text-slate-900 space-y-4">
+              <table class="w-full border-collapse border-b-4 border-double border-slate-900 mb-3">
+                <tr>
+                  <td class="w-20 pb-3 align-middle text-left">
+                    <img src="${esc(logoLembagaSrc)}" alt="Logo Lembaga" onerror="this.src='${DEFAULT_LOGO_SVG}'" class="w-16 h-16 object-contain inline-block" />
+                  </td>
+                  <td class="pb-3 px-2 align-middle text-center leading-snug">
+                    <div class="text-xs font-extrabold uppercase tracking-wide">${esc(kopInstansiText)}</div>
+                    <div class="text-base sm:text-lg font-black uppercase text-slate-950">${esc(kopLembagaText)}</div>
+                    <div class="text-[11px] font-medium text-slate-700">${esc(kopAlamatText)}</div>
+                  </td>
+                  <td class="w-20 pb-3 align-middle text-right">
+                    <img src="${esc(logoKemenagSrc)}" alt="Logo Kemenag" onerror="this.src='${DEFAULT_LOGO_SVG}'" class="w-16 h-16 object-contain inline-block" />
+                  </td>
+                </tr>
+              </table>
 
               ${tab === 'berita_acara' ? `
                 <div class="text-center space-y-0.5 pt-1">
@@ -3903,26 +3975,28 @@
                 </p>
 
                 <table class="w-full text-xs border-collapse border border-slate-800">
-                  <tr><td class="border border-slate-800 px-3 py-1.5 w-64 font-bold">Jumlah Peserta Seharusnya</td><td class="border border-slate-800 px-3 py-1.5 font-extrabold">${esc(ba.jumlahSeharusnya)} Orang</td></tr>
-                  <tr><td class="border border-slate-800 px-3 py-1.5 font-bold">Jumlah Peserta Hadir</td><td class="border border-slate-800 px-3 py-1.5 font-extrabold text-emerald-800">${esc(ba.jumlahHadir)} Orang</td></tr>
-                  <tr><td class="border border-slate-800 px-3 py-1.5 font-bold">Jumlah Peserta Tidak Hadir</td><td class="border border-slate-800 px-3 py-1.5 font-extrabold text-rose-700">${esc(ba.jumlahTidakHadir)} Orang</td></tr>
-                  <tr><td class="border border-slate-800 px-3 py-1.5 font-bold">Catatan Selama Pelaksanaan</td><td class="border border-slate-800 px-3 py-1.5">${esc(ba.catatanKejadian)}</td></tr>
+                  <tr><td class="border border-slate-800 px-3.5 py-2 w-64 font-bold bg-slate-50/70">Jumlah Peserta Seharusnya</td><td class="border border-slate-800 px-3.5 py-2 font-extrabold">${esc(ba.jumlahSeharusnya)} Orang</td></tr>
+                  <tr><td class="border border-slate-800 px-3.5 py-2 font-bold bg-slate-50/70">Jumlah Peserta Hadir</td><td class="border border-slate-800 px-3.5 py-2 font-extrabold text-emerald-800">${esc(ba.jumlahHadir)} Orang</td></tr>
+                  <tr><td class="border border-slate-800 px-3.5 py-2 font-bold bg-slate-50/70">Jumlah Peserta Tidak Hadir</td><td class="border border-slate-800 px-3.5 py-2 font-extrabold text-rose-700">${esc(ba.jumlahTidakHadir)} Orang</td></tr>
+                  <tr><td class="border border-slate-800 px-3.5 py-2 font-bold bg-slate-50/70">Catatan Selama Pelaksanaan</td><td class="border border-slate-800 px-3.5 py-2">${esc(ba.catatanKejadian)}</td></tr>
                 </table>
 
-                <div class="grid grid-cols-2 gap-6 pt-6 text-xs text-center">
-                  <div>
-                    <div>Proktor Ruang,</div>
-                    <div class="h-14"></div>
-                    <div class="font-extrabold underline">${esc(ba.namaProktor)}</div>
-                    <div>NIP. ${esc(ba.nipProktor)}</div>
-                  </div>
-                  <div>
-                    <div>Pengawas Ruang,</div>
-                    <div class="h-14"></div>
-                    <div class="font-extrabold underline">${esc(ba.namaPengawas)}</div>
-                    <div>NIP. ${esc(ba.nipPengawas)}</div>
-                  </div>
-                </div>
+                <table class="w-full mt-6 text-xs text-center border-collapse">
+                  <tr>
+                    <td class="w-1/2 align-top px-4">
+                      <div>Proktor Ruang,</div>
+                      <div class="h-14"></div>
+                      <div class="font-extrabold underline">${esc(ba.namaProktor)}</div>
+                      <div>NIP. ${esc(ba.nipProktor)}</div>
+                    </td>
+                    <td class="w-1/2 align-top px-4">
+                      <div>Pengawas Ruang,</div>
+                      <div class="h-14"></div>
+                      <div class="font-extrabold underline">${esc(ba.namaPengawas)}</div>
+                      <div>NIP. ${esc(ba.nipPengawas)}</div>
+                    </td>
+                  </tr>
+                </table>
               ` : `
                 <div class="text-center space-y-0.5 pt-1">
                   <div class="text-sm font-extrabold uppercase underline">DAFTAR HADIR PESERTA UJIAN BERBASIS KOMPUTER</div>
@@ -3931,16 +4005,16 @@
 
                 <table class="w-full text-xs border-collapse border border-slate-800">
                   <tr>
-                    <td class="border border-slate-800 px-2.5 py-1 font-bold bg-slate-50 w-32">Mata Ujian</td>
-                    <td class="border border-slate-800 px-2.5 py-1 font-extrabold">${esc(jad?.namaUjian || '-')}</td>
-                    <td class="border border-slate-800 px-2.5 py-1 font-bold bg-slate-50 w-28">Ruang Ujian</td>
-                    <td class="border border-slate-800 px-2.5 py-1 font-bold">${esc(ba.ruang)}</td>
+                    <td class="border border-slate-800 px-3 py-1.5 font-bold bg-slate-50 w-32">Mata Ujian</td>
+                    <td class="border border-slate-800 px-3 py-1.5 font-extrabold">${esc(jad?.namaUjian || '-')}</td>
+                    <td class="border border-slate-800 px-3 py-1.5 font-bold bg-slate-50 w-28">Ruang Ujian</td>
+                    <td class="border border-slate-800 px-3 py-1.5 font-bold">${esc(ba.ruang)}</td>
                   </tr>
                   <tr>
-                    <td class="border border-slate-800 px-2.5 py-1 font-bold bg-slate-50">Hari, Tanggal</td>
-                    <td class="border border-slate-800 px-2.5 py-1">${esc(ba.hariTanggal)}</td>
-                    <td class="border border-slate-800 px-2.5 py-1 font-bold bg-slate-50">Sesi / Waktu</td>
-                    <td class="border border-slate-800 px-2.5 py-1">${esc(sesi?.nama || 'Sesi 1')} (${esc(sesi?.mulai || '07:30')}–${esc(sesi?.selesai || '09:30')})</td>
+                    <td class="border border-slate-800 px-3 py-1.5 font-bold bg-slate-50">Hari, Tanggal</td>
+                    <td class="border border-slate-800 px-3 py-1.5">${esc(ba.hariTanggal)}</td>
+                    <td class="border border-slate-800 px-3 py-1.5 font-bold bg-slate-50">Sesi / Waktu</td>
+                    <td class="border border-slate-800 px-3 py-1.5">${esc(sesi?.nama || 'Sesi 1')} (${esc(sesi?.mulai || '07:30')}–${esc(sesi?.selesai || '09:30')})</td>
                   </tr>
                 </table>
 
@@ -3982,25 +4056,29 @@
                   </table>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3 text-xs items-start">
-                  <table class="border-collapse border border-slate-800 text-[11px]">
-                    <tr><td class="border border-slate-800 px-2.5 py-1 font-bold">Jumlah Seharusnya</td><td class="border border-slate-800 px-2.5 py-1 font-extrabold text-right">${esc(ba.jumlahSeharusnya)}</td></tr>
-                    <tr><td class="border border-slate-800 px-2.5 py-1 font-bold">Jumlah Hadir</td><td class="border border-slate-800 px-2.5 py-1 font-extrabold text-right">${esc(ba.jumlahHadir)}</td></tr>
-                    <tr><td class="border border-slate-800 px-2.5 py-1 font-bold">Tidak Hadir</td><td class="border border-slate-800 px-2.5 py-1 font-extrabold text-right">${esc(ba.jumlahTidakHadir)}</td></tr>
-                  </table>
-                  <div class="text-center">
-                    <div>Proktor Ruang,</div>
-                    <div class="h-12"></div>
-                    <div class="font-extrabold underline">${esc(ba.namaProktor)}</div>
-                    <div>NIP. ${esc(ba.nipProktor)}</div>
-                  </div>
-                  <div class="text-center">
-                    <div>Pengawas Ruang,</div>
-                    <div class="h-12"></div>
-                    <div class="font-extrabold underline">${esc(ba.namaPengawas)}</div>
-                    <div>NIP. ${esc(ba.nipPengawas)}</div>
-                  </div>
-                </div>
+                <table class="w-full mt-4 text-xs border-collapse">
+                  <tr>
+                    <td class="w-1/3 align-top pr-2">
+                      <table class="w-full border-collapse border border-slate-800 text-[11px]">
+                        <tr><td class="border border-slate-800 px-2.5 py-1 font-bold">Jumlah Seharusnya</td><td class="border border-slate-800 px-2.5 py-1 font-extrabold text-right">${esc(ba.jumlahSeharusnya)}</td></tr>
+                        <tr><td class="border border-slate-800 px-2.5 py-1 font-bold">Jumlah Hadir</td><td class="border border-slate-800 px-2.5 py-1 font-extrabold text-right">${esc(ba.jumlahHadir)}</td></tr>
+                        <tr><td class="border border-slate-800 px-2.5 py-1 font-bold">Tidak Hadir</td><td class="border border-slate-800 px-2.5 py-1 font-extrabold text-right">${esc(ba.jumlahTidakHadir)}</td></tr>
+                      </table>
+                    </td>
+                    <td class="w-1/3 align-top px-2 text-center">
+                      <div>Proktor Ruang,</div>
+                      <div class="h-12"></div>
+                      <div class="font-extrabold underline">${esc(ba.namaProktor)}</div>
+                      <div>NIP. ${esc(ba.nipProktor)}</div>
+                    </td>
+                    <td class="w-1/3 align-top pl-2 text-center">
+                      <div>Pengawas Ruang,</div>
+                      <div class="h-12"></div>
+                      <div class="font-extrabold underline">${esc(ba.namaPengawas)}</div>
+                      <div>NIP. ${esc(ba.nipPengawas)}</div>
+                    </td>
+                  </tr>
+                </table>
               `}
             </div>
           </div>
@@ -5589,7 +5667,28 @@
       document.getElementById('btn-reset-kop-kemenag')?.addEventListener('click', () => {
         state.kopLogoKemenagUrl = '';
         savePreviewSnapshot();
-        showToast('Logo kop dikembalikan ke logo madrasah.', 'info');
+        showToast('Logo Kemenag dikembalikan ke logo bawaan.', 'info');
+        renderApp();
+      });
+
+      document.getElementById('inp-upload-kop-lembaga')?.addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          state.kopLogoLembagaUrl = String(reader.result || '');
+          savePreviewSnapshot();
+          showToast('Logo Lembaga untuk bagian kop berhasil diunggah!', 'success');
+          renderApp();
+        };
+        reader.readAsDataURL(file);
+        e.target.value = '';
+      });
+
+      document.getElementById('btn-reset-kop-lembaga')?.addEventListener('click', () => {
+        state.kopLogoLembagaUrl = '';
+        savePreviewSnapshot();
+        showToast('Logo Lembaga dikembalikan ke logo madrasah.', 'info');
         renderApp();
       });
 
@@ -6029,7 +6128,7 @@
         const recId = `rec_${sess.jadwalId}_${state.currentUser.id}`;
         const existingRec = state.examRecords.find(r => r.id === recId || (r.jadwalId === sess.jadwalId && r.siswaId === state.currentUser.id));
         const liveSkor = calculateExamScore(jad, sess.answers);
-        await dbSaveDoc('exam_records', recId, {
+        const payload = {
           id: recId,
           jadwalId: sess.jadwalId,
           siswaId: state.currentUser.id,
@@ -6038,7 +6137,20 @@
           pelanggaran: sess.violations || 0,
           waktuMulai: existingRec?.waktuMulai || new Date().toTimeString().slice(0, 5),
           answers: sess.answers
-        }, 'examRecords');
+        };
+        const arr = state.examRecords;
+        const idx = arr.findIndex(item => item.id === recId);
+        if (idx >= 0) arr[idx] = payload;
+        else arr.push(payload);
+        if (IS_PREVIEW || !fbDb || !fbMod) {
+          savePreviewSnapshot();
+          return;
+        }
+        try {
+          await fbMod.setDoc(fbMod.doc(fbDb, 'exam_records', recId), payload, { merge: true });
+        } catch (err) {
+          savePreviewSnapshot();
+        }
       };
 
       document.querySelectorAll('input[name="ans_pg"]').forEach(r => {
@@ -6135,7 +6247,11 @@
       const root = document.getElementById('app-root');
       if (!root) return;
 
+      // Jangan merender ulang form login saat pengguna sedang mengetikkan username/password
       if (!state.currentUser) {
+        const activeEl = document.activeElement;
+        const isTypingLogin = root.querySelector('#form-login') && activeEl && activeEl.closest('#form-login');
+        if (isTypingLogin) return;
         root.innerHTML = renderLoginView();
         bindLoginEvents();
         return;
@@ -6218,14 +6334,26 @@
         saveSessionState();
         const limit = jad.batasPelanggaran || 3;
         const recId = `rec_${sess.jadwalId}_${state.currentUser.id}`;
-        await dbSaveDoc('exam_records', recId, {
+        const violationPayload = {
           id: recId,
           jadwalId: sess.jadwalId,
           siswaId: state.currentUser.id,
           status: sess.violations >= limit ? 'terkunci' : 'mengerjakan',
           pelanggaran: sess.violations,
           answers: sess.answers
-        }, 'examRecords');
+        };
+        const idx = state.examRecords.findIndex(item => item.id === recId);
+        if (idx >= 0) state.examRecords[idx] = { ...state.examRecords[idx], ...violationPayload };
+        else state.examRecords.push(violationPayload);
+        if (IS_PREVIEW || !fbDb || !fbMod) {
+          savePreviewSnapshot();
+        } else {
+          try {
+            await fbMod.setDoc(fbMod.doc(fbDb, 'exam_records', recId), violationPayload, { merge: true });
+          } catch (err) {
+            savePreviewSnapshot();
+          }
+        }
 
         if (sess.violations >= limit) {
           await finishStudentExam(true);
